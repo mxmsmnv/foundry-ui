@@ -101,6 +101,11 @@ if (dateInputDocumentation?.examples?.length !== 10 || !dateInputDocumentation.p
   console.error('Date inputs must render as ten independent examples with range and clear mechanics and no duplicate custom picker trigger.');
   process.exit(1);
 }
+const detailsDocumentation = renderedComponents.find((component) => component.id === 'details');
+if (detailsDocumentation?.examples?.length !== 8 || !detailsDocumentation.preview.includes('data-accordion-single') || (detailsDocumentation.preview.match(/<details/g) || []).length < 20) {
+  console.error('Details must render as eight independent, substantial examples with working single-open behavior.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];
