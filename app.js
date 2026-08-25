@@ -113,7 +113,7 @@ function renderAbout() {
 }
 
 function renderIcons(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>Icon registry</h2><p>Click any icon to copy its HTML. Every glyph uses a 24×24 viewBox, currentColor strokes, and round line caps.</p><div class="icon-grid">${window.FOUNDRY_ICONS.map((name) => `<button class="icon-item" data-icon="${name}">${icon(name)}<code>${name}</code></button>`).join('')}</div></section>${accessibilitySection(item)}</article>`;
+  return `${componentHeader(item)}<section class="docs-section"><h2>Icon registry</h2><p>Search by name, then click any icon to copy its portable SVG markup.</p><label class="icon-search"><span class="fd-visually-hidden">Filter icons</span>${icon('search')}<input class="fd-input" type="search" placeholder="Filter ${window.FOUNDRY_ICONS.length} icons" data-icon-filter><span data-icon-count>${window.FOUNDRY_ICONS.length}</span></label><div class="icon-grid">${window.FOUNDRY_ICONS.map((name) => `<button class="icon-item" data-icon="${name}">${icon(name)}<code>${name}</code></button>`).join('')}</div><p class="icon-empty" hidden data-icon-empty>No icons match this search.</p></section>${accessibilitySection(item)}</article>`;
 }
 
 function renderTypography(item) {
@@ -235,6 +235,20 @@ function bindPreviewInteractions() {
 }
 
 function bindIconCopy() {
+  const filter = document.querySelector('[data-icon-filter]');
+  const count = document.querySelector('[data-icon-count]');
+  const empty = document.querySelector('[data-icon-empty]');
+  filter?.addEventListener('input', () => {
+    const term = filter.value.trim().toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('[data-icon]').forEach((button) => {
+      const matches = button.dataset.icon.includes(term);
+      button.hidden = !matches;
+      if (matches) visible += 1;
+    });
+    count.textContent = visible;
+    empty.hidden = visible !== 0;
+  });
   document.querySelectorAll('[data-icon]').forEach((button) => button.addEventListener('click', () => {
     const name = button.dataset.icon;
     copyText(`<svg class="fd-icon" aria-hidden="true">\n  <use href="src/icons.svg#${name}"></use>\n</svg>`);

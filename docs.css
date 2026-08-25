@@ -80,6 +80,12 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .icon-item { display: grid; min-height: 7rem; place-items: center; gap: .5rem; padding: 1rem .5rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); cursor: pointer; }
 .icon-item:hover { background: var(--fd-color-surface); }
 .icon-item .fd-icon { width: 1.75rem; height: 1.75rem; }
+.icon-item[hidden] { display: none; }
+.icon-search { position: relative; display: flex; width: min(100%, 34rem); align-items: center; }
+.icon-search > .fd-icon { position: absolute; left: 1rem; z-index: 1; color: var(--fd-color-text-subtle); pointer-events: none; }
+.icon-search .fd-input { padding-right: 4rem; padding-left: 3rem; }
+.icon-search [data-icon-count] { position: absolute; right: 1rem; color: var(--fd-color-text-subtle); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.icon-empty { padding: 3rem; color: var(--fd-color-text-subtle); text-align: center; border: 1px dashed var(--fd-color-border); border-radius: var(--fd-radius); }
 .icon-item code { font-size: .7rem; }
 .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .pattern-card { padding: 1.5rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); }

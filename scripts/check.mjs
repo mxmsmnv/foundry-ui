@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png'];
+const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png'];
 const missing = required.filter((file) => !fs.existsSync(new URL(`../${file}`, import.meta.url)));
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`);
@@ -28,8 +28,16 @@ if (missingCatalog.length) {
 
 const icons = fs.readFileSync(new URL('../src/icons.svg', import.meta.url), 'utf8');
 const iconIds = [...icons.matchAll(/<symbol id="([^"]+)"/g)].map((match) => match[1]);
-if (iconIds.length < 24 || new Set(iconIds).size !== iconIds.length) {
-  console.error(`Expected at least 24 unique icons; found ${iconIds.length}.`);
+if (iconIds.length < 900 || new Set(iconIds).size !== iconIds.length) {
+  console.error(`Expected at least 900 unique icons; found ${iconIds.length}.`);
+  process.exit(1);
+}
+const registryText = fs.readFileSync(new URL('../src/icon-registry.js', import.meta.url), 'utf8');
+const registryMatch = registryText.match(/=\s*(\[.*\]);/s);
+const registryIds = registryMatch ? JSON.parse(registryMatch[1]) : [];
+const iconSet = new Set(iconIds);
+if (registryIds.length !== iconIds.length || registryIds.some((id) => !iconSet.has(id))) {
+  console.error(`Icon registry is out of sync with the SVG sprite: ${registryIds.length} registry entries for ${iconIds.length} symbols.`);
   process.exit(1);
 }
 
