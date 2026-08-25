@@ -61,6 +61,11 @@ if (tabsDocumentation?.examples?.length !== 6) {
   console.error(`Tabs must render as six independent, named documentation examples; found ${tabsDocumentation?.examples?.length || 0}.`);
   process.exit(1);
 }
+const listsDocumentation = renderedComponents.find((component) => component.id === 'lists');
+if (listsDocumentation?.examples?.length !== 9) {
+  console.error(`Lists must render as nine independent, named documentation examples; found ${listsDocumentation?.examples?.length || 0}.`);
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];
