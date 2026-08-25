@@ -60,11 +60,11 @@ function pageHeader(kicker, title, lead) {
 
 function renderHome() {
   main.innerHTML = `<article class="docs-page">${pageHeader('Foundry UI', 'A portable interface foundation', 'An independent, copy-ready design system for building clear product experiences across frameworks and platforms.')}
-    <div class="rb-alert rb-alert--info">${icon('info')}<div class="rb-alert__content"><strong>Framework-independent by design</strong><span>Foundry UI ships semantic HTML, CSS custom properties, isolated patterns, and a dependency-free SVG sprite.</span></div></div>
+    <div class="fd-alert fd-alert--info">${icon('info')}<div class="fd-alert__content"><strong>Framework-independent by design</strong><span>Foundry UI ships semantic HTML, CSS custom properties, isolated patterns, and a dependency-free SVG sprite.</span></div></div>
     <section class="docs-section"><h2>Start building</h2><p>Browse the complete catalog, inspect live states, and copy production-oriented HTML from every component page.</p><div class="component-gallery">${components.slice(0, 12).map(tile).join('')}</div></section>
-    <section class="docs-section"><h2>Install the portable layer</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="rb-button rb-button--primary">Open an account</button>`)}</code></pre></div><div class="example__toolbar"><strong>HTML</strong><button class="rb-button rb-button--secondary rb-button--small" data-copy="home">${icon('copy')} Copy</button></div></div></section>
+    <section class="docs-section"><h2>Install the portable layer</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="fd-button fd-button--primary">Open an account</button>`)}</code></pre></div><div class="example__toolbar"><strong>HTML</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy="home">${icon('copy')} Copy</button></div></div></section>
   </article>`;
-  document.querySelector('[data-copy="home"]').addEventListener('click', () => copyText(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="rb-button rb-button--primary">Open an account</button>`));
+  document.querySelector('[data-copy="home"]').addEventListener('click', () => copyText(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="fd-button fd-button--primary">Open an account</button>`));
 }
 
 function tile(item) {
@@ -78,14 +78,14 @@ function renderCatalog() {
 }
 
 const tokenData = [
-  ['Default accent','#FEE600','--rb-accent'],['Accent hover','#FFD403','--rb-accent-hover'],['Accent contrast','#2B2D33','--rb-accent-contrast'],['Off black','#2B2D33','--rb-color-text'],['Link teal','#006E75','--rb-color-link'],['Link hover','#008E98','--rb-color-link-hover'],['Warm grey','#F1EDE6','--rb-color-surface-strong'],['Warm subtle','#F8F6F2','--rb-color-surface'],['Blue subtle','#DDF4FB','--rb-color-info'],['Danger','#B70017','--rb-color-danger']
+  ['Default accent','#FEE600','--fd-accent'],['Accent hover','#FFD403','--fd-accent-hover'],['Accent contrast','#2B2D33','--fd-accent-contrast'],['Off black','#2B2D33','--fd-color-text'],['Link teal','#006E75','--fd-color-link'],['Link hover','#008E98','--fd-color-link-hover'],['Warm grey','#F1EDE6','--fd-color-surface-strong'],['Warm subtle','#F8F6F2','--fd-color-surface'],['Blue subtle','#DDF4FB','--fd-color-info'],['Danger','#B70017','--fd-color-danger']
 ];
 
 function renderFoundations() {
   main.innerHTML = `<article class="docs-page">${pageHeader('Foundations', 'Tokens and visual language', 'The live custom banking theme is normalized into portable, documented custom properties.')}
     <section class="docs-section"><h2>Colour</h2><div class="token-grid">${tokenData.map(([name,value,token]) => `<div class="token-card"><i style="--token:${value}"></i><div><b>${name}</b><code>${value}</code><code>${token}</code></div></div>`).join('')}</div></section>
     <section class="docs-section"><h2>Typography</h2><p>The portable type stack uses Inter when available and native system fonts everywhere else. No proprietary font files are required.</p><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Display · 56/64</p><p style="font-size:3rem;line-height:3.75rem">Heading 1 · 48/60</p><p style="font-size:2.375rem;line-height:3rem">Heading 2 · 38/48</p><p style="font-size:1.875rem;line-height:2.25rem">Heading 3 · 30/36</p><p style="font-size:1.125rem;line-height:1.75rem">Body XL · 18/28</p><p>Body · 16/24</p><p style="font-size:.875rem;line-height:1rem;font-weight:500">CAPTION · 14/16 · MEDIUM</p></div></section>
-    <section class="docs-section"><h2>Geometry</h2><div class="rb-table-wrap"><table class="rb-table"><tbody><tr><th>Base spacing</th><td>4px</td></tr><tr><th>Common spacing</th><td>8 · 12 · 16 · 24 · 32 · 36 · 48 · 64px</td></tr><tr><th>Control radius</th><td>8px</td></tr><tr><th>Input height</th><td>48px</td></tr><tr><th>Button height</th><td>51px</td></tr><tr><th>Breakpoints</th><td>576 · 768 · 992 · 1200px</td></tr></tbody></table></div></section>
+    <section class="docs-section"><h2>Geometry</h2><div class="fd-table-wrap"><table class="fd-table"><tbody><tr><th>Base spacing</th><td>4px</td></tr><tr><th>Common spacing</th><td>8 · 12 · 16 · 24 · 32 · 36 · 48 · 64px</td></tr><tr><th>Control radius</th><td>8px</td></tr><tr><th>Input height</th><td>48px</td></tr><tr><th>Button height</th><td>51px</td></tr><tr><th>Breakpoints</th><td>576 · 768 · 992 · 1200px</td></tr></tbody></table></div></section>
   </article>`;
 }
 
@@ -100,7 +100,7 @@ function renderPatterns() {
   ];
   main.innerHTML = `<article class="docs-page">${pageHeader('Composition', 'Patterns', 'Recurring arrangements observed across the bank’s public pages and embedded flows.')}
     <section class="docs-section"><div class="pattern-grid">${patterns.map(([name,text]) => `<article class="pattern-card"><p class="docs-kicker">Pattern</p><h2>${name}</h2><p>${text}</p></article>`).join('')}</div></section>
-    <section class="docs-section"><h2>Recommended page flow</h2><ol class="rb-stepper" style="--rb-steps:4"><li class="is-complete"><span>1</span><b>Orient</b></li><li aria-current="step"><span>2</span><b>Compare</b></li><li><span>3</span><b>Decide</b></li><li><span>4</span><b>Complete</b></li></ol></section>
+    <section class="docs-section"><h2>Recommended page flow</h2><ol class="fd-stepper" style="--fd-steps:4"><li class="is-complete"><span>1</span><b>Orient</b></li><li aria-current="step"><span>2</span><b>Compare</b></li><li><span>3</span><b>Decide</b></li><li><span>4</span><b>Complete</b></li></ol></section>
   </article>`;
 }
 
@@ -121,7 +121,7 @@ function renderTypography(item) {
 }
 
 function renderTokens(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --rb-accent: #7c3aed;\n  --rb-accent-hover: #6d28d9;\n  --rb-accent-contrast: #ffffff;\n  --rb-accent-soft: #ede9fe;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="rb-button rb-button--secondary rb-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
+  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
 }
 
 function componentHeader(item) {
@@ -135,10 +135,10 @@ function accessibilitySection(item) {
 function renderComponent(item) {
   if (item.id === 'icons') { main.innerHTML = renderIcons(item); bindIconCopy(); return; }
   if (item.id === 'typography') { main.innerHTML = renderTypography(item); bindDocTabs(); return; }
-  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --rb-accent: #7c3aed;\n  --rb-accent-hover: #6d28d9;\n  --rb-accent-contrast: #ffffff;\n  --rb-accent-soft: #ede9fe;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n}`)); bindDocTabs(); return; }
+  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); bindDocTabs(); return; }
   const html = prettify(item.preview);
-  const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('rb-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
-  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Inspect every component in desktop, tablet, and mobile frames, then reveal and copy its implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-pressed="true" data-preview-size-button="desktop">D</button><button aria-pressed="false" data-preview-size-button="tablet">T</button><button aria-pressed="false" data-preview-size-button="mobile">M</button></div><button class="rb-button rb-button--tertiary rb-button--small" data-invert>${icon('moon')} Invert</button><button class="rb-button rb-button--secondary rb-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="rb-button rb-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
+  const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
+  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Inspect every component in desktop, tablet, and mobile frames, then reveal and copy its implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-pressed="true" data-preview-size-button="desktop">D</button><button aria-pressed="false" data-preview-size-button="tablet">T</button><button aria-pressed="false" data-preview-size-button="mobile">M</button></div><button class="fd-button fd-button--tertiary fd-button--small" data-invert>${icon('moon')} Invert</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
     <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code>, use semantic HTML, and reference icons from <code>src/icons.svg</code>. No Tailwind, Bootstrap, React, or build step is required.</div></section>
     ${accessibilitySection(item)}</article>`;
   bindExample({ html, css });
@@ -161,7 +161,7 @@ function bindExample(code) {
     pre.textContent = code[active];
   }));
   document.querySelector('[data-copy-code]').addEventListener('click', () => copyText(code[active]));
-  document.querySelector('[data-invert]').addEventListener('click', () => document.querySelector('.example__preview').classList.toggle('rb-theme-dark'));
+  document.querySelector('[data-invert]').addEventListener('click', () => document.querySelector('.example__preview').classList.toggle('fd-theme-dark'));
   document.querySelectorAll('[data-preview-size-button]').forEach((button) => button.addEventListener('click', () => {
     const viewport = document.querySelector('.example__viewport');
     viewport.dataset.previewSize = button.dataset.previewSizeButton;
@@ -184,22 +184,22 @@ function bindDocTabs() {
 function bindPreviewInteractions() {
   document.querySelectorAll('[data-demo-dialog]').forEach((button) => button.addEventListener('click', () => button.parentElement.querySelector('dialog').showModal()));
   document.querySelectorAll('[data-dialog-close]').forEach((button) => button.addEventListener('click', () => button.closest('dialog').close()));
-  document.querySelectorAll('.rb-tabs__list button').forEach((button) => button.addEventListener('click', () => {
+  document.querySelectorAll('.fd-tabs__list button').forEach((button) => button.addEventListener('click', () => {
     button.parentElement.querySelectorAll('button').forEach((item) => item.setAttribute('aria-selected', String(item === button)));
-    button.closest('.rb-tabs').querySelector('.rb-tabs__panel').textContent = `${button.textContent} content.`;
+    button.closest('.fd-tabs').querySelector('.fd-tabs__panel').textContent = `${button.textContent} content.`;
   }));
-  document.querySelectorAll('.rb-toggle-group button').forEach((button) => button.addEventListener('click', () => button.parentElement.querySelectorAll('button').forEach((item) => item.setAttribute('aria-pressed', String(item === button)))));
+  document.querySelectorAll('.fd-toggle-group button').forEach((button) => button.addEventListener('click', () => button.parentElement.querySelectorAll('button').forEach((item) => item.setAttribute('aria-pressed', String(item === button)))));
   const setAccent = (hex) => {
-    const root = document.querySelector('.rb-accent-demo');
+    const root = document.querySelector('.fd-accent-demo');
     if (!root) return;
     const value = hex.toUpperCase();
     const rgb = value.match(/[A-F\d]{2}/g).map((part) => parseInt(part, 16));
     const mix = (target, amount) => `#${rgb.map((channel) => Math.round(channel + (target - channel) * amount).toString(16).padStart(2, '0')).join('')}`;
     const luminance = rgb.reduce((total, channel, index) => total + channel * [0.2126, 0.7152, 0.0722][index], 0) / 255;
-    root.style.setProperty('--rb-accent', value);
-    root.style.setProperty('--rb-accent-hover', mix(0, .14));
-    root.style.setProperty('--rb-accent-contrast', luminance > .58 ? '#2B2D33' : '#FFFFFF');
-    root.style.setProperty('--rb-accent-soft', mix(255, .82));
+    root.style.setProperty('--fd-accent', value);
+    root.style.setProperty('--fd-accent-hover', mix(0, .14));
+    root.style.setProperty('--fd-accent-contrast', luminance > .58 ? '#2B2D33' : '#FFFFFF');
+    root.style.setProperty('--fd-accent-soft', mix(255, .82));
     document.querySelector('[data-accent-picker]').value = value;
     document.querySelector('[data-accent-value]').value = value;
   };
@@ -210,7 +210,7 @@ function bindPreviewInteractions() {
 function bindIconCopy() {
   document.querySelectorAll('[data-icon]').forEach((button) => button.addEventListener('click', () => {
     const name = button.dataset.icon;
-    copyText(`<svg class="rb-icon" aria-hidden="true">\n  <use href="src/icons.svg#${name}"></use>\n</svg>`);
+    copyText(`<svg class="fd-icon" aria-hidden="true">\n  <use href="src/icons.svg#${name}"></use>\n</svg>`);
   }));
   bindDocTabs();
 }
@@ -241,7 +241,7 @@ document.querySelector('.nav-toggle').addEventListener('click', (event) => {
   const open = document.body.classList.toggle('nav-open');
   event.currentTarget.setAttribute('aria-expanded', String(open));
 });
-document.querySelector('.theme-toggle').addEventListener('click', () => document.body.classList.toggle('rb-theme-dark'));
+document.querySelector('.theme-toggle').addEventListener('click', () => document.body.classList.toggle('fd-theme-dark'));
 window.addEventListener('hashchange', router);
 renderNavigation();
 router();

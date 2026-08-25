@@ -8,19 +8,21 @@ The audited source interface is **not Tailwind-based**. It runs on **Liferay Por
 
 This repository intentionally does not reproduce that dependency stack. The extracted library is built with semantic HTML, portable CSS custom properties, minimal vanilla JavaScript, and an accessible dependency-free SVG icon sprite. It can be used directly or wrapped by React, Vue, Angular, Web Components, Twig, Blade, or any CMS.
 
-The default yellow accent is optional. Choose a bundled palette class such as `rb-accent--blue` or set `--rb-accent`, `--rb-accent-hover`, `--rb-accent-contrast`, and `--rb-accent-soft` to any accessible palette at the application or component level.
+All public classes and CSS custom properties use the Foundry Design namespace: `fd-` for classes and `--fd-` for tokens.
+
+The default yellow accent is optional. Choose a bundled palette class such as `fd-accent--blue` or set `--fd-accent`, `--fd-accent-hover`, `--fd-accent-contrast`, and `--fd-accent-soft` to any accessible palette at the application or component level.
 
 ## Quick start
 
 ```html
 <link rel="stylesheet" href="src/foundry.css">
-<button class="rb-button rb-button--primary" type="button">Open an account</button>
+<button class="fd-button fd-button--primary" type="button">Open an account</button>
 ```
 
 Use an icon:
 
 ```html
-<svg class="rb-icon" aria-hidden="true"><use href="src/icons.svg#search"></use></svg>
+<svg class="fd-icon" aria-hidden="true"><use href="src/icons.svg#search"></use></svg>
 ```
 
 Run the documentation locally:
