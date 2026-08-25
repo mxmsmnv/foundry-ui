@@ -5,6 +5,7 @@
 - Foundry UI is a neutral design system for collaborative digital products. Examples should use creative-workspace concepts such as projects, assets, teams, publishing, reviews, tasks, and notifications.
 - Do not introduce banking, lending, payments, balances, interest rates, bank accounts, financial eligibility, or region-specific copy into component examples.
 - All user-facing documentation and examples must be written in English.
+- Never use decorative ordinal labels such as `01`, `02`, `03`, numbered eyebrows, numbered card markers, or automatic example numbering. Numbers are allowed only when they communicate functional data, such as pagination, dates, quantities, measurements, ordered task steps, or version numbers.
 
 ## Component documentation standard
 
