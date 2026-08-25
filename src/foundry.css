@@ -956,6 +956,7 @@
 .fd-accent-picker output { min-width: 5.5rem; font: 600 .875rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; }
 .fd-accent-presets { display: flex; flex-wrap: wrap; gap: .5rem; }
 .fd-accent-swatch { width: 2.25rem; height: 2.25rem; border: 2px solid var(--fd-color-background); border-radius: 50%; background: var(--swatch); box-shadow: 0 0 0 1px var(--fd-color-border); cursor: pointer; }
+.fd-accent-swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--fd-color-background), 0 0 0 4px var(--fd-color-text); }
 .fd-accent-demo { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1.5rem; color: var(--fd-accent-soft-contrast); border-radius: var(--fd-radius); background: var(--fd-accent-soft); }
 .fd-accent-demo .fd-checkbox,
 .fd-accent-demo .fd-radio,

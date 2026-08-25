@@ -22,6 +22,7 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .docs-header nav a { display: flex; align-items: center; color: var(--fd-color-text); border-bottom: 3px solid transparent; text-decoration: none; }
 .docs-header nav a.active { border-bottom-color: var(--fd-color-link); }
 .docs-header__actions { display: flex; align-items: center; justify-self: end; gap: .5rem; }
+:root[data-custom-accent] .example.fd-theme-dark { --fd-accent: inherit; --fd-accent-hover: inherit; --fd-accent-contrast: inherit; --fd-accent-soft: inherit; --fd-accent-soft-contrast: inherit; --fd-color-link: inherit; --fd-color-link-hover: inherit; --fd-color-chip: inherit; --fd-color-chip-text: inherit; }
 .nav-toggle { display: none; }
 .docs-sidebar { position: fixed; z-index: 15; top: var(--docs-header); bottom: 0; left: 0; display: flex; width: var(--docs-sidebar); flex-direction: column; padding: 1.25rem 1rem; overflow: auto; border-right: 1px solid var(--fd-color-border-soft); background: var(--fd-color-surface); }
 .docs-search { display: flex; height: 2.75rem; flex: 0 0 2.75rem; align-items: center; gap: .5rem; padding: 0 .625rem; border: 1px solid var(--fd-color-border); border-radius: var(--fd-radius); background: var(--fd-color-background); }

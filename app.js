@@ -10,6 +10,53 @@ const catalogOrder = [
 ];
 const rank = (item) => { const index = catalogOrder.indexOf(item.name); return index === -1 ? 1000 : index; };
 let toastTimer;
+const ACCENT_STORAGE_KEY = 'foundry-accent';
+const DEFAULT_ACCENT = '#2A8288';
+
+function accentPalette(hex) {
+  const value = /^#[\dA-F]{6}$/i.test(hex) ? hex.toUpperCase() : DEFAULT_ACCENT;
+  const channels = value.match(/[\dA-F]{2}/gi).map((part) => parseInt(part, 16) / 255);
+  const relativeLuminance = channels.map((channel) => channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4)
+    .reduce((total, channel, index) => total + channel * [.2126, .7152, .0722][index], 0);
+  const contrast = relativeLuminance > .179 ? '#2B2D33' : '#FFFFFF';
+  return {
+    value,
+    tokens: {
+      '--fd-accent': value,
+      '--fd-accent-hover': `color-mix(in srgb, ${value} 86%, var(--fd-color-text))`,
+      '--fd-accent-contrast': contrast,
+      '--fd-accent-soft': `color-mix(in srgb, ${value} 18%, var(--fd-color-background))`,
+      '--fd-accent-soft-contrast': 'var(--fd-color-text)',
+      '--fd-color-link': value,
+      '--fd-color-link-hover': `color-mix(in srgb, ${value} 86%, var(--fd-color-text))`,
+      '--fd-color-chip': value,
+      '--fd-color-chip-text': contrast
+    }
+  };
+}
+
+function syncAccentControls(value) {
+  const picker = document.querySelector('[data-accent-picker]');
+  const output = document.querySelector('[data-accent-value]');
+  if (picker) picker.value = value;
+  if (output) output.value = value;
+  document.querySelectorAll('[data-accent]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.accent.toUpperCase() === value)));
+}
+
+function applyAccent(hex, persist = true) {
+  const palette = accentPalette(hex);
+  Object.entries(palette.tokens).forEach(([property, value]) => document.documentElement.style.setProperty(property, value));
+  document.documentElement.dataset.customAccent = palette.value;
+  syncAccentControls(palette.value);
+  if (persist) try { localStorage.setItem(ACCENT_STORAGE_KEY, JSON.stringify(palette)); } catch (_) {}
+}
+
+function resetAccent() {
+  Object.keys(accentPalette(DEFAULT_ACCENT).tokens).forEach((property) => document.documentElement.style.removeProperty(property));
+  delete document.documentElement.dataset.customAccent;
+  syncAccentControls(DEFAULT_ACCENT);
+  try { localStorage.removeItem(ACCENT_STORAGE_KEY); } catch (_) {}
+}
 
 const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const prettify = (value) => value.replace(/></g, '>\n<').trim();
@@ -69,7 +116,7 @@ function pageHeader(kicker, title, lead) {
 
 function renderHome() {
   const starter = `<link rel="stylesheet" href="src/foundry.css">\n<script src="src/icon-sprite.js"></script>\n\n<button class="fd-button fd-button--primary">\n  Get started\n  <svg class="fd-icon" aria-hidden="true"><use href="#arrow-right"></use></svg>\n</button>`;
-  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><div class="docs-hero__status"><span class="fd-badge fd-badge--success">v0.23.2</span><span>Portable · framework-independent</span></div><h1>Build complete interfaces from one coherent system.</h1><p class="docs-hero__lead">Production-ready foundations, components, and patterns for collaborative digital products—responsive, accessible, and ready to copy into any stack.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Browse the library ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/patterns">Explore patterns</a></div><ul class="docs-hero__proof"><li>${icon('check')} 320 live examples</li><li>${icon('check')} 963 SVG icons</li><li>${icon('check')} Light and dark themes</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component workspace preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Project interface</span><b>Ready</b></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
+  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><div class="docs-hero__status"><span class="fd-badge fd-badge--success">v0.23.3</span><span>Portable · framework-independent</span></div><h1>Build complete interfaces from one coherent system.</h1><p class="docs-hero__lead">Production-ready foundations, components, and patterns for collaborative digital products—responsive, accessible, and ready to copy into any stack.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Browse the library ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/patterns">Explore patterns</a></div><ul class="docs-hero__proof"><li>${icon('check')} 320 live examples</li><li>${icon('check')} 963 SVG icons</li><li>${icon('check')} Light and dark themes</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component workspace preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Project interface</span><b>Ready</b></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
     <section class="home-metrics" aria-label="Library summary"><article><strong>${components.length}</strong><span>documented pages</span></article><article><strong>320</strong><span>isolated examples</span></article><article><strong>${window.FOUNDRY_ICONS.length}</strong><span>portable icons</span></article><article><strong>0</strong><span>framework dependencies</span></article></section>
     <section class="docs-section home-journeys"><header class="docs-section__heading"><div><p class="docs-kicker">Choose a layer</p><h2>Move from decisions to complete journeys.</h2></div><p>Start with the level you need. Every layer uses the same tokens, state contract, responsive behavior, and portable code.</p></header><div class="home-journey-grid"><a href="#/foundations"><span class="home-journey-grid__icon">${icon('art')}</span><div><span>Design decisions</span><strong>Foundation</strong><small>Colour, typography, grid, tokens, and states.</small></div>${icon('arrow-right')}</a><a href="#/components"><span class="home-journey-grid__icon">${icon('component')}</span><div><span>Interface controls</span><strong>Components</strong><small>Production controls with live variants and code.</small></div>${icon('arrow-right')}</a><a href="#/patterns"><span class="home-journey-grid__icon">${icon('layouts')}</span><div><span>Complete workflows</span><strong>Patterns</strong><small>Reusable page and task compositions.</small></div>${icon('arrow-right')}</a></div></section>
     <section class="docs-section home-featured"><header class="docs-section__heading"><div><p class="docs-kicker">Start building</p><h2>Frequently used building blocks.</h2></div><a class="fd-link" href="#/components">View all 72 pages ${icon('arrow-right')}</a></header><div class="component-gallery">${['button','field','table','card-variants','icons','video'].map((id) => tile(components.find((item) => item.id === id))).join('')}</div></section>
@@ -514,23 +561,11 @@ function bindPreviewInteractions() {
       });
     });
   });
-  const setAccent = (hex) => {
-    const root = document.querySelector('.fd-accent-demo');
-    if (!root) return;
-    const value = hex.toUpperCase();
-    const rgb = value.match(/[A-F\d]{2}/g).map((part) => parseInt(part, 16));
-    const mix = (target, amount) => `#${rgb.map((channel) => Math.round(channel + (target - channel) * amount).toString(16).padStart(2, '0')).join('')}`;
-    const luminance = rgb.reduce((total, channel, index) => total + channel * [0.2126, 0.7152, 0.0722][index], 0) / 255;
-    root.style.setProperty('--fd-accent', value);
-    root.style.setProperty('--fd-accent-hover', mix(0, .14));
-    root.style.setProperty('--fd-accent-contrast', luminance > .58 ? '#2B2D33' : '#FFFFFF');
-    root.style.setProperty('--fd-accent-soft', mix(255, .82));
-    root.style.setProperty('--fd-accent-soft-contrast', '#2B2D33');
-    document.querySelector('[data-accent-picker]').value = value;
-    document.querySelector('[data-accent-value]').value = value;
-  };
-  document.querySelector('[data-accent-picker]')?.addEventListener('input', (event) => setAccent(event.target.value));
-  document.querySelectorAll('[data-accent]').forEach((button) => button.addEventListener('click', () => setAccent(button.dataset.accent)));
+  const currentAccent = document.documentElement.dataset.customAccent || DEFAULT_ACCENT;
+  syncAccentControls(currentAccent);
+  document.querySelector('[data-accent-picker]')?.addEventListener('input', (event) => applyAccent(event.target.value));
+  document.querySelectorAll('[data-accent]').forEach((button) => button.addEventListener('click', () => applyAccent(button.dataset.accent)));
+  document.querySelector('[data-accent-reset]')?.addEventListener('click', resetAccent);
 }
 
 function bindIconCopy() {

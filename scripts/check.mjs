@@ -22,6 +22,10 @@ if (indexHtml.includes('docs-search-trigger')) {
   console.error('The global header must not contain a Search button.');
   process.exit(1);
 }
+if (!indexHtml.includes("localStorage.getItem('foundry-accent')") || !overviewApp.includes("localStorage.setItem(ACCENT_STORAGE_KEY") || !overviewApp.includes('document.documentElement.style.setProperty')) {
+  console.error('Custom accents must persist and apply to the complete design system before first paint.');
+  process.exit(1);
+}
 const ids = [...components.matchAll(/id:\s*'([^']+)'/g)].map((match) => match[1]);
 if (ids.length < 35 || new Set(ids).size !== ids.length) {
   console.error(`Expected at least 35 unique documented components; found ${ids.length}.`);

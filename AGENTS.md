@@ -54,5 +54,6 @@
 - When the product requires a missing component, variant, interaction, or state, implement it in Foundry UI and add an isolated, copyable documentation example as part of the same change.
 - Translate reference-specific visual decisions into neutral tokens and reusable behavior. Do not copy third-party brand names, proprietary artwork, region-specific content, or product-specific data into the public system.
 - Keep product customization token-driven. A product may override accents, typography, density, radii, and other published tokens without forking component internals.
+- Treat a user-selected custom accent as a global preference: persist it in `localStorage`, restore it before first paint, and apply the complete accent token family across documentation chrome and component previews in both colour schemes.
 - Before committing, run `npm run check` and visually verify affected documentation and product views in light and dark themes at desktop, tablet, and phone widths.
 - Commit reusable design-system improvements together with the product work that requires them so the product and its source system do not drift.
