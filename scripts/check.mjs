@@ -76,6 +76,11 @@ if (headingDocumentation?.examples?.length !== 8) {
   console.error(`Heading styles must render as eight independent, named documentation examples; found ${headingDocumentation?.examples?.length || 0}.`);
   process.exit(1);
 }
+const carouselDocumentation = renderedComponents.find((component) => component.id === 'dotnav-slidenav');
+if (carouselDocumentation?.examples?.length !== 4 || !carouselDocumentation.preview.includes('data-carousel')) {
+  console.error('Dotnav and slidenav must render as four independent examples with working carousel hooks.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];

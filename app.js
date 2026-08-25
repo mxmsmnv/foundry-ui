@@ -68,7 +68,7 @@ function pageHeader(kicker, title, lead) {
 
 function renderHome() {
   const starter = `<link rel="stylesheet" href="src/foundry.css">\n<script src="src/icon-sprite.js"></script>\n\n<button class="fd-button fd-button--primary">\n  Get started\n  <svg class="fd-icon" aria-hidden="true"><use href="#arrow-right"></use></svg>\n</button>`;
-  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.14.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
+  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.15.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
     <section class="home-metrics" aria-label="Library summary"><article><strong>${components.length}</strong><span>documented pages</span></article><article><strong>${window.FOUNDRY_ICONS.length}</strong><span>portable icons</span></article><article><strong>5</strong><span>accent presets</span></article><article><strong>0</strong><span>framework dependencies</span></article></section>
     <section class="docs-section home-journeys"><header class="docs-section__heading"><div><p class="docs-kicker">Choose a starting point</p><h2>Move from tokens to finished flows</h2></div><p>Each layer is isolated, copyable, and designed to work with the next.</p></header><div class="home-journey-grid"><a href="#/foundations">${icon('art')}<div><strong>Foundation</strong><small>Colour, typography, grid, tokens, and states.</small></div>${icon('arrow-right')}</a><a href="#/components">${icon('component')}<div><strong>Components</strong><small>Production controls with live variants and code.</small></div>${icon('arrow-right')}</a><a href="#/patterns">${icon('layouts')}<div><strong>Patterns</strong><small>Reusable page and task compositions.</small></div>${icon('arrow-right')}</a></div></section>
     <section class="docs-section home-featured"><header class="docs-section__heading"><div><p class="docs-kicker">Production-ready</p><h2>Featured building blocks</h2></div><a class="fd-link" href="#/components">View all components ${icon('arrow-right')}</a></header><div class="component-gallery">${['button','field','table','card-variants','icons','video'].map((id) => tile(components.find((item) => item.id === id))).join('')}</div></section>
@@ -247,6 +247,35 @@ function bindPreviewInteractions() {
     };
     checks.forEach((input) => input.addEventListener('change', sync));
     sync();
+  });
+  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const slides = [...carousel.querySelectorAll('[data-carousel-slide]')];
+    const dots = [...carousel.querySelectorAll('[data-carousel-go]')];
+    const previous = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const status = carousel.querySelector('[data-carousel-status]');
+    const loops = carousel.hasAttribute('data-carousel-loop');
+    let index = Math.max(0, slides.findIndex((slide) => !slide.hidden));
+    let pointerStart = null;
+    const show = (target) => {
+      index = loops ? (target + slides.length) % slides.length : Math.max(0, Math.min(slides.length - 1, target));
+      slides.forEach((slide, slideIndex) => { slide.hidden = slideIndex !== index; slide.setAttribute('aria-hidden', String(slideIndex !== index)); });
+      dots.forEach((dot, dotIndex) => { if (dotIndex === index) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current'); });
+      if (previous) previous.disabled = !loops && index === 0;
+      if (next) next.disabled = !loops && index === slides.length - 1;
+      if (status) status.textContent = `${index + 1} of ${slides.length}`;
+    };
+    dots.forEach((dot) => dot.addEventListener('click', () => show(Number(dot.dataset.carouselGo))));
+    previous?.addEventListener('click', () => show(index - 1));
+    next?.addEventListener('click', () => show(index + 1));
+    carousel.addEventListener('keydown', (event) => {
+      const target = event.key === 'ArrowLeft' ? index - 1 : event.key === 'ArrowRight' ? index + 1 : event.key === 'Home' ? 0 : event.key === 'End' ? slides.length - 1 : null;
+      if (target !== null) { event.preventDefault(); show(target); }
+    });
+    carousel.addEventListener('pointerdown', (event) => { pointerStart = event.clientX; });
+    carousel.addEventListener('pointerup', (event) => { if (pointerStart !== null && Math.abs(event.clientX - pointerStart) > 48) show(index + (event.clientX < pointerStart ? 1 : -1)); pointerStart = null; });
+    carousel.addEventListener('pointercancel', () => { pointerStart = null; });
+    show(index);
   });
   document.querySelectorAll('.fd-table__sort').forEach((button) => button.addEventListener('click', () => {
     const heading = button.closest('th');
