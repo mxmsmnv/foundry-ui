@@ -10,15 +10,18 @@ body { margin: 0; color: var(--fd-color-text); background: var(--fd-color-backgr
 button, input, select, textarea { font: inherit; }
 a { color: var(--fd-color-link); }
 code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-.docs-header { position: fixed; z-index: 20; inset: 0 0 auto; display: flex; height: var(--docs-header); align-items: center; gap: 1.5rem; padding: 0 1.5rem; border-bottom: 1px solid var(--fd-color-border-soft); background: color-mix(in srgb, var(--fd-color-background) 94%, transparent); backdrop-filter: blur(12px); }
-.docs-brand { display: flex; min-width: calc(var(--docs-sidebar) - 1.5rem); align-items: center; gap: .625rem; color: var(--fd-color-text); text-decoration: none; line-height: 1; }
+.docs-header { position: fixed; z-index: 20; inset: 0 0 auto; display: grid; height: var(--docs-header); grid-template-columns: calc(var(--docs-sidebar) - 1.5rem) minmax(0, 1fr) calc(var(--docs-sidebar) - 1.5rem); align-items: center; gap: 0; padding: 0 1.5rem; border-bottom: 1px solid var(--fd-color-border-soft); background: color-mix(in srgb, var(--fd-color-background) 94%, transparent); backdrop-filter: blur(12px); }
+.docs-brand { display: flex; min-width: 0; align-items: center; gap: .75rem; color: var(--fd-color-text); text-decoration: none; line-height: 1; }
 .docs-brand > span:last-child { display: grid; gap: .2rem; }
 .docs-brand small { font-size: .625rem; letter-spacing: .2em; }
-.docs-logo { display: grid; width: 2.625rem; height: 2.625rem; place-items: center; color: var(--fd-accent-contrast); background: var(--fd-accent); font-size: 1.5rem; font-weight: 700; }
-.docs-header nav { display: flex; align-self: stretch; gap: 1.5rem; }
+.docs-logo { display: grid; width: 2.625rem; height: 2.625rem; flex: 0 0 2.625rem; place-items: center; color: var(--fd-accent-contrast); border-radius: .75rem; background: var(--fd-accent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fd-accent-contrast) 16%, transparent); }
+.docs-logo svg { width: 2rem; height: 2rem; overflow: visible; }
+.docs-logo__frame { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: .62; }
+.docs-logo__letter, .docs-logo__spark { fill: currentColor; }
+.docs-header nav { display: flex; align-self: stretch; justify-self: center; gap: 1.75rem; }
 .docs-header nav a { display: flex; align-items: center; color: var(--fd-color-text); border-bottom: 3px solid transparent; text-decoration: none; }
 .docs-header nav a.active { border-bottom-color: var(--fd-color-link); }
-.docs-search-trigger { margin-left: auto; }
+.docs-header__actions { display: flex; align-items: center; justify-self: end; gap: .5rem; }
 .nav-toggle { display: none; }
 .docs-sidebar { position: fixed; z-index: 15; top: var(--docs-header); bottom: 0; left: 0; display: flex; width: var(--docs-sidebar); flex-direction: column; padding: 1.25rem 1rem; overflow: auto; border-right: 1px solid var(--fd-color-border-soft); background: var(--fd-color-surface); }
 .docs-search { display: flex; height: 2.75rem; align-items: center; gap: .5rem; padding: 0 .625rem; border: 1px solid var(--fd-color-border); border-radius: var(--fd-radius); background: var(--fd-color-background); }
@@ -263,8 +266,8 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .copy-toast { position: fixed; z-index: 100; right: 1.5rem; bottom: 1.5rem; display: flex; align-items: center; gap: .5rem; padding: .75rem 1rem; color: #fff; border-radius: var(--fd-radius); background: #2b2d33; box-shadow: var(--fd-shadow-hover); opacity: 0; pointer-events: none; transform: translateY(1rem); transition: .18s; }
 .copy-toast.show { opacity: 1; transform: translateY(0); }
 .empty-state { padding: 2rem 1rem; color: var(--fd-color-text-subtle); }
-@media (max-width: 72rem) { .component-gallery { grid-template-columns: repeat(3, 1fr); } .token-grid { grid-template-columns: repeat(3, 1fr); } .icon-grid { grid-template-columns: repeat(4, 1fr); } .docs-header nav { display: none; } }
-@media (max-width: 56rem) { :root { --docs-sidebar: 0rem; } .docs-brand { min-width: 0; } .docs-search-trigger { display: none; } .nav-toggle { display: inline-flex; margin-left: auto; } .docs-sidebar { width: min(19rem, 88vw); transform: translateX(-100%); transition: transform .2s; box-shadow: var(--fd-shadow-hover); } body.nav-open .docs-sidebar { transform: translateX(0); } .docs-page { padding: 1.5rem 1rem 3rem; } .source-audit { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 72rem) { .component-gallery { grid-template-columns: repeat(3, 1fr); } .token-grid { grid-template-columns: repeat(3, 1fr); } .icon-grid { grid-template-columns: repeat(4, 1fr); } .docs-header { grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; } .docs-header nav { display: none; } }
+@media (max-width: 56rem) { :root { --docs-sidebar: 0rem; } .docs-search-trigger { display: none; } .nav-toggle { display: inline-flex; } .docs-sidebar { width: min(19rem, 88vw); transform: translateX(-100%); transition: transform .2s; box-shadow: var(--fd-shadow-hover); } body.nav-open .docs-sidebar { transform: translateX(0); } .docs-page { padding: 1.5rem 1rem 3rem; } .source-audit { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 60rem) { .token-swatch-grid, .token-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 38rem) { .component-gallery, .token-grid, .icon-grid, .pattern-grid, .source-audit { grid-template-columns: 1fr 1fr; } .docs-page__heading { grid-template-columns: 1fr; } .docs-page h1 { font-size: 2.7rem; } .example__preview { justify-content: flex-start; padding: .5rem; } .example__viewport { padding: 1rem; } .example__toolbar { flex-wrap: wrap; } .example__toolbar strong { width: 100%; } .preview-sizes { margin-left: 0; } .token-showcase > header { align-items: stretch; flex-direction: column; } .token-swatch-grid, .token-metric-grid { grid-template-columns: 1fr 1fr; } }
 

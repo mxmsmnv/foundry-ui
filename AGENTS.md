@@ -26,6 +26,7 @@
 - Final work belongs on `main`; do not open pull requests for routine design-system changes.
 - Keep source assets local and portable. Do not add framework, CDN, or runtime dependencies unless the task explicitly requires them.
 - Keep the repository root deployable as a static GitHub Pages site. Use relative asset paths and preserve direct `file://` support.
+- Foundry UI is proprietary source-available software. Do not describe it as open source, replace its license, or accept third-party development or contributions without the copyright holder's prior written permission.
 
 ## Reference-driven product workflow
 

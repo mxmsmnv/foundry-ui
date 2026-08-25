@@ -95,4 +95,4 @@ AGENTS.md              Agent implementation and QA contract
 
 The original interface audit found a Liferay Portal implementation using a Clay/Bootstrap-derived layer, custom theme styles, design tokens, and a proprietary icon font. Foundry UI deliberately replaces that dependency stack with portable primitives and newly drawn interface glyphs.
 
-The repository is publicly readable but Foundry UI is currently `UNLICENSED`; public access does not grant an open-source license. The bundled Hanken Grotesk files are separately licensed under the SIL Open Font License 1.1 in `src/fonts/HANKEN-GROTESK-OFL.txt`.
+Foundry UI is source-available under a proprietary license. Viewing and evaluation are allowed, but use, modification, development, deployment, and redistribution require prior written permission from the copyright holder. See [`LICENSE`](LICENSE). The bundled Hanken Grotesk files are separately licensed under the SIL Open Font License 1.1 in `src/fonts/HANKEN-GROTESK-OFL.txt`.
