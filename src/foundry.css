@@ -1139,12 +1139,32 @@
 .fd-date-input { display: block; width: min(100%, 28rem); }
 .fd-date-input .fd-input { box-sizing: border-box; padding-right: 3.5rem; }
 .fd-date-input .fd-input:focus { padding-right: 3.5rem; }
-.fd-date-input input::-webkit-calendar-picker-indicator { opacity: 0; }
+.fd-date-input input::-webkit-calendar-picker-indicator { opacity: 1; cursor: pointer; }
 .fd-date-input .fd-icon-button { position: absolute; top: 50%; right: .25rem; width: 2.5rem; min-height: 2.5rem; border: 0; transform: translateY(-50%); }
 .fd-date-input .fd-icon-button .fd-icon { position: static; width: 1.25rem; height: 1.25rem; }
 .fd-date-range { display: grid; width: min(100%, 44rem); grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: 1rem; }
 .fd-date-range > span { display: grid; height: var(--fd-control-height); place-items: center; }
 .fd-description--error { color: var(--fd-color-danger-text); }
+.fd-theme-dark input:is([type="date"], [type="datetime-local"], [type="month"], [type="week"]) { color-scheme: dark; }
+.fd-label__optional { margin-left: .35rem; color: var(--fd-color-text-subtle); font-size: .75rem; font-weight: 500; }
+.fd-date-example-width { width: min(100%, 30rem); }
+.fd-date-anatomy { display: grid; width: min(100%, 52rem); grid-template-columns: minmax(18rem, 1fr) minmax(14rem, .75fr); align-items: start; gap: 1.5rem; }
+.fd-date-anatomy > .fd-field { padding: 1.25rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-surface); }
+.fd-date-anatomy dl { display: grid; margin: 0; border-top: 1px solid var(--fd-color-border-soft); }
+.fd-date-anatomy dl div { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: .875rem 0; border-bottom: 1px solid var(--fd-color-border-soft); }
+.fd-date-anatomy dt { color: var(--fd-color-text-subtle); }
+.fd-date-anatomy dd { margin: 0; font-weight: 700; text-align: right; }
+.fd-date-range-demo { display: grid; width: min(100%, 44rem); gap: .75rem; }
+.fd-date-range-demo > .fd-description { margin: 0; }
+.fd-date-optional { display: grid; width: min(100%, 36rem); grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: .75rem; }
+.fd-date-optional > .fd-button { margin-bottom: 1.75rem; }
+.fd-date-precision-grid { display: grid; width: min(100%, 44rem); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+@container (max-width: 42rem) {
+  .fd-date-anatomy { grid-template-columns: 1fr; }
+  .fd-date-optional { grid-template-columns: 1fr; align-items: stretch; }
+  .fd-date-optional > .fd-button { width: 100%; margin-bottom: 0; }
+  .fd-date-precision-grid { grid-template-columns: 1fr; }
+}
 
 .fd-file-demo { display: grid; width: min(100%, 44rem); min-width: 0; gap: 1rem; }
 .fd-file-upload { box-sizing: border-box; min-height: 15rem; place-items: center; align-content: center; transition: border-color .15s, background .15s; }

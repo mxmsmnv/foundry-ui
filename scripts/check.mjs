@@ -96,6 +96,11 @@ if (inputDocumentation?.examples?.length !== 10 || !inputDocumentation.preview.i
   console.error('Inputs must render as ten independent examples with clear and password action hooks.');
   process.exit(1);
 }
+const dateInputDocumentation = renderedComponents.find((component) => component.id === 'date-input');
+if (dateInputDocumentation?.examples?.length !== 10 || !dateInputDocumentation.preview.includes('data-date-range-demo') || !dateInputDocumentation.preview.includes('data-date-clear') || dateInputDocumentation.preview.includes('data-date-trigger')) {
+  console.error('Date inputs must render as ten independent examples with range and clear mechanics and no duplicate custom picker trigger.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];

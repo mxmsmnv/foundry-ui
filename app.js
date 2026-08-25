@@ -68,7 +68,7 @@ function pageHeader(kicker, title, lead) {
 
 function renderHome() {
   const starter = `<link rel="stylesheet" href="src/foundry.css">\n<script src="src/icon-sprite.js"></script>\n\n<button class="fd-button fd-button--primary">\n  Get started\n  <svg class="fd-icon" aria-hidden="true"><use href="#arrow-right"></use></svg>\n</button>`;
-  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.18.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
+  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.19.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
     <section class="home-metrics" aria-label="Library summary"><article><strong>${components.length}</strong><span>documented pages</span></article><article><strong>${window.FOUNDRY_ICONS.length}</strong><span>portable icons</span></article><article><strong>5</strong><span>accent presets</span></article><article><strong>0</strong><span>framework dependencies</span></article></section>
     <section class="docs-section home-journeys"><header class="docs-section__heading"><div><p class="docs-kicker">Choose a starting point</p><h2>Move from tokens to finished flows</h2></div><p>Each layer is isolated, copyable, and designed to work with the next.</p></header><div class="home-journey-grid"><a href="#/foundations">${icon('art')}<div><strong>Foundation</strong><small>Colour, typography, grid, tokens, and states.</small></div>${icon('arrow-right')}</a><a href="#/components">${icon('component')}<div><strong>Components</strong><small>Production controls with live variants and code.</small></div>${icon('arrow-right')}</a><a href="#/patterns">${icon('layouts')}<div><strong>Patterns</strong><small>Reusable page and task compositions.</small></div>${icon('arrow-right')}</a></div></section>
     <section class="docs-section home-featured"><header class="docs-section__heading"><div><p class="docs-kicker">Production-ready</p><h2>Featured building blocks</h2></div><a class="fd-link" href="#/components">View all components ${icon('arrow-right')}</a></header><div class="component-gallery">${['button','field','table','card-variants','icons','video'].map((id) => tile(components.find((item) => item.id === id))).join('')}</div></section>
@@ -364,6 +364,29 @@ function bindPreviewInteractions() {
     const output = input.closest('[data-date-demo]').querySelector('[data-date-output]');
     if (output) output.textContent = input.value ? new Intl.DateTimeFormat('en-AU', { dateStyle: 'long' }).format(new Date(`${input.value}T00:00:00`)) : 'No date selected';
   }));
+  document.querySelectorAll('[data-date-clear]').forEach((button) => button.addEventListener('click', () => {
+    const input = button.closest('[data-date-demo]').querySelector('input[type="date"]');
+    input.value = '';
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    input.focus();
+  }));
+  document.querySelectorAll('[data-date-range-demo]').forEach((range) => {
+    const start = range.querySelector('[data-date-start]');
+    const end = range.querySelector('[data-date-end]');
+    const status = range.querySelector('[data-date-range-status]');
+    const sync = () => {
+      end.min = start.value;
+      const invalid = Boolean(start.value && end.value && end.value < start.value);
+      end.setCustomValidity(invalid ? 'End date must be on or after the start date.' : '');
+      if (invalid) end.setAttribute('aria-invalid', 'true'); else end.removeAttribute('aria-invalid');
+      if (invalid) status.textContent = 'End date must be on or after the start date.';
+      else if (start.value && end.value) status.textContent = `${Math.round((new Date(`${end.value}T00:00:00`) - new Date(`${start.value}T00:00:00`)) / 86400000) + 1}-day project window.`;
+      else status.textContent = 'Choose both dates to define the project window.';
+    };
+    start.addEventListener('change', sync);
+    end.addEventListener('change', sync);
+    sync();
+  });
   document.querySelectorAll('[data-file-demo]').forEach((demo) => {
     const input = demo.querySelector('input[type="file"]');
     const list = demo.querySelector('[data-file-list]');
