@@ -26,6 +26,7 @@
 - Input documentation must isolate anatomy, native types, prefixes and suffixes, inline actions, password visibility, sizes, numeric constraints, validation, non-editable modes, and state references. Every field family must use the shared focus border and focus-ring tokens.
 - Date input documentation must use one native picker indicator and isolate anatomy, live single date, constraints, range, optional clearing, date-time, month/week precision, validation, non-editable modes, and state references.
 - Details documentation must isolate anatomy, independent FAQ, working single-open accordion, rich content, summary metadata, one-level nesting, compact density, and state-reference examples. Plus/minus icons must follow native open state.
+- Typography documentation must isolate typeface, body scale, weights, prose rhythm, inline semantics, links, semantic lists, quotations, technical text, and responsive editorial composition with exact metrics and readable line lengths.
 
 ## Responsive quality bar
 

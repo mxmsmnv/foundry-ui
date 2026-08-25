@@ -106,6 +106,11 @@ if (detailsDocumentation?.examples?.length !== 8 || !detailsDocumentation.previe
   console.error('Details must render as eight independent, substantial examples with working single-open behavior.');
   process.exit(1);
 }
+const typographyDocumentation = renderedComponents.find((component) => component.id === 'typography');
+if (typographyDocumentation?.examples?.length !== 10 || !typographyDocumentation.preview.includes('fd-typeface-specimen') || !typographyDocumentation.preview.includes('fd-editorial-specimen')) {
+  console.error('Typography must render as ten independent examples including typeface and responsive editorial specimens.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];
