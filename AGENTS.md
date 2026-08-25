@@ -23,6 +23,7 @@
 - Dotnav and slidenav examples must be connected to real slides with clickable controls, keyboard and swipe support, live position text, current-dot state, and finite boundary states where applicable.
 - Icon button documentation must isolate anatomy, visual variants, sizes, shapes, toggles, indicators, toolbar, tooltip, floating-action, and state-reference examples. Toggle state and toolbar keyboard mechanics must work.
 - Toggle group documentation must isolate anatomy, single selection, icon-only, icon-and-label, sizes, multiple selection, responsive width, unavailable options, and state-reference examples. Single and multiple selection plus keyboard movement must work.
+- Input documentation must isolate anatomy, native types, prefixes and suffixes, inline actions, password visibility, sizes, numeric constraints, validation, non-editable modes, and state references. Every field family must use the shared focus border and focus-ring tokens.
 
 ## Responsive quality bar
 

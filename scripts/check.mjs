@@ -91,6 +91,11 @@ if (toggleGroupDocumentation?.examples?.length !== 9 || !toggleGroupDocumentatio
   console.error('Toggle groups must render as nine independent examples with single- and multiple-selection hooks.');
   process.exit(1);
 }
+const inputDocumentation = renderedComponents.find((component) => component.id === 'input');
+if (inputDocumentation?.examples?.length !== 10 || !inputDocumentation.preview.includes('data-input-clear') || !inputDocumentation.preview.includes('data-password-toggle')) {
+  console.error('Inputs must render as ten independent examples with clear and password action hooks.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];
@@ -198,6 +203,12 @@ const darkTheme = css.slice(css.indexOf('.fd-theme-dark'), css.indexOf('.fd-icon
 const missingDarkTokens = darkTokens.filter((token) => !darkTheme.includes(token));
 if (missingDarkTokens.length) {
   console.error(`Dark mode is missing semantic tokens: ${missingDarkTokens.join(', ')}.`);
+  process.exit(1);
+}
+const sharedControlTokens = ['--fd-color-focus:', '--fd-control-border:', '--fd-control-border-hover:', '--fd-control-border-focus:', '--fd-control-focus-ring:'];
+const missingSharedControlTokens = sharedControlTokens.filter((token) => !css.includes(token));
+if (missingSharedControlTokens.length || !css.includes('.fd-input-group:focus-within') || !css.includes('.fd-file-upload:focus-within')) {
+  console.error(`Unified control focus styling is incomplete: ${missingSharedControlTokens.join(', ') || 'missing grouped or file-input focus styling'}.`);
   process.exit(1);
 }
 
