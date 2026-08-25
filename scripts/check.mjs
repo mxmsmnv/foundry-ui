@@ -46,6 +46,11 @@ if (incompleteExamples.length) {
   console.error(`Required component variants are not separated into enough demo sections: ${incompleteExamples.map(([id]) => id).join(', ')}`);
   process.exit(1);
 }
+const checkboxDocumentation = renderedComponents.find((component) => component.id === 'checkbox');
+if (checkboxDocumentation.examples?.length !== 4 || checkboxDocumentation.examples.some((example) => !example.title || !example.preview)) {
+  console.error('Checkbox variants must render as four independent, named documentation examples.');
+  process.exit(1);
+}
 
 const icons = fs.readFileSync(new URL('../src/icons.svg', import.meta.url), 'utf8');
 const iconIds = [...icons.matchAll(/<symbol id="([^"]+)"/g)].map((match) => match[1]);

@@ -38,6 +38,11 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .docs-section { margin-top: 3.5rem; scroll-margin-top: 6rem; }
 .docs-section > h2 { margin-bottom: .5rem; font-size: 2rem; }
 .docs-section > p { max-width: 48rem; color: var(--fd-color-text-subtle); }
+.component-example__heading { display: grid; max-width: 54rem; gap: .5rem; }
+.component-example__heading > * { margin: 0; }
+.component-example__heading h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.1; }
+.component-example__heading > p:last-child { color: var(--fd-color-text-subtle); font-size: 1.0625rem; }
+.component-example + .component-example { margin-top: 4.5rem; padding-top: .5rem; border-top: 1px solid var(--fd-color-border-soft); }
 .component-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
 .component-tile { display: grid; min-height: 9rem; align-content: space-between; padding: 1.25rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); text-decoration: none; }
 .component-tile span { color: var(--fd-color-text-subtle); font-size: .75rem; text-transform: uppercase; }

@@ -332,4 +332,17 @@ window.FOUNDRY_COMPONENTS.forEach((item) => {
   });
 });
 
+const checkboxComponent = window.FOUNDRY_COMPONENTS.find((item) => item.id === 'checkbox');
+const checkboxSections = [...checkboxComponent.preview.matchAll(/<section class="fd-demo-section">.*?<\/section>/g)].map((match) => match[0]);
+const checkboxExampleMeta = [
+  { slug: 'horizontal', title: 'Horizontal group', description: 'Short independent choices arranged in a responsive wrapping row.' },
+  { slug: 'vertical', title: 'Vertical group', description: 'Descriptive choices stacked for scanning and narrow layouts.' },
+  { slug: 'general', title: 'General examples', description: 'A parent selection with checked, unchecked, and indeterminate child states.' },
+  { slug: 'states', title: 'State reference', description: 'Unchecked, checked, indeterminate, focus, error, and disabled specimens.' }
+];
+checkboxComponent.examples = checkboxExampleMeta.map((example, index) => ({
+  ...example,
+  preview: `<div class="fd-component-sections">${checkboxSections[index]}</div>`
+}));
+
 window.FOUNDRY_ICONS = window.FOUNDRY_ICON_REGISTRY || ['search','menu','close','check','chevron-down','chevron-right','arrow-right','arrow-left','plus','minus','info','warning','error','calendar','clock','location','phone','mail','user','users','lock','login','document','download','upload','edit','trash','chat','bank','card','home','globe','external','moon','sun','desktop','tablet','mobile','copy'];

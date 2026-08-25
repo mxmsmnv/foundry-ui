@@ -68,7 +68,7 @@ function pageHeader(kicker, title, lead) {
 
 function renderHome() {
   const starter = `<link rel="stylesheet" href="src/foundry.css">\n<script src="src/icon-sprite.js"></script>\n\n<button class="fd-button fd-button--primary">\n  Get started\n  <svg class="fd-icon" aria-hidden="true"><use href="#arrow-right"></use></svg>\n</button>`;
-  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.7.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
+  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.7.1</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
     <section class="home-metrics" aria-label="Library summary"><article><strong>${components.length}</strong><span>documented pages</span></article><article><strong>${window.FOUNDRY_ICONS.length}</strong><span>portable icons</span></article><article><strong>5</strong><span>accent presets</span></article><article><strong>0</strong><span>framework dependencies</span></article></section>
     <section class="docs-section home-journeys"><header class="docs-section__heading"><div><p class="docs-kicker">Choose a starting point</p><h2>Move from tokens to finished flows</h2></div><p>Each layer is isolated, copyable, and designed to work with the next.</p></header><div class="home-journey-grid"><a href="#/foundations"><span>01</span>${icon('art')}<div><strong>Foundation</strong><small>Colour, typography, grid, tokens, and states.</small></div>${icon('arrow-right')}</a><a href="#/components"><span>02</span>${icon('component')}<div><strong>Components</strong><small>Production controls with live variants and code.</small></div>${icon('arrow-right')}</a><a href="#/patterns"><span>03</span>${icon('layouts')}<div><strong>Patterns</strong><small>Reusable page and task compositions.</small></div>${icon('arrow-right')}</a></div></section>
     <section class="docs-section home-featured"><header class="docs-section__heading"><div><p class="docs-kicker">Production-ready</p><h2>Featured building blocks</h2></div><a class="fd-link" href="#/components">View all components ${icon('arrow-right')}</a></header><div class="component-gallery">${['button','field','table','card-variants','icons','video'].map((id) => tile(components.find((item) => item.id === id))).join('')}</div></section>
@@ -157,44 +157,58 @@ function accessibilitySection(item) {
   return `<section class="docs-section" id="accessibility"><h2>Accessibility</h2><ul class="guideline-list">${item.accessibility.map((text) => `<li>${icon('check')}<span>${text}</span></li>`).join('')}</ul></section>`;
 }
 
+function exampleCode(preview) {
+  const html = prettify(preview);
+  const classes = [...new Set([...preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))];
+  const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${classes.map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
+  return { html, css };
+}
+
+function exampleSection(entry, index, separated) {
+  const heading = separated
+    ? `<header class="component-example__heading"><p class="docs-kicker">Example ${String(index + 1).padStart(2, '0')}</p><h2>${entry.title}</h2>${entry.description ? `<p>${entry.description}</p>` : ''}</header>`
+    : `<h2>Examples</h2><p>Inspect production-ready variants in desktop, tablet, and mobile frames, then reveal and copy the implementation.</p>`;
+  return `<section class="docs-section component-example" id="${index === 0 ? 'examples' : `example-${entry.slug || index + 1}`}">${heading}<div class="example" data-example><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${entry.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-label="Desktop preview" title="Desktop" aria-pressed="true" data-preview-size-button="desktop">${icon('desktop')}</button><button aria-label="Tablet preview" title="Tablet" aria-pressed="false" data-preview-size-button="tablet">${icon('tablet')}</button><button aria-label="Mobile preview" title="Mobile" aria-pressed="false" data-preview-size-button="mobile">${icon('mobile')}</button></div><button class="example-theme-toggle" data-invert aria-label="Use dark preview" title="Toggle preview theme">${icon('moon')}</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(exampleCode(entry.preview).html)}</code></pre></div></div></section>`;
+}
+
 function renderComponent(item) {
   if (item.id === 'icons') { main.innerHTML = renderIcons(item); bindIconCopy(); return; }
   if (item.id === 'typography') { main.innerHTML = renderTypography(item); bindDocTabs(); return; }
   if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #2a8288;\n  --fd-accent-hover: #236f74;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #92cfae;\n  --fd-accent-soft-contrast: #173f42;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #2a8288;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); document.querySelectorAll('[data-token-scheme]').forEach((button) => button.addEventListener('click', () => { const dark = button.dataset.tokenScheme === 'dark'; document.querySelector('[data-token-preview]').classList.toggle('fd-theme-dark', dark); document.querySelectorAll('[data-token-scheme]').forEach((item) => item.setAttribute('aria-pressed', String(item === button))); })); bindDocTabs(); return; }
-  const html = prettify(item.preview);
-  const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
-  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Examples</h2><p>Inspect production-ready variants in desktop, tablet, and mobile frames, then reveal and copy the implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-label="Desktop preview" title="Desktop" aria-pressed="true" data-preview-size-button="desktop">${icon('desktop')}</button><button aria-label="Tablet preview" title="Tablet" aria-pressed="false" data-preview-size-button="tablet">${icon('tablet')}</button><button aria-label="Mobile preview" title="Mobile" aria-pressed="false" data-preview-size-button="mobile">${icon('mobile')}</button></div><button class="example-theme-toggle" data-invert aria-label="Use dark preview" title="Toggle preview theme">${icon('moon')}</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
+  const examples = item.examples?.length ? item.examples : [{ preview: item.preview }];
+  const codes = examples.map((entry) => exampleCode(entry.preview));
+  main.innerHTML = `${componentHeader(item)}${examples.map((entry, index) => exampleSection(entry, index, Boolean(item.examples?.length))).join('')}
     <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code> and <code>src/icon-sprite.js</code>, then reference icons with local fragment IDs such as <code>#search</code>. The standalone <code>src/icons.svg</code> remains available for hosted builds. No Tailwind, Bootstrap, or React is required.</div></section>
     ${accessibilitySection(item)}</article>`;
-  bindExample({ html, css });
+  document.querySelectorAll('[data-example]').forEach((root, index) => bindExample(root, codes[index]));
   bindDocTabs();
   bindPreviewInteractions();
 }
 
-function bindExample(code) {
-  const panel = document.querySelector('.code-panel');
+function bindExample(root, code) {
+  const panel = root.querySelector('.code-panel');
   const pre = panel.querySelector('code');
   let active = 'html';
-  document.querySelector('[data-show-code]').addEventListener('click', (event) => {
+  root.querySelector('[data-show-code]').addEventListener('click', (event) => {
     panel.hidden = !panel.hidden;
     event.currentTarget.setAttribute('aria-expanded', String(!panel.hidden));
     event.currentTarget.lastChild.textContent = panel.hidden ? ' Show code' : ' Hide code';
   });
-  document.querySelectorAll('[data-code-tab]').forEach((button) => button.addEventListener('click', () => {
+  root.querySelectorAll('[data-code-tab]').forEach((button) => button.addEventListener('click', () => {
     active = button.dataset.codeTab;
-    document.querySelectorAll('[data-code-tab]').forEach((item) => item.classList.toggle('active', item === button));
+    root.querySelectorAll('[data-code-tab]').forEach((item) => item.classList.toggle('active', item === button));
     pre.textContent = code[active];
   }));
-  document.querySelector('[data-copy-code]').addEventListener('click', () => copyText(code[active]));
-  document.querySelector('[data-invert]').addEventListener('click', (event) => {
-    const dark = document.querySelector('.example__preview').classList.toggle('fd-theme-dark');
+  root.querySelector('[data-copy-code]').addEventListener('click', () => copyText(code[active]));
+  root.querySelector('[data-invert]').addEventListener('click', (event) => {
+    const dark = root.querySelector('.example__preview').classList.toggle('fd-theme-dark');
     event.currentTarget.querySelector('use').setAttribute('href', `#${dark ? 'sun' : 'moon'}`);
     event.currentTarget.setAttribute('aria-label', dark ? 'Use light preview' : 'Use dark preview');
   });
-  document.querySelectorAll('[data-preview-size-button]').forEach((button) => button.addEventListener('click', () => {
-    const viewport = document.querySelector('.example__viewport');
+  root.querySelectorAll('[data-preview-size-button]').forEach((button) => button.addEventListener('click', () => {
+    const viewport = root.querySelector('.example__viewport');
     viewport.dataset.previewSize = button.dataset.previewSizeButton;
-    document.querySelectorAll('[data-preview-size-button]').forEach((item) => {
+    root.querySelectorAll('[data-preview-size-button]').forEach((item) => {
       item.classList.toggle('active', item === button);
       item.setAttribute('aria-pressed', String(item === button));
     });
