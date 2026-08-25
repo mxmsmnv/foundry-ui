@@ -46,6 +46,15 @@ if (incompleteExamples.length) {
   console.error(`Required component variants are not separated into enough demo sections: ${incompleteExamples.map(([id]) => id).join(', ')}`);
   process.exit(1);
 }
+const expandedCatalogPages = `accent-colors tokens grid-breakpoints component-states field header progress sections-tiles overlay-marker text-utilities utility-classes link phone-input select textarea file-upload validation chip tag spinner skeleton popover dialog simple-card surface-banner divider breadcrumbs stepper footer masthead pattern-breadcrumb inputfield-wrappers module-guidelines module-workspace modal offcanvas dropdown-navbar-dd lightbox notifications comment panel-scrollable`.split(' ');
+const shallowCatalogPages = expandedCatalogPages.filter((id) => {
+  const item = renderedComponents.find((component) => component.id === id);
+  return !item || (item.examples?.length || 0) < 4;
+});
+if (shallowCatalogPages.length) {
+  console.error(`Expanded catalog pages must render at least four independent examples: ${shallowCatalogPages.join(', ')}`);
+  process.exit(1);
+}
 const checkboxDocumentation = renderedComponents.find((component) => component.id === 'checkbox');
 if (checkboxDocumentation.examples?.length !== 4 || checkboxDocumentation.examples.some((example) => !example.title || !example.preview)) {
   console.error('Checkbox variants must render as four independent, named documentation examples.');
