@@ -1,0 +1,10 @@
+{
+  "name": "@mxmsmnv/raiffeisen-hu-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portable component library reconstructed from Raiffeisen Bank Hungary public UI",
+  "files": ["src", "tokens.json", "README.md"],
+  "scripts": {"dev": "python3 -m http.server 4173", "check": "node scripts/check.mjs"},
+  "keywords": ["design-system", "raiffeisen", "components", "css", "icons"],
+  "license": "UNLICENSED"
+}
