@@ -182,4 +182,154 @@ window.FOUNDRY_COMPONENTS.push(
   { group: 'Components', id: 'video', name: 'Video', description: 'Responsive native video playback with URL testing, local file insertion, captions guidance, poster treatment, and fallback states.', preview: `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Player</p><h3>Video block</h3><p>The bundled waveform video keeps this portable demo self-contained.</p></header><div class="fd-media-demo" data-media-demo><video controls playsinline preload="metadata" src="assets/media/demo-video.mp4">Your browser does not support video playback.</video><div class="fd-media-source"><label class="fd-field"><span class="fd-label">Video URL</span><input class="fd-input" type="url" value="assets/media/demo-video.mp4"></label><button class="fd-button fd-button--secondary" type="button" data-media-load>Load URL</button><label class="fd-button fd-button--tertiary">${icon('upload')} Choose video<input class="fd-visually-hidden" type="file" accept="video/*"></label></div></div></section><section class="fd-demo-section fd-demo-section--split"><article><header><p class="fd-eyebrow">Inline preview</p><h3>Editorial ratio</h3></header><div class="fd-video-poster"><span class="fd-media-play">${icon('play')}</span><div><span class="fd-badge">4 min</span><strong>Understanding your options</strong></div></div></article><article><header><p class="fd-eyebrow">Accessibility</p><h3>Caption-ready</h3></header><div class="fd-media-state">${icon('document')}<strong>Captions and transcript</strong><span>Add a WebVTT track to the video element and provide the transcript below the player.</span><button class="fd-button fd-button--secondary fd-button--small">Open transcript</button></div></article></section></div>`, accessibility: ['Provide synchronised captions for speech and meaningful sound.', 'Provide audio description when visual information is essential.', 'Do not autoplay video with sound; preserve native keyboard controls.'] }
 );
 
+updateComponent('checkbox', {
+  description: 'Independent selections documented as separate horizontal, vertical, descriptive, indeterminate, and state-reference examples.',
+  preview: `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Horizontal group</p><h3>Notification channels</h3><p>Use a wrapping row for short options with equal visual weight.</p></header><fieldset class="fd-choice-group fd-choice-group--horizontal"><legend class="fd-visually-hidden">Notification channels</legend><label class="fd-checkbox"><input type="checkbox" checked><span class="fd-checkbox__control"></span><span>Email</span></label><label class="fd-checkbox"><input type="checkbox"><span class="fd-checkbox__control"></span><span>In-app</span></label><label class="fd-checkbox"><input type="checkbox"><span class="fd-checkbox__control"></span><span>Push</span></label></fieldset></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Vertical group</p><h3>Project permissions</h3><p>Stack options when labels need descriptions or scanning order matters.</p></header><fieldset class="fd-choice-group fd-choice-group--vertical"><legend class="fd-visually-hidden">Project permissions</legend><label class="fd-checkbox"><input type="checkbox" checked><span class="fd-checkbox__control"></span><span><strong>Review assets</strong><small>Comment and approve submitted work.</small></span></label><label class="fd-checkbox"><input type="checkbox"><span class="fd-checkbox__control"></span><span><strong>Publish releases</strong><small>Move approved assets to the live library.</small></span></label><label class="fd-checkbox"><input type="checkbox" disabled><span class="fd-checkbox__control"></span><span><strong>Manage workspace</strong><small>Available to workspace owners.</small></span></label></fieldset></section><section class="fd-demo-section"><header><p class="fd-eyebrow">General examples</p><h3>Descriptions and mixed selection</h3><p>The parent option represents a group with only some children selected.</p></header><fieldset class="fd-choice-group fd-choice-group--vertical"><legend class="fd-label">Export content</legend><label class="fd-checkbox"><input type="checkbox" data-indeterminate><span class="fd-checkbox__control"></span><span><strong>All project content</strong><small>Some content types are selected.</small></span></label><label class="fd-checkbox"><input type="checkbox" checked><span class="fd-checkbox__control"></span><span>Images</span></label><label class="fd-checkbox"><input type="checkbox"><span class="fd-checkbox__control"></span><span>Documents</span></label></fieldset></section><section class="fd-demo-section"><header><p class="fd-eyebrow">State reference</p><h3>Applicable checkbox states</h3></header><div class="fd-control-state-grid"><article><span>Unchecked</span><label class="fd-checkbox"><input type="checkbox"><span class="fd-checkbox__control"></span><span>Default</span></label></article><article><span>Checked</span><label class="fd-checkbox"><input type="checkbox" checked><span class="fd-checkbox__control"></span><span>Selected</span></label></article><article><span>Indeterminate</span><label class="fd-checkbox"><input type="checkbox" data-indeterminate><span class="fd-checkbox__control"></span><span>Mixed</span></label></article><article><span>Focus</span><label class="fd-checkbox is-focus"><input type="checkbox" checked><span class="fd-checkbox__control"></span><span>Focused</span></label></article><article><span>Error</span><label class="fd-checkbox is-error"><input type="checkbox" aria-invalid="true"><span class="fd-checkbox__control"></span><span>Required</span></label></article><article><span>Disabled</span><label class="fd-checkbox"><input type="checkbox" disabled><span class="fd-checkbox__control"></span><span>Unavailable</span></label></article></div></section></div>`,
+  accessibility: ['Group related checkboxes with fieldset and legend.', 'Use the native indeterminate property for a mixed parent selection.', 'Keep descriptions inside the label and communicate validation with more than colour.']
+});
+
+updateComponent('radio', {
+  description: 'Mutually exclusive choices documented as separate horizontal, vertical, descriptive, and complete state-reference examples.',
+  preview: `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Horizontal group</p><h3>Canvas density</h3><p>Use a wrapping row for a short set of concise choices.</p></header><fieldset class="fd-choice-group fd-choice-group--horizontal"><legend class="fd-visually-hidden">Canvas density</legend><label class="fd-radio"><input name="density" type="radio" checked><span class="fd-radio__control"></span><span>Comfortable</span></label><label class="fd-radio"><input name="density" type="radio"><span class="fd-radio__control"></span><span>Compact</span></label><label class="fd-radio"><input name="density" type="radio"><span class="fd-radio__control"></span><span>Spacious</span></label></fieldset></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Vertical group</p><h3>Default review workflow</h3><p>Stack options when each choice needs supporting detail.</p></header><fieldset class="fd-choice-group fd-choice-group--vertical"><legend class="fd-visually-hidden">Default review workflow</legend><label class="fd-radio"><input name="workflow" type="radio" checked><span class="fd-radio__control"></span><span><strong>Open review</strong><small>Any collaborator can approve an asset.</small></span></label><label class="fd-radio"><input name="workflow" type="radio"><span class="fd-radio__control"></span><span><strong>Assigned reviewers</strong><small>Only selected reviewers can approve.</small></span></label><label class="fd-radio"><input name="workflow" type="radio" disabled><span class="fd-radio__control"></span><span><strong>Automated review</strong><small>Unavailable for this workspace.</small></span></label></fieldset></section><section class="fd-demo-section"><header><p class="fd-eyebrow">General example</p><h3>Publish visibility</h3></header><fieldset class="fd-choice-group fd-choice-group--vertical"><legend class="fd-label">Who can see this release?</legend><label class="fd-radio"><input name="visibility" type="radio" checked><span class="fd-radio__control"></span><span>Everyone in the workspace</span></label><label class="fd-radio"><input name="visibility" type="radio"><span class="fd-radio__control"></span><span>Project members only</span></label><label class="fd-radio"><input name="visibility" type="radio"><span class="fd-radio__control"></span><span>Only me</span></label></fieldset></section><section class="fd-demo-section"><header><p class="fd-eyebrow">State reference</p><h3>Applicable radio states</h3></header><div class="fd-control-state-grid"><article><span>Unselected</span><label class="fd-radio"><input name="state-a" type="radio"><span class="fd-radio__control"></span><span>Default</span></label></article><article><span>Selected</span><label class="fd-radio"><input name="state-b" type="radio" checked><span class="fd-radio__control"></span><span>Selected</span></label></article><article><span>Focus</span><label class="fd-radio is-focus"><input name="state-c" type="radio" checked><span class="fd-radio__control"></span><span>Focused</span></label></article><article><span>Error</span><label class="fd-radio is-error"><input name="state-d" type="radio" aria-invalid="true"><span class="fd-radio__control"></span><span>Required</span></label></article><article><span>Disabled</span><label class="fd-radio"><input name="state-e" type="radio" disabled><span class="fd-radio__control"></span><span>Unavailable</span></label></article><article><span>Disabled selected</span><label class="fd-radio"><input name="state-f" type="radio" checked disabled><span class="fd-radio__control"></span><span>Locked choice</span></label></article></div></section></div>`,
+  accessibility: ['Group every radio set with fieldset and legend.', 'Use one shared name per group so native arrow-key behaviour is preserved.', 'Keep disabled choices visible only when their unavailability provides useful context.']
+});
+
+updateComponent('switch', {
+  description: 'Immediate settings documented as separate horizontal, vertical, descriptive, and state-reference examples.',
+  preview: `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Horizontal group</p><h3>Quick workspace settings</h3><p>Short switches wrap as a compact row.</p></header><div class="fd-choice-group fd-choice-group--horizontal"><label class="fd-switch"><input type="checkbox" checked><span class="fd-switch__control"></span><span>Comments</span></label><label class="fd-switch"><input type="checkbox"><span class="fd-switch__control"></span><span>Activity digest</span></label><label class="fd-switch"><input type="checkbox"><span class="fd-switch__control"></span><span>Presence</span></label></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Vertical group</p><h3>Collaboration preferences</h3><p>Descriptive settings stay readable at narrow widths.</p></header><div class="fd-choice-group fd-choice-group--vertical"><label class="fd-switch"><input type="checkbox" checked><span class="fd-switch__control"></span><span><strong>Review reminders</strong><small>Notify reviewers when a due date is near.</small></span></label><label class="fd-switch"><input type="checkbox"><span class="fd-switch__control"></span><span><strong>Automatic version notes</strong><small>Summarise changes when a new asset is uploaded.</small></span></label><label class="fd-switch"><input type="checkbox" disabled><span class="fd-switch__control"></span><span><strong>Public sharing</strong><small>Disabled by the workspace owner.</small></span></label></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">State reference</p><h3>Applicable switch states</h3></header><div class="fd-control-state-grid"><article><span>Off</span><label class="fd-switch"><input type="checkbox"><span class="fd-switch__control"></span><span>Setting</span></label></article><article><span>On</span><label class="fd-switch"><input type="checkbox" checked><span class="fd-switch__control"></span><span>Setting</span></label></article><article><span>Focus</span><label class="fd-switch is-focus"><input type="checkbox" checked><span class="fd-switch__control"></span><span>Focused</span></label></article><article><span>Disabled off</span><label class="fd-switch"><input type="checkbox" disabled><span class="fd-switch__control"></span><span>Unavailable</span></label></article><article><span>Disabled on</span><label class="fd-switch"><input type="checkbox" checked disabled><span class="fd-switch__control"></span><span>Locked on</span></label></article></div></section></div>`,
+  accessibility: ['Use a switch only when the setting takes effect immediately.', 'Keep the label focused on the setting rather than the words on or off.', 'Expose checked and disabled state through the native input.']
+});
+
+const paginationPreview = `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Numbered</p><h3>Standard page navigation</h3><p>Use when people benefit from direct access to nearby pages.</p></header><nav class="fd-pagination" aria-label="Asset library pages" data-pagination-live><button disabled aria-label="Previous page">${icon('arrow-left')}</button><button aria-current="page">1</button><button>2</button><button>3</button><button>4</button><button aria-label="Next page">${icon('arrow-right')}</button></nav></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Truncated</p><h3>Large result set</h3><p>Keep the first, current neighbourhood, and last page visible.</p></header><nav class="fd-pagination" aria-label="Search result pages" data-pagination-live><button aria-label="Previous page">${icon('arrow-left')}</button><button>1</button><span class="fd-pagination__ellipsis" aria-hidden="true">…</span><button>11</button><button aria-current="page">12</button><button>13</button><span class="fd-pagination__ellipsis" aria-hidden="true">…</span><button>48</button><button aria-label="Next page">${icon('arrow-right')}</button></nav></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Compact</p><h3>Previous and next</h3><p>Use in focused flows where the total page count is secondary.</p></header><nav class="fd-pagination fd-pagination--compact" aria-label="Review queue pages"><button class="fd-button fd-button--secondary" disabled>${icon('arrow-left')} Previous</button><span><strong>1</strong> of 8</span><button class="fd-button fd-button--secondary">Next ${icon('arrow-right')}</button></nav></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Boundary states</p><h3>First and last page</h3></header><div class="fd-demo-section--split"><article><p class="fd-pagination__label">First page</p><nav class="fd-pagination fd-pagination--simple" aria-label="First page example"><button disabled aria-label="Previous page">${icon('arrow-left')}</button><button aria-current="page">1</button><button>2</button><button aria-label="Next page">${icon('arrow-right')}</button></nav></article><article><p class="fd-pagination__label">Last page</p><nav class="fd-pagination fd-pagination--simple" aria-label="Last page example"><button aria-label="Previous page">${icon('arrow-left')}</button><button>7</button><button aria-current="page">8</button><button disabled aria-label="Next page">${icon('arrow-right')}</button></nav></article></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Narrow screen</p><h3>Mobile pagination</h3><p>The compact label remains usable without horizontal clipping.</p></header><nav class="fd-pagination fd-pagination--mobile" aria-label="Mobile asset pages"><button class="fd-button fd-button--secondary" aria-label="Previous page">${icon('arrow-left')}</button><span>Page <strong>12</strong> of 48</span><button class="fd-button fd-button--secondary" aria-label="Next page">${icon('arrow-right')}</button></nav></section></div>`;
+
+updateComponent('pagination-control', {
+  description: 'Numbered, truncated, compact, boundary, disabled, and narrow-screen pagination variants with working current-page selection.',
+  preview: paginationPreview,
+  accessibility: ['Name every pagination region and mark the current page with aria-current.', 'Disable unavailable previous or next actions with the native disabled attribute.', 'Keep the current page visible and provide a compact alternative at narrow widths.']
+});
+
+updateComponent('pattern-pagination', {
+  description: 'Complete pagination patterns for standard, large, compact, boundary, and mobile result sets.',
+  preview: paginationPreview,
+  accessibility: ['Name every pagination region and mark the current page with aria-current.', 'Disable unavailable previous or next actions with the native disabled attribute.', 'Preserve the current page and filters when navigating results.']
+});
+
+const neutralExampleCopy = [
+  ['#bank', '#layouts'],
+  ['PREMIUM BANKING', 'CREATIVE TEAMS'],
+  ['PERSONAL', 'INDIVIDUAL'],
+  ['BUSINESS', 'AGENCIES'],
+  ['Search · Branches · EN', 'Search · Help · EN'],
+  ['Personal loan', 'Campaign brief'],
+  ['Identity documents and proof of income may be required.', 'Project files and reviewer approval may be required.'],
+  ['What is this rate?', 'How is progress calculated?'],
+  ['The comparison rate combines interest and selected fees into one annual percentage.', 'Progress combines completed tasks and approved assets into one project indicator.'],
+  ['Understanding recurring costs before you commit', 'Planning a sustainable review cadence'],
+  ['A concise checklist for comparing ongoing fees.', 'A concise checklist for keeping feedback useful.'],
+  ['Everyday product', 'Project template'],
+  ['Everyday Plus', 'Brand workspace'],
+  ['A flexible account with digital controls and no monthly fee when eligibility requirements are met.', 'A flexible project space with reviews, version history, and shared delivery controls.'],
+  ['Monthly fee', 'Template type'],
+  ['0 items', 'Included'],
+  ['Card access', 'Collaboration'],
+  ['Products and rates', 'Assets and activity'],
+  ['products and rates', 'assets and activity'],
+  ['Filter products', 'Filter assets'],
+  ['Available products', 'Available assets'],
+  ['Hide rate', 'Hide updated'],
+  ['Show rate', 'Show updated'],
+  ['data-col="rate">Rate', 'data-col="rate">Updated'],
+  ['<th>Fee</th>', '<th>Owner</th>'],
+  ['4.25%', 'Today'],
+  ['5.10%', 'Yesterday'],
+  ['5.35%', '22 Aug'],
+  ['Growth Saver', 'Launch campaign'],
+  ['Fixed Term', 'Website review'],
+  ['Legacy Saver', 'Archived concept'],
+  ['Bonus interest', 'Creative production'],
+  ['12 month term', 'Final approval'],
+  ['Daily money management', 'Shared asset library'],
+  ['Digital card', 'Version history'],
+  ['Travel benefits', 'External reviewers'],
+  ['Currency', 'Batch control'],
+  ['Working bounded numeric controls for currency and quantity', 'Working bounded numeric controls for batch size and reviewer quantity'],
+  ['Download statement', 'Download release notes'],
+  ['monthly fee during the introductory period', 'setup effort during the onboarding period'],
+  ['<span class="fd-label">Amount</span><span class="fd-input-group"><input class="fd-input" value="50,000"><span>AUD</span>', '<span class="fd-label">Asset limit</span><span class="fd-input-group"><input class="fd-input" value="500"><span>files</span>'],
+  ['tip-rate', 'tip-progress'],
+  ['Rate information', 'Progress information'],
+  ['The displayed APR is calculated from the selected amount and term.', 'The displayed progress is calculated from completed tasks and approved assets.'],
+  ['Open a bank account', 'Create a shared project'],
+  ['hide the rate column', 'hide the updated column'],
+  ['data-col="rate"', 'data-col="updated"'],
+  ['hide-rate', 'hide-updated'],
+  ['Account information', 'Project information'],
+  ['Fees and conditions', 'Terms and permissions'],
+  ['Exchange rates', 'Release history'],
+  ['Income release', 'Team brief'],
+  ['Home lending', 'Design systems'],
+  ['Personal lending', 'Content production'],
+  ['Clear rates and republish actions', 'Clear milestones and publishing actions'],
+  ['Compare all products', 'Explore all templates'],
+  ['features, costs, and eligibility', 'features, permissions, and workflows'],
+  ['Start comparing', 'Explore templates'],
+  ['metadata, account details, and summaries', 'metadata, project details, and summaries'],
+  ['Open an account', 'Create a workspace'],
+  ['Compare loans', 'Compare templates'],
+  ['Find a branch', 'Invite collaborators'],
+  ['Everyday banking', 'Team workflow'],
+  ['Flexible account', 'Flexible workspace'],
+  ['Digital account', 'Shared workspace'],
+  ['Everyday account', 'Starter workspace'],
+  ['Growth saver', 'Campaign library'],
+  ['Fixed term', 'Review archive'],
+  ['Legacy saver', 'Legacy project'],
+  ['money management', 'project coordination'],
+  ['financial confidence', 'creative confidence'],
+  ['financial goal', 'project goal'],
+  ['financial decisions', 'project decisions'],
+  ['rates and conditions', 'features and permissions'],
+  ['rates, fees, and next steps', 'status, permissions, and next steps'],
+  ['Cards and payments', 'Assets and publishing'],
+  ['Loans', 'Templates'],
+  ['Digital banking', 'Team workspace'],
+  ['Monthly income', 'Weekly capacity'],
+  ['verified net income', 'confirmed team capacity'],
+  ['AUD per month', 'hours per week'],
+  ['Verified monthly income', 'Available weekly capacity'],
+  ['At least 6,500 AUD', 'More than 30 hours'],
+  ['4,500–6,499 AUD', '15–30 hours'],
+  ['Transfer amount', 'Batch size'],
+  ['500 AUD step', 'five-item step'],
+  ['2500', '25'],
+  ['500', '5'],
+  ['10000', '100'],
+  [' AUD', ' items'],
+  ['Number of cards', 'Number of reviewers'],
+  [' cards', ' reviewers'],
+  ['statement', 'release'],
+  ['Statement', 'Release'],
+  ['accounts', 'projects'],
+  ['Accounts', 'Projects'],
+  ['banking', 'collaboration'],
+  ['Banking', 'Collaboration'],
+  ['payment', 'publish action'],
+  ['Payment', 'Publish action'],
+  ['transfer', 'publication'],
+  ['Transfer', 'Publication'],
+  ['identity check', 'workspace setup'],
+  ['Identity check', 'Workspace setup'],
+  ['Fee insights', 'Version insights'],
+  ['8 items', '8 seats'],
+  ['Income release', 'Team brief'],
+  ['Clear rates and republish actions', 'Clear milestones and publishing actions']
+];
+
+window.FOUNDRY_COMPONENTS.forEach((item) => {
+  neutralExampleCopy.forEach(([from, to]) => {
+    item.description = item.description.split(from).join(to);
+    item.preview = item.preview.split(from).join(to);
+  });
+});
+
 window.FOUNDRY_ICONS = window.FOUNDRY_ICON_REGISTRY || ['search','menu','close','check','chevron-down','chevron-right','arrow-right','arrow-left','plus','minus','info','warning','error','calendar','clock','location','phone','mail','user','users','lock','login','document','download','upload','edit','trash','chat','bank','card','home','globe','external','moon','sun','desktop','tablet','mobile','copy'];

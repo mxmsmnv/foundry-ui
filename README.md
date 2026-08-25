@@ -1,6 +1,6 @@
 # Foundry UI
 
-A portable, framework-agnostic component library for building product interfaces. The documentation follows the information architecture of Designsystemet: searchable navigation, isolated previews, copyable examples, API notes, and accessibility guidance.
+A portable, framework-agnostic component library for building product interfaces. Its neutral reference theme uses creative-workspace concepts—projects, assets, teams, reviews, and publishing—rather than banking or region-specific scenarios. The documentation follows the information architecture of Designsystemet: searchable navigation, isolated previews, copyable examples, API notes, and accessibility guidance.
 
 ## Technology assessment
 
@@ -18,7 +18,7 @@ Hanken Grotesk is bundled as the primary interface typeface in normal and italic
 
 ```html
 <link rel="stylesheet" href="src/foundry.css">
-<button class="fd-button fd-button--primary" type="button">Open an account</button>
+<button class="fd-button fd-button--primary" type="button">Create project</button>
 ```
 
 Use an icon:
@@ -38,7 +38,9 @@ npm run dev
 
 Then open `http://127.0.0.1:4173/`.
 
-The catalog contains 72 isolated pages. Component examples include copyable HTML/CSS, dark-surface testing, and desktop/tablet/mobile preview frames. Dedicated audit pages document the 12-column grid, responsive card compositions, and applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, selected, open, and closed states.
+The catalog contains 72 isolated pages. Component examples include copyable HTML/CSS, dark-surface testing, and desktop/tablet/mobile preview frames. Materially different arrangements are split into named sections instead of being compressed into one showcase. Dedicated pages document horizontal, vertical, compact, descriptive, and responsive variants alongside applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, indeterminate, selected, open, and closed states.
+
+The complete contribution standard lives in `AGENTS.md`. It requires working interactions, native semantics, separate variant sections, and visual QA at desktop, tablet, and phone widths before changes reach `main`.
 
 ## Package layout
 

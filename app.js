@@ -68,7 +68,7 @@ function pageHeader(kicker, title, lead) {
 
 function renderHome() {
   const starter = `<link rel="stylesheet" href="src/foundry.css">\n<script src="src/icon-sprite.js"></script>\n\n<button class="fd-button fd-button--primary">\n  Get started\n  <svg class="fd-icon" aria-hidden="true"><use href="#arrow-right"></use></svg>\n</button>`;
-  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.6.9</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
+  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.7.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system for creative collaboration products, with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
     <section class="home-metrics" aria-label="Library summary"><article><strong>${components.length}</strong><span>documented pages</span></article><article><strong>${window.FOUNDRY_ICONS.length}</strong><span>portable icons</span></article><article><strong>5</strong><span>accent presets</span></article><article><strong>0</strong><span>framework dependencies</span></article></section>
     <section class="docs-section home-journeys"><header class="docs-section__heading"><div><p class="docs-kicker">Choose a starting point</p><h2>Move from tokens to finished flows</h2></div><p>Each layer is isolated, copyable, and designed to work with the next.</p></header><div class="home-journey-grid"><a href="#/foundations"><span>01</span>${icon('art')}<div><strong>Foundation</strong><small>Colour, typography, grid, tokens, and states.</small></div>${icon('arrow-right')}</a><a href="#/components"><span>02</span>${icon('component')}<div><strong>Components</strong><small>Production controls with live variants and code.</small></div>${icon('arrow-right')}</a><a href="#/patterns"><span>03</span>${icon('layouts')}<div><strong>Patterns</strong><small>Reusable page and task compositions.</small></div>${icon('arrow-right')}</a></div></section>
     <section class="docs-section home-featured"><header class="docs-section__heading"><div><p class="docs-kicker">Production-ready</p><h2>Featured building blocks</h2></div><a class="fd-link" href="#/components">View all components ${icon('arrow-right')}</a></header><div class="component-gallery">${['button','field','table','card-variants','icons','video'].map((id) => tile(components.find((item) => item.id === id))).join('')}</div></section>
@@ -92,7 +92,7 @@ const tokenData = [
 ];
 
 function renderFoundations() {
-  main.innerHTML = `<article class="docs-page">${pageHeader('Foundations', 'Tokens and visual language', 'The live custom banking theme is normalized into portable, documented custom properties.')}
+  main.innerHTML = `<article class="docs-page">${pageHeader('Foundations', 'Tokens and visual language', 'A neutral creative-workspace theme expressed as portable, documented custom properties.')}
     <section class="docs-section"><h2>Colour</h2><div class="token-grid">${tokenData.map(([value,token]) => `<div class="token-card"><i style="--token:${value}"></i><div><code>${value}</code><code>${token}</code></div></div>`).join('')}</div></section>
     <section class="docs-section"><h2>Typography</h2><p>The portable type stack uses the bundled Hanken Grotesk variable font with native system-font fallbacks. Normal and italic styles cover weights from 100 to 900.</p><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Display · 56/64</p><p style="font-size:3rem;line-height:3.75rem">Heading 1 · 48/60</p><p style="font-size:2.375rem;line-height:3rem">Heading 2 · 38/48</p><p style="font-size:1.875rem;line-height:2.25rem">Heading 3 · 30/36</p><p style="font-size:1.125rem;line-height:1.75rem">Body XL · 18/28</p><p>Body · 16/24</p><p style="font-size:1.125rem;line-height:1.75rem;font-style:italic">Italic · Variable 100–900</p><p style="font-size:.875rem;line-height:1rem;font-weight:500">CAPTION · 14/16 · MEDIUM</p></div></section>
     <section class="docs-section"><h2>Geometry</h2><div class="fd-table-wrap"><table class="fd-table"><tbody><tr><th>Base spacing</th><td>4px</td></tr><tr><th>Common spacing</th><td>8 · 12 · 16 · 24 · 32 · 36 · 48 · 64px</td></tr><tr><th>Control radius</th><td>8px</td></tr><tr><th>Input height</th><td>48px</td></tr><tr><th>Button height</th><td>51px</td></tr><tr><th>Breakpoints</th><td>576 · 768 · 992 · 1200px</td></tr></tbody></table></div></section>
@@ -101,14 +101,14 @@ function renderFoundations() {
 
 function renderPatterns() {
   const patterns = [
-    ['Product discovery','Discovery','search',['Orient','Narrow','Compare','Choose'],'Guide customers from an open need to a confident product choice.'],
-    ['Application flow','Task','document',['Prepare','Enter','Review','Submit'],'Structure a multi-step task with progress, validation, and recovery.'],
-    ['Contact and support','Task','chat',['Identify','Describe','Route','Resolve'],'Collect enough context while keeping help visible and human.'],
-    ['Product detail','Content','card',['Promise','Benefits','Proof','Action'],'Balance commercial information, comparison data, and a clear next step.'],
-    ['Global navigation','Navigation','menu',['Service','Primary','Mega menu','Action'],'Expose a broad product architecture without overwhelming the first level.'],
+    ['Template discovery','Discovery','search',['Orient','Narrow','Compare','Choose'],'Guide teams from an open need to a confident template choice.'],
+    ['Project setup','Task','document',['Prepare','Configure','Review','Create'],'Structure a multi-step setup with progress, validation, and recovery.'],
+    ['Team support','Task','chat',['Identify','Describe','Route','Resolve'],'Collect enough context while keeping help visible and human.'],
+    ['Asset detail','Content','card',['Preview','Metadata','Activity','Action'],'Balance visual content, project data, and a clear next step.'],
+    ['Global navigation','Navigation','menu',['Workspace','Primary','Mega menu','Action'],'Expose a broad workspace architecture without overwhelming the first level.'],
     ['Search results','Discovery','search',['Query','Summary','Filter','Result'],'Keep the query, result count, filters, and pagination in one predictable flow.'],
-    ['Account overview','Content','bank',['Summary','Activity','Tasks','Support'],'Prioritise balances, recent activity, and high-frequency account actions.'],
-    ['Confirmation','Feedback','check',['Outcome','Reference','Next step','Receipt'],'Close a task with a durable result and clear follow-up options.']
+    ['Project overview','Content','layouts',['Summary','Activity','Tasks','Team'],'Prioritise progress, recent activity, and high-frequency project actions.'],
+    ['Confirmation','Feedback','check',['Outcome','Reference','Next step','Record'],'Close a task with a durable result and clear follow-up options.']
   ];
   const kinds = ['All','Discovery','Task','Content','Navigation','Feedback'];
   main.innerHTML = `<article class="docs-page docs-page--patterns"><section class="docs-hero docs-hero--compact"><div class="docs-hero__copy"><p class="docs-kicker">Composition library</p><h1>Patterns turn components into complete journeys.</h1><p class="docs-hero__lead">Reusable arrangements for discovery, tasks, content, navigation, and feedback—designed around user intent rather than individual screens.</p></div><div class="pattern-hero-flow" aria-label="Pattern composition"><span>Need</span>${icon('arrow-right')}<span>Context</span>${icon('arrow-right')}<span>Decision</span>${icon('arrow-right')}<strong>Outcome</strong></div></section>
@@ -140,7 +140,7 @@ function renderIcons(item) {
 }
 
 function renderTypography(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>Scale</h2><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Banking without friction</p><p style="font-size:2.375rem;line-height:3rem">Make confident financial decisions</p><p style="font-size:1.875rem;line-height:2.25rem">Products built around your goals</p><p style="font-size:1.125rem;line-height:1.75rem">Clear explanations help customers understand rates, fees, and next steps.</p><p>Body text is 16px with a 24px line height.</p></div></section>${accessibilitySection(item)}</article>`;
+  return `${componentHeader(item)}<section class="docs-section"><h2>Scale</h2><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Create without friction</p><p style="font-size:2.375rem;line-height:3rem">Move every project forward</p><p style="font-size:1.875rem;line-height:2.25rem">Tools built around your team</p><p style="font-size:1.125rem;line-height:1.75rem">Clear explanations help collaborators understand status, permissions, and next steps.</p><p>Body text is 16px with a 24px line height.</p></div></section>${accessibilitySection(item)}</article>`;
 }
 
 function renderTokens(item) {
@@ -212,6 +212,14 @@ function bindDocTabs() {
 
 function bindPreviewInteractions() {
   document.querySelectorAll('.example__viewport form').forEach((form) => form.addEventListener('submit', (event) => event.preventDefault()));
+  document.querySelectorAll('input[data-indeterminate]').forEach((input) => { input.indeterminate = true; });
+  document.querySelectorAll('[data-pagination-live]').forEach((pagination) => {
+    const pageButtons = [...pagination.querySelectorAll('button')].filter((button) => /^\d+$/.test(button.textContent.trim()));
+    pageButtons.forEach((button) => button.addEventListener('click', () => {
+      pageButtons.forEach((item) => item.removeAttribute('aria-current'));
+      button.setAttribute('aria-current', 'page');
+    }));
+  });
   document.querySelectorAll('.fd-table__sort').forEach((button) => button.addEventListener('click', () => {
     const heading = button.closest('th');
     const direction = heading.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
@@ -293,7 +301,7 @@ function bindPreviewInteractions() {
     wrap.querySelector('[data-table-density]')?.addEventListener('change', (event) => demoTable.classList.toggle('fd-table--compact', event.target.value === 'compact'));
     wrap.querySelector('[data-table-striped]')?.addEventListener('change', (event) => demoTable.classList.toggle('fd-table--striped', event.target.checked));
     wrap.querySelector('[data-table-highlight]')?.addEventListener('change', (event) => demoTable.classList.toggle('fd-table--highlight', event.target.checked));
-    wrap.querySelector('[data-table-column]')?.addEventListener('click', (event) => { const hidden = demoTable.classList.toggle('hide-rate'); event.currentTarget.setAttribute('aria-pressed', String(hidden)); event.currentTarget.lastChild.textContent = hidden ? ' Show rate' : ' Hide rate'; });
+    wrap.querySelector('[data-table-column]')?.addEventListener('click', (event) => { const hidden = demoTable.classList.toggle('hide-updated'); event.currentTarget.setAttribute('aria-pressed', String(hidden)); event.currentTarget.lastChild.textContent = hidden ? ' Show updated' : ' Hide updated'; });
     wrap.querySelector('[data-table-filter]')?.addEventListener('input', (event) => demoTable.querySelectorAll('tbody tr').forEach((row) => { row.hidden = !row.textContent.toLowerCase().includes(event.target.value.toLowerCase()); }));
   }
   document.querySelectorAll('[data-media-demo]').forEach((demo) => {

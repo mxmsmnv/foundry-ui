@@ -1,6 +1,7 @@
 import fs from 'node:fs';
+import vm from 'node:vm';
 
-const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-sprite.js', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png', 'assets/media/demo-audio.mp3', 'assets/media/demo-video.mp4'];
+const required = ['AGENTS.md', 'index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-sprite.js', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png', 'assets/media/demo-audio.mp3', 'assets/media/demo-video.mp4'];
 const missing = required.filter((file) => !fs.existsSync(new URL(`../${file}`, import.meta.url)));
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`);
@@ -23,6 +24,26 @@ const entries = [...components.matchAll(/group:\s*'([^']+)',\s*id:\s*'[^']+',\s*
 const missingCatalog = Object.entries(requiredCatalog).flatMap(([group, names]) => names.map((name) => `${group}:${name}`)).filter((entry) => !entries.includes(entry));
 if (missingCatalog.length) {
   console.error(`Missing requested catalog entries: ${missingCatalog.join(', ')}`);
+  process.exit(1);
+}
+
+const componentContext = vm.createContext({ window: { FOUNDRY_ICON_REGISTRY: [] } });
+vm.runInContext(components, componentContext);
+const renderedComponents = componentContext.window.FOUNDRY_COMPONENTS;
+const renderedCopy = renderedComponents.map((item) => `${item.description}\n${item.preview}`).join('\n');
+const prohibitedTheme = renderedCopy.match(/\b(?:bank(?:ing)?|loan(?:s)?|payment(?:s)?|interest|income|AUD|balance(?:s)?|financial|account(?:s)?|rate(?:s)?|fee(?:s)?|transfer(?:s|red)?|statement(?:s)?)\b/i);
+if (prohibitedTheme) {
+  console.error(`Found a prohibited banking-theme marker in rendered examples: ${prohibitedTheme[0]}`);
+  process.exit(1);
+}
+
+const requiredDemoSections = { checkbox: 4, radio: 4, switch: 3, 'pagination-control': 5, 'pattern-pagination': 5 };
+const incompleteExamples = Object.entries(requiredDemoSections).filter(([id, minimum]) => {
+  const item = renderedComponents.find((component) => component.id === id);
+  return !item || (item.preview.match(/<section class="fd-demo-section/g) || []).length < minimum;
+});
+if (incompleteExamples.length) {
+  console.error(`Required component variants are not separated into enough demo sections: ${incompleteExamples.map(([id]) => id).join(', ')}`);
   process.exit(1);
 }
 
