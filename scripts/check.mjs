@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-const required = ['AGENTS.md', 'index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-sprite.js', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png', 'assets/media/demo-audio.mp3', 'assets/media/demo-video.mp4'];
+const required = ['AGENTS.md', 'index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-sprite.js', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png', 'assets/media/demo-audio.mp3', 'assets/media/demo-video.mp4', 'assets/media/demo-video.webm', 'assets/media/demo-video-poster.png', 'assets/media/demo-video.vtt'];
 const missing = required.filter((file) => !fs.existsSync(new URL(`../${file}`, import.meta.url)));
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`);
@@ -64,6 +64,11 @@ if (tabsDocumentation?.examples?.length !== 6) {
 const listsDocumentation = renderedComponents.find((component) => component.id === 'lists');
 if (listsDocumentation?.examples?.length !== 9) {
   console.error(`Lists must render as nine independent, named documentation examples; found ${listsDocumentation?.examples?.length || 0}.`);
+  process.exit(1);
+}
+const videoDocumentation = renderedComponents.find((component) => component.id === 'video');
+if (!videoDocumentation?.preview.includes('type="video/mp4"') || !videoDocumentation.preview.includes('type="video/webm"') || !videoDocumentation.preview.includes('kind="captions"')) {
+  console.error('Video documentation must include local MP4 and WebM sources plus a captions track.');
   process.exit(1);
 }
 

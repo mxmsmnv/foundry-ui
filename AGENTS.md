@@ -18,6 +18,7 @@
 - Table documentation must include separate basic, configurable, row-state, responsive, sticky-header, empty/loading, comparison, and summary examples.
 - Tabs documentation must include separate standard, contained, icon/count, scrollable, subnavigation, and state-reference examples with keyboard interaction.
 - Lists documentation must include separate bulleted, ordered, checklist, action, activity, people, empty, loading, and state-reference examples.
+- Video examples must remain self-contained with local MP4 and WebM sources, a poster, captions, transcript, native controls, and direct-download fallback.
 
 ## Responsive quality bar
 

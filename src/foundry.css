@@ -969,6 +969,12 @@
 .fd-media-transcript summary { min-height: 2.75rem; align-items: center; padding-inline: 0; }
 .fd-media-transcript .fd-details__content { max-width: 52rem; padding-inline: 0; line-height: 1.6; }
 .fd-media-transcript .fd-details__content p { margin: 0; }
+.fd-media-compatibility { display: grid; width: min(100%, 54rem); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.fd-media-compatibility article { display: grid; min-width: 0; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: .75rem; padding: 1rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); }
+.fd-media-compatibility article > .fd-icon { color: var(--fd-color-success); }
+.fd-media-compatibility article > span { display: grid; gap: .2rem; }
+.fd-media-compatibility small { color: var(--fd-color-text-subtle); line-height: 1.45; }
+@container (max-width: 34rem) { .fd-media-compatibility { grid-template-columns: 1fr; } }
 .fd-media-card h3,
 .fd-media-card p { margin: .25rem 0 0; }
 .fd-media-source { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: end; gap: .75rem; }
