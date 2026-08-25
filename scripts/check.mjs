@@ -51,6 +51,11 @@ if (checkboxDocumentation.examples?.length !== 4 || checkboxDocumentation.exampl
   console.error('Checkbox variants must render as four independent, named documentation examples.');
   process.exit(1);
 }
+const tableDocumentation = renderedComponents.find((component) => component.id === 'table');
+if (tableDocumentation?.examples?.length !== 8) {
+  console.error(`Tables must render as eight independent, named documentation examples; found ${tableDocumentation?.examples?.length || 0}.`);
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];

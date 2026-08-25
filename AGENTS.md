@@ -15,6 +15,7 @@
 - Document every applicable state: default, hover (as a labelled static reference only), focus, active or pressed, selected or checked, indeterminate where relevant, loading, empty, error or invalid, read-only, and disabled.
 - Examples must use native semantics and working JavaScript where interaction changes state. Static state specimens must use the same public classes and attributes as the live component.
 - Provide multiple pagination variants, including numbered, compact previous/next, truncated/ellipsis, first/last-page disabled states, and a narrow-screen treatment.
+- Table documentation must include separate basic, configurable, row-state, responsive, sticky-header, empty/loading, comparison, and summary examples.
 
 ## Responsive quality bar
 
