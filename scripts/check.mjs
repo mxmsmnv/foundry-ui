@@ -9,6 +9,14 @@ if (missing.length) {
 }
 
 const components = fs.readFileSync(new URL('../components.js', import.meta.url), 'utf8');
+const overviewApp = fs.readFileSync(new URL('../app.js', import.meta.url), 'utf8');
+const overviewCss = fs.readFileSync(new URL('../docs.css', import.meta.url), 'utf8');
+const overviewRequirements = ['docs-overview-route', 'data-catalog-search', 'data-catalog-filter', 'data-catalog-count', 'data-pattern-filter'];
+const missingOverviewRequirements = overviewRequirements.filter((marker) => !overviewApp.includes(marker));
+if (missingOverviewRequirements.length || !overviewCss.includes('body.docs-overview-route .docs-sidebar')) {
+  console.error(`Missing overview or catalog UX contracts: ${missingOverviewRequirements.join(', ') || 'overview layout CSS'}`);
+  process.exit(1);
+}
 const ids = [...components.matchAll(/id:\s*'([^']+)'/g)].map((match) => match[1]);
 if (ids.length < 35 || new Set(ids).size !== ids.length) {
   console.error(`Expected at least 35 unique documented components; found ${ids.length}.`);
