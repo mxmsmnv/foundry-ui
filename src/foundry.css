@@ -519,12 +519,19 @@
 .fd-card__image { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
 .fd-card__topline { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 1rem; }
 .fd-card__meta { color: var(--fd-color-text-subtle); font-size: .8125rem; white-space: nowrap; }
+.fd-card__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: .25rem 0; padding: 1rem 0; border-top: 1px solid var(--fd-color-border-soft); border-bottom: 1px solid var(--fd-color-border-soft); }
+.fd-card__facts > div { display: grid; min-width: 0; gap: .25rem; }
+.fd-card__facts dt { color: var(--fd-color-text-subtle); font-size: .75rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+.fd-card__facts dd { margin: 0; font-weight: 700; line-height: 1.35; }
 .fd-card__price { display: block; margin-top: auto; font-size: 1.75rem; line-height: 1.15; }
 .fd-card__price small,
 .fd-card--price > strong small { color: var(--fd-color-text-subtle); font-size: .875rem; font-weight: 400; }
 .fd-card--product { display: grid; grid-template-rows: auto 1fr; min-width: 0; }
 .fd-card--interactive.fd-card--product { width: min(100%, 28rem); }
-.fd-card--product .fd-card__body { min-height: 18.5rem; align-content: start; }
+.fd-card--product .fd-card__body { min-height: 18.5rem; align-content: start; gap: 1rem; }
+.fd-card--product h3,
+.fd-card--product h4 { font-size: 1.375rem; line-height: 1.2; }
+.fd-card--product .fd-card__body > p { color: var(--fd-color-text-subtle); line-height: 1.55; }
 .fd-card--product .fd-button { align-self: end; margin-top: auto; }
 .fd-card__visual { display: grid; min-height: 12rem; place-items: center; align-content: center; gap: .75rem; color: var(--fd-accent-soft-contrast); background: var(--fd-accent-soft); }
 .fd-card__visual .fd-icon { width: 3rem; height: 3rem; }
@@ -583,7 +590,6 @@
 .fd-masthead__menu { display: none; }
 
 @container (max-width: 52rem) {
-  .fd-card-grid--three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fd-card-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fd-card--offer { grid-template-columns: 1fr; }
   .fd-card--offer .fd-card__image { min-height: 18rem; max-height: 24rem; }
@@ -591,6 +597,10 @@
   .fd-masthead__nav { display: none; }
   .fd-masthead__menu { display: grid; }
   .fd-masthead-demo { min-height: auto; }
+}
+
+@container (max-width: 44rem) {
+  .fd-card-grid--three { grid-template-columns: 1fr; }
 }
 
 @container (max-width: 34rem) {
@@ -604,6 +614,7 @@
   .fd-card--offer .fd-card__image { min-height: 14rem; }
   .fd-card--offer .fd-card__body { padding: 1.5rem; }
   .fd-card--offer h4 { font-size: 2rem; }
+  .fd-card__facts { grid-template-columns: 1fr; }
   .fd-masthead__service { display: none; }
   .fd-masthead__main { padding: .75rem 1rem; }
   .fd-masthead__actions .fd-button { display: none; }

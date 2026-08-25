@@ -116,13 +116,13 @@ updateComponent('masthead', {
 });
 
 updateComponent('card', {
-  description: 'A polished product card with media, metadata, pricing information, and a clear primary action.',
+  description: 'A polished workspace card with media, metadata, capability details, and a clear primary action.',
   preview: `<article class="fd-card fd-card--interactive fd-card--product"><img class="fd-card__image" src="assets/cards/product-card.png" alt=""><div class="fd-card__body"><div class="fd-card__topline"><span class="fd-card__category">Everyday product</span><span class="fd-badge fd-badge--success">Available</span></div><h3>Everyday Plus</h3><p>A flexible account with digital controls and no monthly fee when eligibility requirements are met.</p><dl class="fd-card__facts"><div><dt>Monthly fee</dt><dd>0 AUD</dd></div><div><dt>Card access</dt><dd>Included</dd></div></dl><a class="fd-button fd-button--primary" href="#">View product</a></div></article>`
 });
 
 updateComponent('card-variants', {
   name: 'Cards Catalog',
-  description: 'A dedicated production-ready catalog of product, article, offer, pricing, compact, horizontal, loading, selected, and interactive cards.',
+  description: 'A production-ready catalog of workspace, editorial, campaign, pricing, compact, horizontal, loading, selected, and interactive card patterns.',
   preview: `<div class="fd-component-sections fd-cards-catalog"><section class="fd-demo-section"><header><p class="fd-eyebrow">Products</p><h3>Product cards</h3><p>Structured for pricing, availability, core benefits, and a single next step.</p></header><div class="fd-card-grid fd-card-grid--three"><article class="fd-card fd-card--product"><img class="fd-card__image" src="assets/cards/product-card.png" alt=""><div class="fd-card__body"><div class="fd-card__topline"><span class="fd-card__category">Everyday</span><span class="fd-badge fd-badge--success">Available</span></div><h4>Everyday Plus</h4><p>Flexible tools for daily spending and saving.</p><strong class="fd-card__price">0 AUD <small>/ month</small></strong><a class="fd-button fd-button--primary" href="#">View product</a></div></article><article class="fd-card fd-card--product"><div class="fd-card__visual fd-card__visual--accent">${icon('card')}<span>Digital first</span></div><div class="fd-card__body"><div class="fd-card__topline"><span class="fd-card__category">Digital</span><span class="fd-badge">Popular</span></div><h4>Virtual Access</h4><p>Instant setup with smart controls and alerts.</p><strong class="fd-card__price">4 AUD <small>/ month</small></strong><a class="fd-button fd-button--secondary" href="#">Compare</a></div></article><article class="fd-card fd-card--product is-selected"><div class="fd-card__visual fd-card__visual--dark">${icon('bank')}<span>Premium</span></div><div class="fd-card__body"><div class="fd-card__topline"><span class="fd-card__category">Premium</span><span class="fd-badge fd-badge--success">Selected</span></div><h4>Signature</h4><p>Priority assistance and expanded limits.</p><strong class="fd-card__price">18 AUD <small>/ month</small></strong><a class="fd-button fd-button--primary" href="#">Continue</a></div></article></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Editorial</p><h3>Article cards</h3><p>Editorial hierarchy with category, reading time, title, summary, and author metadata.</p></header><div class="fd-card-grid fd-card-grid--two"><article class="fd-card fd-card--article"><img class="fd-card__image" src="assets/cards/article-card.png" alt=""><div class="fd-card__body"><div class="fd-card__topline"><span class="fd-card__category">Planning</span><span class="fd-card__meta">6 min read</span></div><h4>Five practical ways to organise your next financial goal</h4><p>Turn a broad intention into a plan you can review and adjust.</p><footer><span class="fd-card__avatar">AM</span><span><strong>Alex Morgan</strong><small>25 Aug 2026</small></span></footer></div></article><article class="fd-card fd-card--article fd-card--article-horizontal"><img class="fd-card__image" src="assets/cards/article-card.png" alt=""><div class="fd-card__body"><span class="fd-card__category">Guide</span><h4>Understanding recurring costs before you commit</h4><p>A concise checklist for comparing ongoing fees.</p><a class="fd-link" href="#">Read article ${icon('arrow-right')}</a></div></article></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Campaigns</p><h3>Offer cards</h3><p>Promotional cards keep the message focused without losing product context.</p></header><div class="fd-card fd-card--offer"><img class="fd-card__image" src="assets/cards/offer-card.png" alt=""><div class="fd-card__body"><span class="fd-badge">Limited offer</span><h4>Make the first six months count</h4><p>Access selected Plus features with no monthly fee during the introductory period.</p><div class="fd-card__actions"><a class="fd-button fd-button--primary" href="#">See the offer</a><a class="fd-link" href="#">View conditions</a></div></div></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Compact</p><h3>Task and comparison cards</h3></header><div class="fd-card-grid fd-card-grid--three"><a class="fd-card fd-card--task" href="#"><span class="fd-card__icon">${icon('search')}</span><span><strong>Find the right product</strong><small>Answer four quick questions</small></span>${icon('arrow-right')}</a><a class="fd-card fd-card--task" href="#"><span class="fd-card__icon">${icon('card')}</span><span><strong>Replace a card</strong><small>Review replacement options</small></span>${icon('arrow-right')}</a><article class="fd-card fd-card--price"><span class="fd-card__category">Plan</span><h4>Plus</h4><strong>8 AUD <small>/ month</small></strong><ul class="fd-list"><li>Advanced controls</li><li>Priority chat</li><li>Fee insights</li></ul><button class="fd-button fd-button--secondary">Choose Plus</button></article></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">States</p><h3>Interaction and loading states</h3></header><div class="fd-card-grid fd-card-grid--four"><article class="fd-card fd-card--state"><span>Default</span><strong>Ready to use</strong></article><article class="fd-card fd-card--state is-hover"><span>Hover</span><strong>Elevated surface</strong></article><article class="fd-card fd-card--state is-selected"><span>Selected</span><strong>Current choice</strong></article><article class="fd-card fd-card--state is-loading" aria-busy="true"><div class="fd-skeleton"></div><div class="fd-skeleton"></div><div class="fd-skeleton"></div></article></div></section></div>`
 });
 
@@ -158,7 +158,7 @@ updateComponent('toast', {
 
 updateComponent('numeric-stepper', {
   description: 'Working bounded numeric controls for currency and quantity with keyboard entry, increment logic, and live output.',
-  preview: `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Currency</p><h3>Transfer amount</h3><p>Buttons respect the minimum, maximum, and 500 AUD step.</p></header><div class="fd-numeric-stepper" data-stepper><button class="fd-icon-button" type="button" data-step="down" aria-label="Decrease amount">${icon('minus')}</button><label><span class="fd-visually-hidden">Transfer amount</span><input class="fd-input" type="number" min="500" max="10000" step="500" value="2500" data-suffix=" AUD"></label><button class="fd-icon-button" type="button" data-step="up" aria-label="Increase amount">${icon('plus')}</button><output data-stepper-output aria-live="polite"></output></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Quantity</p><h3>Number of cards</h3></header><div class="fd-numeric-stepper fd-numeric-stepper--compact" data-stepper><button class="fd-icon-button" type="button" data-step="down" aria-label="Decrease quantity">${icon('minus')}</button><label><span class="fd-visually-hidden">Number of cards</span><input class="fd-input" type="number" min="1" max="5" step="1" value="1" data-suffix=" cards"></label><button class="fd-icon-button" type="button" data-step="up" aria-label="Increase quantity">${icon('plus')}</button><output data-stepper-output aria-live="polite"></output></div></section></div>`
+  preview: `<div class="fd-component-sections"><section class="fd-demo-section"><header><p class="fd-eyebrow">Currency</p><h3>Transfer amount</h3><p>Buttons respect the minimum, maximum, and 500 AUD step.</p></header><div class="fd-numeric-stepper" data-stepper><button class="fd-icon-button" type="button" data-step="down" aria-label="Decrease amount">${icon('minus')}</button><label><span class="fd-visually-hidden">Transfer amount</span><input class="fd-input" type="number" min="500" max="10000" step="500" value="2500" data-suffix=" AUD"></label><button class="fd-icon-button" type="button" data-step="up" aria-label="Increase amount">${icon('plus')}</button><output data-stepper-output aria-live="polite"></output></div></section><section class="fd-demo-section"><header><p class="fd-eyebrow">Quantity</p><h3>Number of reviewers</h3></header><div class="fd-numeric-stepper fd-numeric-stepper--compact" data-stepper><button class="fd-icon-button" type="button" data-step="down" aria-label="Decrease quantity">${icon('minus')}</button><label><span class="fd-visually-hidden">Number of reviewers</span><input class="fd-input" type="number" min="1" max="5" step="1" value="1" data-suffix=" reviewers"></label><button class="fd-icon-button" type="button" data-step="up" aria-label="Increase quantity">${icon('plus')}</button><output data-stepper-output aria-live="polite"></output></div></section></div>`
 });
 
 updateComponent('date-input', {
@@ -305,8 +305,6 @@ const neutralExampleCopy = [
   ['500', '5'],
   ['10000', '100'],
   [' AUD', ' items'],
-  ['Number of cards', 'Number of reviewers'],
-  [' cards', ' reviewers'],
   ['statement', 'release'],
   ['Statement', 'Release'],
   ['accounts', 'projects'],
@@ -322,7 +320,28 @@ const neutralExampleCopy = [
   ['Fee insights', 'Version insights'],
   ['8 items', '8 seats'],
   ['Income release', 'Team brief'],
-  ['Clear rates and republish actions', 'Clear milestones and publishing actions']
+  ['Clear rates and republish actions', 'Clear milestones and publishing actions'],
+  ['<dd>0 items</dd>', '<dd>Workspace</dd>'],
+  ['0 items <small>/ month</small>', '12 seats <small>included</small>'],
+  ['4 items <small>/ month</small>', '4 workflows <small>included</small>'],
+  ['18 items <small>/ month</small>', 'Unlimited <small>projects</small>'],
+  ['8 seats <small>/ month</small>', '8 seats <small>/ workspace</small>'],
+  ['>View product</a>', '>Open template</a>'],
+  ['>Compare</a>', '>Compare templates</a>'],
+  ['Find the right product', 'Find the right template'],
+  ['Replace a card', 'Review an asset'],
+  ['Review replacement options', 'Compare current versions'],
+  ['<p class="fd-eyebrow">Products</p><h3>Product cards</h3>', '<p class="fd-eyebrow">Templates</p><h3>Workspace cards</h3>'],
+  ['Structured for pricing, availability, core benefits, and a single next step.', 'Structured for ownership, availability, core capabilities, and a single next step.'],
+  ['<span class="fd-card__category">Everyday</span>', '<span class="fd-card__category">Template</span>'],
+  ['Digital first', 'Workflow automation'],
+  ['<span class="fd-card__category">Digital</span>', '<span class="fd-card__category">Automation</span>'],
+  ['Virtual Access', 'Campaign hub'],
+  ['Instant setup with smart controls and alerts.', 'Shared planning with automations and review alerts.'],
+  ['<span>Premium</span>', '<span>Studio plan</span>'],
+  ['<span class="fd-card__category">Premium</span>', '<span class="fd-card__category">Scale</span>'],
+  ['<h4>Signature</h4>', '<h4>Studio workspace</h4>'],
+  ['Priority assistance and expanded limits.', 'Priority reviews, advanced permissions, and expanded storage.']
 ];
 
 window.FOUNDRY_COMPONENTS.forEach((item) => {

@@ -19,6 +19,7 @@
 ## Responsive quality bar
 
 - Every component and card composition must be usable at desktop, tablet, and phone widths without clipping, accidental overflow, overlapping controls, or unreadable content.
+- Keep a deliberate vertical rhythm between documentation sections. Dividers need generous space on both sides, headings must never sit against a preceding preview toolbar, and component interiors must use consistent gaps between media, text, metadata, and actions.
 - Prefer fluid grids, container queries, wrapping toolbars, and scrollable data regions. Never rely on a desktop-only fixed width.
 - Keep touch targets at least 44 by 44 CSS pixels where the compact visual treatment allows it.
 - Before publishing changes, run `npm run check` and visually inspect affected pages in light and dark preview themes at desktop, tablet, and mobile sizes.

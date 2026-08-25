@@ -137,6 +137,10 @@ if (!docsCss.includes('.example__toolbar [data-show-code]') || !docsCss.includes
   console.error('Example controls must keep a stable code-button width and apply dark mode to the complete example container.');
   process.exit(1);
 }
+if (!docsCss.includes('.component-example + .component-example') || !docsCss.includes('.component-example + #usage') || !css.includes('.fd-card__facts') || !css.includes('.fd-card__facts dd')) {
+  console.error('Documentation section rhythm and structured card facts must remain explicitly styled.');
+  process.exit(1);
+}
 const index = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 if (!docsCss.includes('html.theme-switching *') || !app.includes("themeRoot.classList.add('theme-switching')") || !app.includes("themeRoot.classList.toggle('fd-theme-dark')") || !index.includes("localStorage.getItem('foundry-theme')") || index.indexOf("localStorage.getItem('foundry-theme')") > index.indexOf('src/foundry.css')) {
   console.error('Global theme switching must be atomic and restore the saved theme before styles load.');

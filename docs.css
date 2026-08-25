@@ -43,24 +43,26 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .docs-tabs { display: flex; gap: 1.5rem; margin: 2rem 0; border-bottom: 1px solid var(--fd-color-border); }
 .docs-tabs button { padding: .75rem 0; color: var(--fd-color-text); border: 0; border-bottom: 3px solid transparent; background: transparent; cursor: pointer; }
 .docs-tabs button[aria-selected="true"] { border-bottom-color: var(--fd-color-link); font-weight: 500; }
-.docs-section { margin-top: 3.5rem; scroll-margin-top: 6rem; }
+.docs-section { margin-top: clamp(3.5rem, 6vw, 5rem); scroll-margin-top: 6rem; }
 .docs-section > h2 { margin-bottom: .5rem; font-size: 2rem; }
 .docs-section > p { max-width: 48rem; color: var(--fd-color-text-subtle); }
-.component-example__heading { display: grid; max-width: 54rem; gap: .5rem; }
+.component-example__heading { display: grid; max-width: 54rem; gap: .75rem; }
 .component-example__heading > * { margin: 0; }
+.component-example__heading .docs-kicker { margin: 0; }
 .component-example__heading h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.1; }
-.component-example__heading > p:last-child { color: var(--fd-color-text-subtle); font-size: 1.0625rem; }
-.component-example + .component-example { margin-top: 4.5rem; padding-top: .5rem; border-top: 1px solid var(--fd-color-border-soft); }
+.component-example__heading > p:last-child { max-width: 48rem; color: var(--fd-color-text-subtle); font-size: 1.0625rem; line-height: 1.6; }
+.component-example + .component-example { margin-top: clamp(4rem, 6vw, 5rem); padding-top: clamp(2.75rem, 4vw, 3.5rem); border-top: 1px solid var(--fd-color-border-soft); }
+.component-example + #usage { margin-top: clamp(4.5rem, 7vw, 6rem); padding-top: clamp(2.5rem, 4vw, 3.5rem); border-top: 1px solid var(--fd-color-border-soft); }
 .component-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
 .component-tile { display: grid; min-height: 9rem; align-content: space-between; padding: 1.25rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); text-decoration: none; }
 .component-tile span { color: var(--fd-color-text-subtle); font-size: .75rem; text-transform: uppercase; }
 .component-tile b { font-size: 1.125rem; }
-.example { overflow: hidden; margin-top: 1.5rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); }
+.example { overflow: hidden; margin-top: 2rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); }
 .example.fd-theme-dark,
 .example.fd-theme-dark .example__preview,
 .example.fd-theme-dark .example__toolbar { color: var(--fd-color-text); border-color: var(--fd-color-border-soft); background-color: var(--fd-color-background); }
-.example__preview { display: flex; min-height: 13rem; align-items: center; justify-content: center; padding: clamp(1rem, 3vw, 2.25rem); overflow: auto; background-image: radial-gradient(var(--fd-color-border-soft) .75px, transparent .75px); background-size: 1rem 1rem; }
-.example__viewport { container-type: inline-size; display: flex; width: 100%; min-width: 0; min-height: 10rem; align-items: center; justify-content: center; padding: clamp(1rem, 3vw, 2rem); border: 1px solid transparent; background: var(--fd-color-background); transition: width .2s; }
+.example__preview { display: flex; min-height: 13rem; align-items: center; justify-content: center; padding: clamp(1.25rem, 3vw, 2.5rem); overflow: auto; background-image: radial-gradient(var(--fd-color-border-soft) .75px, transparent .75px); background-size: 1rem 1rem; }
+.example__viewport { container-type: inline-size; display: flex; width: 100%; min-width: 0; min-height: 10rem; align-items: center; justify-content: center; padding: clamp(1.25rem, 3vw, 2.5rem); border: 1px solid transparent; background: var(--fd-color-background); transition: width .2s; }
 .example__viewport[data-preview-size="tablet"] { width: min(100%, 48rem); border-color: var(--fd-color-border-soft); box-shadow: var(--fd-shadow); }
 .example__viewport[data-preview-size="mobile"] { width: min(100%, 24.375rem); border-color: var(--fd-color-border-soft); box-shadow: var(--fd-shadow); }
 .example__viewport > .preview-stack { display: flex; width: min(100%, 44rem); flex-wrap: wrap; align-items: center; gap: 1rem; }
