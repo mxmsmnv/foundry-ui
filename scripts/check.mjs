@@ -47,11 +47,19 @@ if (regionalMarkers) {
 }
 
 const css = fs.readFileSync(new URL('../src/foundry.css', import.meta.url), 'utf8');
-const accentTokens = ['--fd-accent:', '--fd-accent-hover:', '--fd-accent-contrast:', '--fd-accent-soft:'];
+const accentTokens = ['--fd-accent:', '--fd-accent-hover:', '--fd-accent-contrast:', '--fd-accent-soft:', '--fd-accent-soft-contrast:'];
 const missingAccentTokens = accentTokens.filter((token) => !css.includes(token));
 if (missingAccentTokens.length || !components.includes('data-accent-picker')) {
   console.error(`Custom accent support is incomplete: ${missingAccentTokens.join(', ') || 'missing interactive picker'}.`);
   process.exit(1);
 }
 
-console.log(`Validated ${ids.length} isolated pages, ${iconIds.length} icons, the fd- namespace, regional neutrality, and custom accent support.`);
+const darkTokens = ['--fd-color-info-text:', '--fd-color-success-text:', '--fd-color-warning-text:', '--fd-color-danger-text:'];
+const darkTheme = css.slice(css.indexOf('.fd-theme-dark'), css.indexOf('.fd-icon'));
+const missingDarkTokens = darkTokens.filter((token) => !darkTheme.includes(token));
+if (missingDarkTokens.length) {
+  console.error(`Dark mode is missing semantic tokens: ${missingDarkTokens.join(', ')}.`);
+  process.exit(1);
+}
+
+console.log(`Validated ${ids.length} isolated pages, ${iconIds.length} icons, the fd- namespace, regional neutrality, custom accents, and semantic dark tokens.`);

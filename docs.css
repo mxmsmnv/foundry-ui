@@ -61,7 +61,7 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .code-panel__tabs button { padding: .5rem .75rem; color: rgba(255,255,255,.7); border: 0; border-bottom: 2px solid transparent; background: transparent; }
 .code-panel__tabs button.active { color: #fff; border-bottom-color: var(--fd-accent); }
 .code-panel pre { max-height: 28rem; margin: 0; padding: 1rem; overflow: auto; white-space: pre; font-size: .8125rem; line-height: 1.7; }
-.docs-note { padding: 1.25rem; border-left: .25rem solid var(--fd-color-link); background: var(--fd-color-info); color: #2b2d33; }
+.docs-note { padding: 1.25rem; color: var(--fd-color-info-text); border-left: .25rem solid var(--fd-color-link); background: var(--fd-color-info); }
 .guideline-list { display: grid; gap: 1rem; max-width: 50rem; padding: 0; list-style: none; }
 .guideline-list li { display: grid; grid-template-columns: 1.75rem 1fr; gap: .625rem; }
 .api-table code { white-space: nowrap; }

@@ -121,7 +121,7 @@ function renderTypography(item) {
 }
 
 function renderTokens(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
+  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
 }
 
 function componentHeader(item) {
@@ -135,7 +135,7 @@ function accessibilitySection(item) {
 function renderComponent(item) {
   if (item.id === 'icons') { main.innerHTML = renderIcons(item); bindIconCopy(); return; }
   if (item.id === 'typography') { main.innerHTML = renderTypography(item); bindDocTabs(); return; }
-  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); bindDocTabs(); return; }
+  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); bindDocTabs(); return; }
   const html = prettify(item.preview);
   const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
   main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Inspect every component in desktop, tablet, and mobile frames, then reveal and copy its implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-pressed="true" data-preview-size-button="desktop">D</button><button aria-pressed="false" data-preview-size-button="tablet">T</button><button aria-pressed="false" data-preview-size-button="mobile">M</button></div><button class="fd-button fd-button--tertiary fd-button--small" data-invert>${icon('moon')} Invert</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
@@ -200,6 +200,7 @@ function bindPreviewInteractions() {
     root.style.setProperty('--fd-accent-hover', mix(0, .14));
     root.style.setProperty('--fd-accent-contrast', luminance > .58 ? '#2B2D33' : '#FFFFFF');
     root.style.setProperty('--fd-accent-soft', mix(255, .82));
+    root.style.setProperty('--fd-accent-soft-contrast', '#2B2D33');
     document.querySelector('[data-accent-picker]').value = value;
     document.querySelector('[data-accent-value]').value = value;
   };

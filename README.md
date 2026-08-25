@@ -10,7 +10,7 @@ This repository intentionally does not reproduce that dependency stack. The extr
 
 All public classes and CSS custom properties use the Foundry Design namespace: `fd-` for classes and `--fd-` for tokens.
 
-The default yellow accent is optional. Choose a bundled palette class such as `fd-accent--blue` or set `--fd-accent`, `--fd-accent-hover`, `--fd-accent-contrast`, and `--fd-accent-soft` to any accessible palette at the application or component level.
+The default yellow accent is optional. Choose a bundled palette class such as `fd-accent--blue` or set `--fd-accent`, `--fd-accent-hover`, `--fd-accent-contrast`, `--fd-accent-soft`, and `--fd-accent-soft-contrast` to any accessible palette at the application or component level.
 
 ## Quick start
 
