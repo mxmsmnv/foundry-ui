@@ -47,7 +47,10 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .component-tile { display: grid; min-height: 9rem; align-content: space-between; padding: 1.25rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); text-decoration: none; }
 .component-tile span { color: var(--fd-color-text-subtle); font-size: .75rem; text-transform: uppercase; }
 .component-tile b { font-size: 1.125rem; }
-.example { overflow: hidden; margin-top: 1.5rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); }
+.example { overflow: hidden; margin-top: 1.5rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); transition: color .15s, border-color .15s, background-color .15s; }
+.example.fd-theme-dark,
+.example.fd-theme-dark .example__preview,
+.example.fd-theme-dark .example__toolbar { color: var(--fd-color-text); border-color: var(--fd-color-border-soft); background-color: var(--fd-color-background); }
 .example__preview { display: flex; min-height: 13rem; align-items: center; justify-content: center; padding: clamp(1rem, 3vw, 2.25rem); overflow: auto; background-image: radial-gradient(var(--fd-color-border-soft) .75px, transparent .75px); background-size: 1rem 1rem; }
 .example__viewport { container-type: inline-size; display: flex; width: 100%; min-width: 0; min-height: 10rem; align-items: center; justify-content: center; padding: clamp(1rem, 3vw, 2rem); border: 1px solid transparent; background: var(--fd-color-background); transition: width .2s; }
 .example__viewport[data-preview-size="tablet"] { width: min(100%, 48rem); border-color: var(--fd-color-border-soft); box-shadow: var(--fd-shadow); }
@@ -55,6 +58,7 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .example__viewport > .preview-stack { display: flex; width: min(100%, 44rem); flex-wrap: wrap; align-items: center; gap: 1rem; }
 .example__toolbar { display: flex; min-height: 3.5rem; align-items: center; gap: .5rem; padding: .5rem .75rem; border-top: 1px solid var(--fd-color-border-soft); }
 .example__toolbar strong { font-size: .875rem; }
+.example__toolbar [data-show-code] { width: 8.5rem; min-width: 8.5rem; flex: 0 0 8.5rem; justify-content: center; white-space: nowrap; }
 .preview-sizes { display: flex; margin-left: auto; overflow: hidden; border: 1px solid var(--fd-color-border); border-radius: .375rem; }
 .preview-sizes button { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; color: var(--fd-color-text); border: 0; border-right: 1px solid var(--fd-color-border); background: var(--fd-color-background); cursor: pointer; }
 .preview-sizes .fd-icon { width: 1rem; height: 1rem; }

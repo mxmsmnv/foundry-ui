@@ -95,6 +95,12 @@ if (regionalMarkers) {
 }
 
 const css = fs.readFileSync(new URL('../src/foundry.css', import.meta.url), 'utf8');
+const docsCss = fs.readFileSync(new URL('../docs.css', import.meta.url), 'utf8');
+const app = fs.readFileSync(new URL('../app.js', import.meta.url), 'utf8');
+if (!docsCss.includes('.example__toolbar [data-show-code]') || !docsCss.includes('.example.fd-theme-dark') || !app.includes("root.classList.toggle('fd-theme-dark')")) {
+  console.error('Example controls must keep a stable code-button width and apply dark mode to the complete example container.');
+  process.exit(1);
+}
 const accentTokens = ['--fd-accent:', '--fd-accent-hover:', '--fd-accent-contrast:', '--fd-accent-soft:', '--fd-accent-soft-contrast:'];
 const missingAccentTokens = accentTokens.filter((token) => !css.includes(token));
 if (missingAccentTokens.length || !components.includes('data-accent-picker')) {
