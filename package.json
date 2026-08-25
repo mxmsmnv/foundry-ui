@@ -1,6 +1,6 @@
 {
   "name": "@mxmsmnv/foundry-ui",
-  "version": "0.23.3",
+  "version": "0.23.4",
   "private": true,
   "description": "Portable, framework-agnostic UI system with responsive patterns and 963 SVG icons",
   "files": ["src", "tokens.json", "README.md"],

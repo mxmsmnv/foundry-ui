@@ -335,7 +335,11 @@ body.docs-overview-route #main { margin-left: 0; }
 body.docs-overview-route .docs-header { grid-template-columns: minmax(14rem, 1fr) auto minmax(14rem, 1fr); }
 .docs-page--landing,
 .docs-page--patterns,
-.docs-page--about { width: min(100%, 96rem); margin-inline: auto; padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 4vw, 4rem) clamp(4rem, 8vw, 7rem); }
+.docs-page--about,
+.docs-page--catalog { width: 100%; max-width: none; margin-inline: 0; }
+.docs-page--landing,
+.docs-page--patterns,
+.docs-page--about { padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 4vw, 4rem) clamp(4rem, 8vw, 7rem); }
 .docs-page--landing .docs-section,
 .docs-page--patterns .docs-section,
 .docs-page--about .docs-section { margin-top: clamp(4.5rem, 8vw, 7rem); }

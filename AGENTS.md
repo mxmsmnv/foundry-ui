@@ -33,6 +33,7 @@
 
 - Every component and card composition must be usable at desktop, tablet, and phone widths without clipping, accidental overflow, overlapping controls, or unreadable content.
 - Home, Patterns, and About are overview experiences: keep the component sidebar out of their desktop layout, provide an immediate primary action, and keep essential content visible within the first viewport. The Components catalog must retain working text search, group filters, live result counts, and a useful empty state.
+- Home, Components catalog, Patterns, and About must use the full available page width. Do not reintroduce a centered max-width wrapper around these overview experiences; preserve only their responsive page gutters.
 - Keep search inside the Components catalog and component sidebar, with `/` as the global keyboard shortcut. Do not add a Search button to the global header.
 - Fixed-height controls inside flex layouts must opt out of shrinking. In particular, the sidebar search must preserve the same height, typography, and alignment before, during, and after filtering the navigation.
 - Keep a deliberate vertical rhythm between documentation sections. Dividers need generous space on both sides, headings must never sit against a preceding preview toolbar, and component interiors must use consistent gaps between media, text, metadata, and actions.
