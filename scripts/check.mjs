@@ -86,6 +86,11 @@ if (iconButtonDocumentation?.examples?.length !== 10 || !iconButtonDocumentation
   console.error('Icon buttons must render as ten independent examples with working toggle and toolbar hooks.');
   process.exit(1);
 }
+const toggleGroupDocumentation = renderedComponents.find((component) => component.id === 'toggle-group');
+if (toggleGroupDocumentation?.examples?.length !== 9 || !toggleGroupDocumentation.preview.includes('data-toggle-group') || !toggleGroupDocumentation.preview.includes('data-toggle-multiple')) {
+  console.error('Toggle groups must render as nine independent examples with single- and multiple-selection hooks.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];
