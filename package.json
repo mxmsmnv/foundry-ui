@@ -1,6 +1,6 @@
 {
   "name": "@mxmsmnv/foundry-ui",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "private": true,
   "description": "Portable, framework-agnostic component library with isolated patterns and SVG icons",
   "files": ["src", "tokens.json", "README.md"],
