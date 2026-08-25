@@ -25,3 +25,14 @@
 
 - Final work belongs on `main`; do not open pull requests for routine design-system changes.
 - Keep source assets local and portable. Do not add framework, CDN, or runtime dependencies unless the task explicitly requires them.
+- Keep the repository root deployable as a static GitHub Pages site. Use relative asset paths and preserve direct `file://` support.
+
+## Reference-driven product workflow
+
+- Treat this repository as the canonical source of reusable interface decisions when a user supplies a design-system or website reference for a product.
+- First map the reference to existing Foundry UI tokens, components, and patterns. Build product screens from those public primitives instead of adding one-off copies.
+- When the product requires a missing component, variant, interaction, or state, implement it in Foundry UI and add an isolated, copyable documentation example as part of the same change.
+- Translate reference-specific visual decisions into neutral tokens and reusable behavior. Do not copy third-party brand names, proprietary artwork, region-specific content, or product-specific data into the public system.
+- Keep product customization token-driven. A product may override accents, typography, density, radii, and other published tokens without forking component internals.
+- Before committing, run `npm run check` and visually verify affected documentation and product views in light and dark themes at desktop, tablet, and phone widths.
+- Commit reusable design-system improvements together with the product work that requires them so the product and its source system do not drift.

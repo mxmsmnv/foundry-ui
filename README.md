@@ -1,46 +1,80 @@
 # Foundry UI
 
-A portable, framework-agnostic component library for building product interfaces. Its neutral reference theme uses creative-workspace concepts—projects, assets, teams, reviews, and publishing—rather than banking or region-specific scenarios. The documentation follows the information architecture of Designsystemet: searchable navigation, isolated previews, copyable examples, API notes, and accessibility guidance.
+Foundry UI is a portable, framework-agnostic UI system for collaborative digital products. It includes production-ready components, responsive patterns, copyable examples, design tokens, dark-mode previews, and a searchable registry of 963 dependency-free SVG icons.
 
-## Technology assessment
+[Open the live documentation](https://mxmsmnv.github.io/foundry-ui/) · [View the repository](https://github.com/mxmsmnv/foundry-ui)
 
-The audited source interface is **not Tailwind-based**. It runs on **Liferay Portal** and uses Liferay's **Clay/Bootstrap-derived CSS layer**, plus a large custom theme, design tokens, and a proprietary icon font. Older pages still expose legacy Liferay/Bootstrap and Font Awesome patterns. Embedded calculators are separate iframe applications with their own styles.
+## Test it
 
-This repository intentionally does not reproduce that dependency stack. The extracted library is built with semantic HTML, portable CSS custom properties, minimal vanilla JavaScript, and an accessible dependency-free SVG icon sprite. It can be used directly or wrapped by React, Vue, Angular, Web Components, Twig, Blade, or any CMS.
+The hosted documentation is the fastest way to explore the system. Search for a component, switch between desktop, tablet, and phone previews, toggle the preview theme, interact with the controls, and copy the example code.
 
-All public classes and CSS custom properties use the Foundry Design namespace: `fd-` for classes and `--fd-` for tokens.
-
-The default teal accent is optional. Choose a bundled palette class such as `fd-accent--blue` or set `--fd-accent`, `--fd-accent-hover`, `--fd-accent-contrast`, `--fd-accent-soft`, and `--fd-accent-soft-contrast` to any accessible palette at the application or component level.
-
-Hanken Grotesk is bundled as the primary interface typeface in normal and italic variable WOFF2 files. Native system fonts remain available as fallbacks.
-
-## Quick start
-
-```html
-<link rel="stylesheet" href="src/foundry.css">
-<button class="fd-button fd-button--primary" type="button">Create project</button>
-```
-
-Use an icon:
-
-```html
-<script src="src/icon-sprite.js"></script>
-<svg class="fd-icon" aria-hidden="true"><use href="#search"></use></svg>
-```
-
-The inline sprite runtime keeps icon previews working when `index.html` is opened directly through `file://`. The standalone `src/icons.svg` remains available for server-hosted and bundled applications.
-
-Run the documentation locally:
+To run the same documentation locally:
 
 ```bash
+git clone https://github.com/mxmsmnv/foundry-ui.git
+cd foundry-ui
 npm run dev
 ```
 
-Then open `http://127.0.0.1:4173/`.
+Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/). No install or build step is required. The documentation also supports direct `file://` access through `index.html`.
 
-The catalog contains 72 isolated pages. Component examples include copyable HTML/CSS, dark-surface testing, and desktop/tablet/mobile preview frames. Materially different arrangements are split into named sections instead of being compressed into one showcase. Dedicated pages document horizontal, vertical, compact, descriptive, and responsive variants alongside applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, indeterminate, selected, open, and closed states.
+Validate the catalog after making changes:
 
-The complete contribution standard lives in `AGENTS.md`. It requires working interactions, native semantics, separate variant sections, and visual QA at desktop, tablet, and phone widths before changes reach `main`.
+```bash
+npm run check
+```
+
+## Use it in a project
+
+Copy `src/` and `tokens.json` into your project, then load the stylesheet and optional icon runtime:
+
+```html
+<link rel="stylesheet" href="src/foundry.css">
+<script src="src/icon-sprite.js"></script>
+
+<button class="fd-button fd-button--primary" type="button">
+  <svg class="fd-icon" aria-hidden="true"><use href="#plus"></use></svg>
+  Create project
+</button>
+```
+
+The inline sprite runtime works on local files and hosted applications. Bundlers and server-hosted projects can use `src/icons.svg` directly instead.
+
+Foundry UI does not require Tailwind, Bootstrap, React, or another runtime. It uses semantic HTML, portable CSS custom properties, minimal vanilla JavaScript, local Hanken Grotesk webfonts, and an accessible SVG sprite. Components can be wrapped by React, Vue, Angular, Web Components, Twig, Blade, or a CMS without changing their visual contract.
+
+## Customize it
+
+Public classes use the `fd-` namespace and tokens use `--fd-`. Override the accent at the application, section, or component level:
+
+```css
+:root {
+  --fd-accent: #4f46e5;
+  --fd-accent-hover: #4338ca;
+  --fd-accent-contrast: #ffffff;
+  --fd-accent-soft: #eef2ff;
+  --fd-accent-soft-contrast: #312e81;
+}
+```
+
+Bundled palette classes such as `fd-accent--blue` are also available. Keep custom color pairs accessible in light and dark contexts.
+
+## Reference-to-product workflow
+
+This repository is the canonical source for both the component library and its documentation. When using a visual reference to build a product:
+
+1. Map the reference to existing Foundry UI tokens, components, and patterns.
+2. Build the product with those public primitives instead of one-off styles.
+3. When a required primitive or state is missing, add it to Foundry UI and document it with an isolated, copyable example.
+4. Verify the affected component and product views in light and dark themes at desktop, tablet, and phone widths.
+5. Run `npm run check`, then commit the reusable system improvement together with the product-facing change.
+
+[`AGENTS.md`](AGENTS.md) is the machine-readable implementation contract for coding agents. It defines the content model, state coverage, responsive quality bar, and main-branch workflow that future changes must preserve.
+
+## Documentation coverage
+
+The catalog contains 72 isolated pages with named examples instead of compressed showcase panels. It covers horizontal, vertical, compact, descriptive, and responsive variants alongside applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, indeterminate, selected, open, and closed states.
+
+The neutral reference theme uses projects, assets, teams, reviews, and publishing rather than banking or region-specific scenarios. All public documentation and examples are in English.
 
 ## Package layout
 
@@ -51,15 +85,14 @@ src/icon-sprite.js    Inline sprite runtime for file:// compatibility
 src/icon-registry.js  Searchable icon-name registry
 src/fonts/            Hanken Grotesk webfonts and SIL OFL 1.1 license
 components.js         Documentation registry and copyable examples
-app.js                Documentation UI only
-docs.css              Documentation shell only
+app.js                Documentation UI and interactive previews
+docs.css              Documentation shell styles
 tokens.json           Machine-readable token export
+AGENTS.md              Agent implementation and QA contract
 ```
 
-## Source audit
+## Origin and licensing
 
-Captured on 25 August 2026 from several public landing, search, contact, form, product, and calculator contexts. Desktop measurements were verified at 1440 px and mobile behavior at 390 px. The package preserves audited visual metrics and state behavior while remaining a normalized implementation reference rather than a byte-for-byte copy of production code.
+The original interface audit found a Liferay Portal implementation using a Clay/Bootstrap-derived layer, custom theme styles, design tokens, and a proprietary icon font. Foundry UI deliberately replaces that dependency stack with portable primitives and newly drawn interface glyphs.
 
-## Licensing note
-
-No open-source license is granted for Foundry UI itself. Original source assets remain the property of their respective owners. The bundled Hanken Grotesk font files are separately licensed under the SIL Open Font License 1.1; see `src/fonts/HANKEN-GROTESK-OFL.txt`. Foundry UI uses a schematic wordmark and newly drawn interface glyphs.
+The repository is publicly readable but Foundry UI is currently `UNLICENSED`; public access does not grant an open-source license. The bundled Hanken Grotesk files are separately licensed under the SIL Open Font License 1.1 in `src/fonts/HANKEN-GROTESK-OFL.txt`.
