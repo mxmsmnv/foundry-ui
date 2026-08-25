@@ -11,6 +11,7 @@
 
 - Treat every documented component as a production component, not a static visual sample.
 - Split materially different variants into separate named documentation examples, each with its own preview surface, responsive controls, theme toggle, and copyable code. In particular, horizontal, vertical, compact, descriptive, and responsive arrangements must not be combined into one preview card.
+- A component preview must never contain multiple top-level demo sections inside one documentation example. Convert every top-level section into an entry in the component's `examples` collection and keep the automated catalog check passing.
 - Document every applicable state: default, hover (as a labelled static reference only), focus, active or pressed, selected or checked, indeterminate where relevant, loading, empty, error or invalid, read-only, and disabled.
 - Examples must use native semantics and working JavaScript where interaction changes state. Static state specimens must use the same public classes and attributes as the live component.
 - Provide multiple pagination variants, including numbered, compact previous/next, truncated/ellipsis, first/last-page disabled states, and a narrow-screen treatment.

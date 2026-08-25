@@ -72,7 +72,7 @@ This repository is the canonical source for both the component library and its d
 
 ## Documentation coverage
 
-The catalog contains 72 isolated pages with named examples instead of compressed showcase panels. It covers horizontal, vertical, compact, descriptive, and responsive variants alongside applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, indeterminate, selected, open, and closed states.
+The catalog contains 72 pages and more than 100 independent, named previews instead of compressed showcase panels. Each materially different variant has its own responsive controls, theme toggle, and copyable code. The catalog covers horizontal, vertical, compact, descriptive, and responsive variants alongside applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, indeterminate, selected, open, and closed states.
 
 The neutral reference theme uses projects, assets, teams, reviews, and publishing rather than banking or region-specific scenarios. All public documentation and examples are in English.
 

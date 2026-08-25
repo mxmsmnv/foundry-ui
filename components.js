@@ -332,17 +332,54 @@ window.FOUNDRY_COMPONENTS.forEach((item) => {
   });
 });
 
-const checkboxComponent = window.FOUNDRY_COMPONENTS.find((item) => item.id === 'checkbox');
-const checkboxSections = [...checkboxComponent.preview.matchAll(/<section class="fd-demo-section">.*?<\/section>/g)].map((match) => match[0]);
-const checkboxExampleMeta = [
-  { slug: 'horizontal', title: 'Horizontal group', description: 'Short independent choices arranged in a responsive wrapping row.' },
-  { slug: 'vertical', title: 'Vertical group', description: 'Descriptive choices stacked for scanning and narrow layouts.' },
-  { slug: 'general', title: 'General examples', description: 'A parent selection with checked, unchecked, and indeterminate child states.' },
-  { slug: 'states', title: 'State reference', description: 'Unchecked, checked, indeterminate, focus, error, and disabled specimens.' }
-];
-checkboxComponent.examples = checkboxExampleMeta.map((example, index) => ({
-  ...example,
-  preview: `<div class="fd-component-sections">${checkboxSections[index]}</div>`
-}));
+function topLevelPreviewSections(markup) {
+  const sections = [];
+  const tags = /<\/?section\b[^>]*>/g;
+  let depth = 0;
+  let start = -1;
+  let match;
+  while ((match = tags.exec(markup))) {
+    const closing = match[0].startsWith('</');
+    if (!closing) {
+      if (depth === 0) start = match.index;
+      depth += 1;
+    } else if (depth > 0) {
+      depth -= 1;
+      if (depth === 0 && start >= 0) {
+        sections.push(markup.slice(start, tags.lastIndex));
+        start = -1;
+      }
+    }
+  }
+  return sections;
+}
+
+function plainText(markup) {
+  return markup.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+}
+
+function splitComponentExamples(item) {
+  const sections = topLevelPreviewSections(item.preview);
+  if (sections.length < 2) return;
+  const usedSlugs = new Set();
+  item.examples = sections.map((preview, index) => {
+    const heading = preview.match(/<h[2-4][^>]*>([\s\S]*?)<\/h[2-4]>/);
+    const eyebrowLabels = [...preview.matchAll(/<p class="fd-eyebrow">([\s\S]*?)<\/p>/g)].map((match) => plainText(match[1]));
+    const paragraphs = [...preview.matchAll(/<p(?![^>]*class="fd-eyebrow")[^>]*>([\s\S]*?)<\/p>/g)];
+    const title = eyebrowLabels.length ? eyebrowLabels.join(' and ') : plainText(heading?.[1] || `${item.name} example`);
+    const description = plainText(paragraphs[0]?.[1] || `An isolated ${title.toLowerCase()} preview with its own responsive, theme, and code controls.`);
+    const baseSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || `example-${index + 1}`;
+    let slug = baseSlug;
+    let suffix = 2;
+    while (usedSlugs.has(slug)) {
+      slug = `${baseSlug}-${suffix}`;
+      suffix += 1;
+    }
+    usedSlugs.add(slug);
+    return { slug, title, description, preview: `<div class="fd-component-sections">${preview}</div>` };
+  });
+}
+
+window.FOUNDRY_COMPONENTS.forEach(splitComponentExamples);
 
 window.FOUNDRY_ICONS = window.FOUNDRY_ICON_REGISTRY || ['search','menu','close','check','chevron-down','chevron-right','arrow-right','arrow-left','plus','minus','info','warning','error','calendar','clock','location','phone','mail','user','users','lock','login','document','download','upload','edit','trash','chat','bank','card','home','globe','external','moon','sun','desktop','tablet','mobile','copy'];

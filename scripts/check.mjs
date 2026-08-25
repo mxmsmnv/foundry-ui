@@ -52,6 +52,42 @@ if (checkboxDocumentation.examples?.length !== 4 || checkboxDocumentation.exampl
   process.exit(1);
 }
 
+function topLevelPreviewSections(markup) {
+  const sections = [];
+  const tags = /<\/?section\b[^>]*>/g;
+  let depth = 0;
+  let start = -1;
+  let match;
+  while ((match = tags.exec(markup))) {
+    const closing = match[0].startsWith('</');
+    if (!closing) {
+      if (depth === 0) start = match.index;
+      depth += 1;
+    } else if (depth > 0) {
+      depth -= 1;
+      if (depth === 0 && start >= 0) {
+        sections.push(markup.slice(start, tags.lastIndex));
+        start = -1;
+      }
+    }
+  }
+  return sections;
+}
+
+const unsplitComponentExamples = renderedComponents.filter((item) => {
+  const sectionCount = topLevelPreviewSections(item.preview).length;
+  return sectionCount > 1 && item.examples?.length !== sectionCount;
+});
+if (unsplitComponentExamples.length) {
+  console.error(`Components with multiple preview sections must expose matching independent examples: ${unsplitComponentExamples.map((item) => item.id).join(', ')}.`);
+  process.exit(1);
+}
+const incompleteNamedExamples = renderedComponents.filter((item) => item.examples?.some((example) => !example.slug || !example.title || !example.description || !example.preview));
+if (incompleteNamedExamples.length) {
+  console.error(`Every independent example needs a slug, title, description, and preview: ${incompleteNamedExamples.map((item) => item.id).join(', ')}.`);
+  process.exit(1);
+}
+
 const icons = fs.readFileSync(new URL('../src/icons.svg', import.meta.url), 'utf8');
 const iconIds = [...icons.matchAll(/<symbol id="([^"]+)"/g)].map((match) => match[1]);
 if (iconIds.length < 900 || new Set(iconIds).size !== iconIds.length) {
@@ -121,4 +157,5 @@ if (missingDarkTokens.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${ids.length} isolated pages, ${iconIds.length} icons, the fd- namespace, regional neutrality, custom accents, and semantic dark tokens.`);
+const independentExampleCount = renderedComponents.reduce((total, item) => total + (item.examples?.length || 1), 0);
+console.log(`Validated ${ids.length} pages, ${independentExampleCount} independent examples, ${iconIds.length} icons, the fd- namespace, regional neutrality, custom accents, and semantic dark tokens.`);
