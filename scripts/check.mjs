@@ -81,6 +81,11 @@ if (carouselDocumentation?.examples?.length !== 4 || !carouselDocumentation.prev
   console.error('Dotnav and slidenav must render as four independent examples with working carousel hooks.');
   process.exit(1);
 }
+const iconButtonDocumentation = renderedComponents.find((component) => component.id === 'icon-button');
+if (iconButtonDocumentation?.examples?.length !== 10 || !iconButtonDocumentation.preview.includes('data-icon-toggle') || !iconButtonDocumentation.preview.includes('data-icon-toolbar')) {
+  console.error('Icon buttons must render as ten independent examples with working toggle and toolbar hooks.');
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];

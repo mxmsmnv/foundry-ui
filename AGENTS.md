@@ -21,6 +21,7 @@
 - Video examples must remain self-contained with local MP4 and WebM sources, a poster, captions, transcript, native controls, and direct-download fallback.
 - Heading documentation must isolate scale overview, display, page, section, subsection, module, compact, and label-heading guidance with exact type metrics and semantic usage.
 - Dotnav and slidenav examples must be connected to real slides with clickable controls, keyboard and swipe support, live position text, current-dot state, and finite boundary states where applicable.
+- Icon button documentation must isolate anatomy, visual variants, sizes, shapes, toggles, indicators, toolbar, tooltip, floating-action, and state-reference examples. Toggle state and toolbar keyboard mechanics must work.
 
 ## Responsive quality bar
 
