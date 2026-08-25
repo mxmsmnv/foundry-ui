@@ -13,7 +13,7 @@ const overviewApp = fs.readFileSync(new URL('../app.js', import.meta.url), 'utf8
 const overviewCss = fs.readFileSync(new URL('../docs.css', import.meta.url), 'utf8');
 const overviewRequirements = ['docs-overview-route', 'data-catalog-search', 'data-catalog-filter', 'data-catalog-count', 'data-pattern-filter'];
 const missingOverviewRequirements = overviewRequirements.filter((marker) => !overviewApp.includes(marker));
-if (missingOverviewRequirements.length || !overviewCss.includes('body.docs-overview-route .docs-sidebar')) {
+if (missingOverviewRequirements.length || !overviewCss.includes('body.docs-overview-route .docs-sidebar') || !overviewCss.includes('flex: 0 0 2.75rem')) {
   console.error(`Missing overview or catalog UX contracts: ${missingOverviewRequirements.join(', ') || 'overview layout CSS'}`);
   process.exit(1);
 }

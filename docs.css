@@ -24,16 +24,17 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .docs-header__actions { display: flex; align-items: center; justify-self: end; gap: .5rem; }
 .nav-toggle { display: none; }
 .docs-sidebar { position: fixed; z-index: 15; top: var(--docs-header); bottom: 0; left: 0; display: flex; width: var(--docs-sidebar); flex-direction: column; padding: 1.25rem 1rem; overflow: auto; border-right: 1px solid var(--fd-color-border-soft); background: var(--fd-color-surface); }
-.docs-search { display: flex; height: 2.75rem; align-items: center; gap: .5rem; padding: 0 .625rem; border: 1px solid var(--fd-color-border); border-radius: var(--fd-radius); background: var(--fd-color-background); }
+.docs-search { display: flex; height: 2.75rem; flex: 0 0 2.75rem; align-items: center; gap: .5rem; padding: 0 .625rem; border: 1px solid var(--fd-color-border); border-radius: var(--fd-radius); background: var(--fd-color-background); }
 .docs-search:focus-within { box-shadow: var(--fd-focus); }
-.docs-search input { width: 100%; min-width: 0; color: var(--fd-color-text); border: 0; outline: 0; background: transparent; }
+.docs-search input { width: 100%; min-width: 0; height: 100%; color: var(--fd-color-text); border: 0; outline: 0; background: transparent; field-sizing: fixed; font-size: 1rem; font-weight: 400; line-height: 1.25; }
+.docs-search input::placeholder { font: inherit; color: var(--fd-color-text-subtle); opacity: 1; }
 .docs-search kbd { padding: .1rem .35rem; color: var(--fd-color-text-subtle); border: 1px solid var(--fd-color-border-soft); border-radius: .25rem; background: var(--fd-color-surface); font-size: .7rem; }
 .docs-sidebar nav { padding: 1.25rem 0; }
 .nav-group { margin-bottom: 1.25rem; }
 .nav-group h2 { margin: 0 0 .35rem; padding: 0 .625rem; color: var(--fd-color-text-subtle); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
 .nav-group a { display: flex; align-items: center; gap: .5rem; padding: .48rem .625rem; color: var(--fd-color-text); border-radius: .375rem; text-decoration: none; }
 .nav-group a.active { color: var(--fd-accent-contrast); background: var(--fd-accent); font-weight: 500; }
-.docs-sidebar-footer { display: flex; align-items: center; gap: .75rem; margin-top: auto; padding: 1rem .625rem 0; border-top: 1px solid var(--fd-color-border-soft); font-size: .75rem; }
+.docs-sidebar-footer { display: flex; flex: 0 0 auto; align-items: center; gap: .75rem; margin-top: auto; padding: 1rem .625rem 0; border-top: 1px solid var(--fd-color-border-soft); font-size: .75rem; }
 .sidebar-primary { display: none; }
 #main { min-height: 100vh; margin: var(--docs-header) 0 0 var(--docs-sidebar); outline: none; }
 .docs-page { width: 100%; margin: 0; padding: 2rem clamp(1rem, 2vw, 2rem) 4rem; }
