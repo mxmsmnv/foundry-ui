@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/raif.css', 'src/icons.svg', 'tokens.json'];
+const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'tokens.json'];
 const missing = required.filter((file) => !fs.existsSync(new URL(`../${file}`, import.meta.url)));
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`);
@@ -14,6 +14,18 @@ if (ids.length < 35 || new Set(ids).size !== ids.length) {
   process.exit(1);
 }
 
+const requiredCatalog = {
+  Foundation: ['Accent Colors', 'Colors & Tokens', 'Typography'],
+  Components: ['Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes'],
+  Patterns: ['Masthead', 'Breadcrumb', 'Inputfield Wrappers', 'Module Guidelines', 'Module Workspace', 'Modal', 'Offcanvas', 'Dropdown & Navbar DD', 'Lightbox', 'Notifications', 'Pagination', 'Description List', 'Search', 'Comment', 'Panel & Scrollable']
+};
+const entries = [...components.matchAll(/group:\s*'([^']+)',\s*id:\s*'[^']+',\s*name:\s*'([^']+)'/g)].map((match) => `${match[1]}:${match[2]}`);
+const missingCatalog = Object.entries(requiredCatalog).flatMap(([group, names]) => names.map((name) => `${group}:${name}`)).filter((entry) => !entries.includes(entry));
+if (missingCatalog.length) {
+  console.error(`Missing requested catalog entries: ${missingCatalog.join(', ')}`);
+  process.exit(1);
+}
+
 const icons = fs.readFileSync(new URL('../src/icons.svg', import.meta.url), 'utf8');
 const iconIds = [...icons.matchAll(/<symbol id="([^"]+)"/g)].map((match) => match[1]);
 if (iconIds.length < 24 || new Set(iconIds).size !== iconIds.length) {
@@ -21,4 +33,4 @@ if (iconIds.length < 24 || new Set(iconIds).size !== iconIds.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${ids.length} component pages and ${iconIds.length} icons.`);
+console.log(`Validated ${ids.length} isolated pages, all requested catalog entries, and ${iconIds.length} icons.`);

@@ -1,8 +1,14 @@
-const components = window.RAIF_COMPONENTS;
+const components = window.FOUNDRY_COMPONENTS;
 const main = document.querySelector('#main');
 const nav = document.querySelector('#component-nav');
 const search = document.querySelector('#component-search');
-const groups = [...new Set(components.map((item) => item.group))];
+const groups = ['Foundation', 'Components', 'Patterns'];
+const catalogOrder = [
+  'Accent Colors', 'Colors & Tokens', 'Typography',
+  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
+  'Masthead', 'Breadcrumb', 'Inputfield Wrappers', 'Module Guidelines', 'Module Workspace', 'Modal', 'Offcanvas', 'Dropdown & Navbar DD', 'Lightbox', 'Notifications', 'Pagination', 'Description List', 'Search', 'Comment', 'Panel & Scrollable'
+];
+const rank = (item) => { const index = catalogOrder.indexOf(item.name); return index === -1 ? 1000 : index; };
 let toastTimer;
 
 const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
@@ -11,7 +17,7 @@ const prettify = (value) => value.replace(/></g, '>\n<').trim();
 function renderNavigation(query = '') {
   const term = query.trim().toLowerCase();
   const html = groups.map((group) => {
-    const matches = components.filter((item) => item.group === group && `${item.name} ${item.description}`.toLowerCase().includes(term));
+    const matches = components.filter((item) => item.group === group && `${item.name} ${item.description}`.toLowerCase().includes(term)).sort((a, b) => rank(a) - rank(b));
     if (!matches.length) return '';
     return `<section class="nav-group"><h2>${group}</h2>${matches.map((item) => `<a data-component-link="${item.id}" href="#/components/${item.id}">${item.name}</a>`).join('')}</section>`;
   }).join('');
@@ -53,12 +59,12 @@ function pageHeader(kicker, title, lead) {
 }
 
 function renderHome() {
-  main.innerHTML = `<article class="docs-page">${pageHeader('Raiffeisen Bank Hungary', 'Portable banking UI', 'A documented, copy-ready component library reconstructed from the bank’s public interface and separated from its legacy platform dependencies.')}
-    <div class="rb-alert rb-alert--info">${icon('info')}<div class="rb-alert__content"><strong>Framework-independent by design</strong><span>The source site uses Liferay, Clay/Bootstrap, and a custom RBHU theme. This library ships semantic HTML, CSS custom properties, and an SVG sprite.</span></div></div>
+  main.innerHTML = `<article class="docs-page">${pageHeader('Foundry UI', 'A portable interface foundation', 'An independent, copy-ready design system for building clear product experiences across frameworks and platforms.')}
+    <div class="rb-alert rb-alert--info">${icon('info')}<div class="rb-alert__content"><strong>Framework-independent by design</strong><span>Foundry UI ships semantic HTML, CSS custom properties, isolated patterns, and a dependency-free SVG sprite.</span></div></div>
     <section class="docs-section"><h2>Start building</h2><p>Browse the complete catalog, inspect live states, and copy production-oriented HTML from every component page.</p><div class="component-gallery">${components.slice(0, 12).map(tile).join('')}</div></section>
-    <section class="docs-section"><h2>Install the portable layer</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`<link rel="stylesheet" href="src/raif.css">\n\n<button class="rb-button rb-button--primary">Open an account</button>`)}</code></pre></div><div class="example__toolbar"><strong>HTML</strong><button class="rb-button rb-button--secondary rb-button--small" data-copy="home">${icon('copy')} Copy</button></div></div></section>
+    <section class="docs-section"><h2>Install the portable layer</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="rb-button rb-button--primary">Open an account</button>`)}</code></pre></div><div class="example__toolbar"><strong>HTML</strong><button class="rb-button rb-button--secondary rb-button--small" data-copy="home">${icon('copy')} Copy</button></div></div></section>
   </article>`;
-  document.querySelector('[data-copy="home"]').addEventListener('click', () => copyText(`<link rel="stylesheet" href="src/raif.css">\n\n<button class="rb-button rb-button--primary">Open an account</button>`));
+  document.querySelector('[data-copy="home"]').addEventListener('click', () => copyText(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="rb-button rb-button--primary">Open an account</button>`));
 }
 
 function tile(item) {
@@ -66,8 +72,8 @@ function tile(item) {
 }
 
 function renderCatalog() {
-  main.innerHTML = `<article class="docs-page">${pageHeader('Library', 'Components', `${components.length} documented building blocks, including all core controls, banking content surfaces, navigation, feedback, and the icon registry.`)}
-    ${groups.map((group) => `<section class="docs-section"><h2>${group}</h2><div class="component-gallery">${components.filter((item) => item.group === group).map(tile).join('')}</div></section>`).join('')}
+  main.innerHTML = `<article class="docs-page">${pageHeader('Library', 'Components', `${components.length} isolated building blocks with live previews, copyable code, usage guidance, and accessibility notes.`)}
+    ${groups.map((group) => `<section class="docs-section"><h2>${group}</h2><div class="component-gallery">${components.filter((item) => item.group === group).sort((a, b) => rank(a) - rank(b)).map(tile).join('')}</div></section>`).join('')}
   </article>`;
 }
 
@@ -76,7 +82,7 @@ const tokenData = [
 ];
 
 function renderFoundations() {
-  main.innerHTML = `<article class="docs-page">${pageHeader('Foundations', 'Tokens and visual language', 'The live RBHU theme is normalized into portable, documented custom properties.')}
+  main.innerHTML = `<article class="docs-page">${pageHeader('Foundations', 'Tokens and visual language', 'The live custom banking theme is normalized into portable, documented custom properties.')}
     <section class="docs-section"><h2>Colour</h2><div class="token-grid">${tokenData.map(([name,value,token]) => `<div class="token-card"><i style="--token:${value}"></i><div><b>${name}</b><code>${value}</code><code>${token}</code></div></div>`).join('')}</div></section>
     <section class="docs-section"><h2>Typography</h2><p>Amalia is the source-site typeface. The package uses safe fallbacks because the proprietary font is not redistributed.</p><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Display · 56/64</p><p style="font-size:3rem;line-height:3.75rem">Heading 1 · 48/60</p><p style="font-size:2.375rem;line-height:3rem">Heading 2 · 38/48</p><p style="font-size:1.875rem;line-height:2.25rem">Heading 3 · 30/36</p><p style="font-size:1.125rem;line-height:1.75rem">Body XL · 18/28</p><p>Body · 16/24</p><p style="font-size:.875rem;line-height:1rem;font-weight:500">CAPTION · 14/16 · MEDIUM</p></div></section>
     <section class="docs-section"><h2>Geometry</h2><div class="rb-table-wrap"><table class="rb-table"><tbody><tr><th>Base spacing</th><td>4px</td></tr><tr><th>Common spacing</th><td>8 · 12 · 16 · 24 · 32 · 36 · 48 · 64px</td></tr><tr><th>Control radius</th><td>8px</td></tr><tr><th>Input height</th><td>48px</td></tr><tr><th>Button height</th><td>51px</td></tr><tr><th>Breakpoints</th><td>576 · 768 · 992 · 1200px</td></tr></tbody></table></div></section>
@@ -100,14 +106,14 @@ function renderPatterns() {
 
 function renderAbout() {
   main.innerHTML = `<article class="docs-page">${pageHeader('Audit', 'About this extraction', 'What the original site is built on, what was normalized, and how the portable package differs.')}
-    <section class="docs-section"><h2>What framework is the bank site based on?</h2><div class="docs-note"><strong>It is not a Tailwind application.</strong> The public site runs on Liferay Portal. Its platform layer is Liferay Clay, which is Bootstrap-derived, combined with a custom Raiffeisen theme and many <code>rbhu-*</code> components.</div></section>
-    <section class="docs-section"><div class="source-audit"><article><h2>Current RBHU layer</h2><p>Custom tokens, Amalia, 8px radii, warm surfaces, yellow actions, modern header and card components.</p></article><article><h2>Liferay forms</h2><p>Dynamic Data Mapping forms with Clay/Bootstrap utility classes and custom field styling.</p></article><article><h2>Legacy portal</h2><p>Older navigation, Font Awesome glyphs, dense layouts, and historical Liferay templates remain online.</p></article><article><h2>Embedded calculators</h2><p>Separate iframe applications implement their own controls, segmented choices, inputs, and steppers.</p></article></div></section>
+    <section class="docs-section"><h2>What framework was the audited source based on?</h2><div class="docs-note"><strong>It was not a Tailwind application.</strong> The audited interface runs on Liferay Portal. Its platform layer is Liferay Clay, which is Bootstrap-derived, combined with a large custom component theme.</div></section>
+    <section class="docs-section"><div class="source-audit"><article><h2>Current component layer</h2><p>Custom tokens, Amalia, 8px radii, warm surfaces, yellow actions, modern header and card components.</p></article><article><h2>Liferay forms</h2><p>Dynamic Data Mapping forms with Clay/Bootstrap utility classes and custom field styling.</p></article><article><h2>Legacy portal</h2><p>Older navigation, Font Awesome glyphs, dense layouts, and historical Liferay templates remain online.</p></article><article><h2>Embedded calculators</h2><p>Separate iframe applications implement their own controls, segmented choices, inputs, and steppers.</p></article></div></section>
     <section class="docs-section"><h2>Portable implementation</h2><p>This repository removes Liferay, Bootstrap, Clay, jQuery, icon fonts, and build-tool dependencies. Only semantic HTML, CSS custom properties, and an SVG sprite are required.</p></section>
   </article>`;
 }
 
 function renderIcons(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>Icon registry</h2><p>Click any icon to copy its HTML. Every glyph uses a 24×24 viewBox, currentColor strokes, and round line caps.</p><div class="icon-grid">${window.RAIF_ICONS.map((name) => `<button class="icon-item" data-icon="${name}">${icon(name)}<code>${name}</code></button>`).join('')}</div></section>${accessibilitySection(item)}</article>`;
+  return `${componentHeader(item)}<section class="docs-section"><h2>Icon registry</h2><p>Click any icon to copy its HTML. Every glyph uses a 24×24 viewBox, currentColor strokes, and round line caps.</p><div class="icon-grid">${window.FOUNDRY_ICONS.map((name) => `<button class="icon-item" data-icon="${name}">${icon(name)}<code>${name}</code></button>`).join('')}</div></section>${accessibilitySection(item)}</article>`;
 }
 
 function renderTypography(item) {
@@ -131,9 +137,9 @@ function renderComponent(item) {
   if (item.id === 'typography') { main.innerHTML = renderTypography(item); bindDocTabs(); return; }
   if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --rb-color-primary: #fee600;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n  --rb-button-height: 3.1875rem;\n}`)); bindDocTabs(); return; }
   const html = prettify(item.preview);
-  const css = `@import url('./src/raif.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('rb-')))].map((name) => `.${name} { /* provided by raif.css */ }`).join('\n')}`;
+  const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('rb-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
   main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Use the preview to inspect the component, then reveal and copy the implementation.</p><div class="example"><div class="example__preview">${item.preview}</div><div class="example__toolbar"><strong>Live preview</strong><button class="rb-button rb-button--tertiary rb-button--small" data-invert>${icon('moon')} Invert</button><button class="rb-button rb-button--secondary rb-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="rb-button rb-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
-    <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/raif.css</code>, use semantic HTML, and reference icons from <code>src/icons.svg</code>. No Tailwind, Bootstrap, React, or build step is required.</div></section>
+    <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code>, use semantic HTML, and reference icons from <code>src/icons.svg</code>. No Tailwind, Bootstrap, React, or build step is required.</div></section>
     ${accessibilitySection(item)}</article>`;
   bindExample({ html, css });
   bindDocTabs();
