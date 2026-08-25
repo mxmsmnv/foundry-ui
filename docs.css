@@ -146,7 +146,7 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .home-system-preview__controls span:first-child { border-color: var(--fd-accent); background: var(--fd-accent); }
 .home-system-preview__cards { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 1.5rem; }
 .home-system-preview__cards article { display: grid; min-width: 0; gap: .5rem; padding: 1rem; border: 1px solid rgba(255,255,255,.1); border-radius: .5rem; background: rgba(255,255,255,.06); }
-.home-system-preview__cards i { display: grid; width: 2rem; height: 2rem; place-items: center; color: #202127; border-radius: .375rem; background: var(--fd-accent); }
+.home-system-preview__cards i { display: grid; width: 2rem; height: 2rem; place-items: center; color: var(--fd-accent-contrast); border-radius: .375rem; background: var(--fd-accent); }
 .home-system-preview__cards span { width: 80%; height: .375rem; border-radius: 2rem; background: rgba(255,255,255,.35); }
 .home-system-preview__cards span:last-child { width: 55%; background: rgba(255,255,255,.16); }
 .home-metrics,
