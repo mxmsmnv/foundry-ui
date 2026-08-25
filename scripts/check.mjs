@@ -71,6 +71,11 @@ if (!videoDocumentation?.preview.includes('type="video/mp4"') || !videoDocumenta
   console.error('Video documentation must include local MP4 and WebM sources plus a captions track.');
   process.exit(1);
 }
+const headingDocumentation = renderedComponents.find((component) => component.id === 'heading-styles');
+if (headingDocumentation?.examples?.length !== 8) {
+  console.error(`Heading styles must render as eight independent, named documentation examples; found ${headingDocumentation?.examples?.length || 0}.`);
+  process.exit(1);
+}
 
 function topLevelPreviewSections(markup) {
   const sections = [];
