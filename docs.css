@@ -1,6 +1,11 @@
 :root { --docs-header: 4.5rem; --docs-sidebar: 17rem; }
 * { box-sizing: border-box; }
-html { overflow-x: clip; scroll-behavior: smooth; }
+html { overflow-x: clip; color-scheme: light; scroll-behavior: smooth; }
+html.fd-theme-dark { color-scheme: dark; }
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after { transition: none !important; }
 body { margin: 0; color: var(--fd-color-text); background: var(--fd-color-background); font: 400 1rem/1.5 var(--fd-font-family); }
 button, input, select, textarea { font: inherit; }
 a { color: var(--fd-color-link); }
@@ -47,7 +52,7 @@ code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Conso
 .component-tile { display: grid; min-height: 9rem; align-content: space-between; padding: 1.25rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); text-decoration: none; }
 .component-tile span { color: var(--fd-color-text-subtle); font-size: .75rem; text-transform: uppercase; }
 .component-tile b { font-size: 1.125rem; }
-.example { overflow: hidden; margin-top: 1.5rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); transition: color .15s, border-color .15s, background-color .15s; }
+.example { overflow: hidden; margin-top: 1.5rem; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); }
 .example.fd-theme-dark,
 .example.fd-theme-dark .example__preview,
 .example.fd-theme-dark .example__toolbar { color: var(--fd-color-text); border-color: var(--fd-color-border-soft); background-color: var(--fd-color-background); }
