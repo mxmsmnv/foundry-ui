@@ -10,7 +10,9 @@ This repository intentionally does not reproduce that dependency stack. The extr
 
 All public classes and CSS custom properties use the Foundry Design namespace: `fd-` for classes and `--fd-` for tokens.
 
-The default yellow accent is optional. Choose a bundled palette class such as `fd-accent--blue` or set `--fd-accent`, `--fd-accent-hover`, `--fd-accent-contrast`, `--fd-accent-soft`, and `--fd-accent-soft-contrast` to any accessible palette at the application or component level.
+The default teal accent is optional. Choose a bundled palette class such as `fd-accent--blue` or set `--fd-accent`, `--fd-accent-hover`, `--fd-accent-contrast`, `--fd-accent-soft`, and `--fd-accent-soft-contrast` to any accessible palette at the application or component level.
+
+Hanken Grotesk is bundled as the primary interface typeface in normal and italic variable WOFF2 files. Native system fonts remain available as fallbacks.
 
 ## Quick start
 
@@ -45,6 +47,7 @@ src/foundry.css       Portable tokens and component styles
 src/icons.svg         Standalone SVG icon sprite
 src/icon-sprite.js    Inline sprite runtime for file:// compatibility
 src/icon-registry.js  Searchable icon-name registry
+src/fonts/            Hanken Grotesk webfonts and SIL OFL 1.1 license
 components.js         Documentation registry and copyable examples
 app.js                Documentation UI only
 docs.css              Documentation shell only
@@ -57,4 +60,4 @@ Captured on 25 August 2026 from several public landing, search, contact, form, p
 
 ## Licensing note
 
-No open-source license is granted by this repository. Original source assets remain the property of their respective owners. Foundry UI uses a schematic wordmark, portable system typography, and newly drawn interface glyphs.
+No open-source license is granted for Foundry UI itself. Original source assets remain the property of their respective owners. The bundled Hanken Grotesk font files are separately licensed under the SIL Open Font License 1.1; see `src/fonts/HANKEN-GROTESK-OFL.txt`. Foundry UI uses a schematic wordmark and newly drawn interface glyphs.

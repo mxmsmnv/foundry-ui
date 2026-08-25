@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: local("Hanken Grotesk"), url("./fonts/hanken-grotesk-variable.woff2") format("woff2-variations");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: local("Hanken Grotesk Italic"), url("./fonts/hanken-grotesk-variable-italic.woff2") format("woff2-variations");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   --fd-color-background: #fff;
   --fd-color-surface: #f8f6f2;
@@ -31,7 +47,7 @@
   --fd-color-border-soft: rgba(43, 45, 51, .08);
   --fd-color-border-disabled: rgba(43, 45, 51, .15);
   --fd-color-disabled: rgba(43, 45, 51, .05);
-  --fd-font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+  --fd-font-family: "Hanken Grotesk", Inter, "Segoe UI", Arial, Helvetica, sans-serif;
   --fd-font-size: 1rem;
   --fd-line-height: 1.5;
   --fd-radius: .5rem;
