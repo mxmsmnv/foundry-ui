@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'tokens.json'];
+const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png'];
 const missing = required.filter((file) => !fs.existsSync(new URL(`../${file}`, import.meta.url)));
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`);

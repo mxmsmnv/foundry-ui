@@ -5,7 +5,7 @@ const search = document.querySelector('#component-search');
 const groups = ['Foundation', 'Components', 'Patterns'];
 const catalogOrder = [
   'Accent Colors', 'Colors & Tokens', 'Typography', 'Grid & Breakpoints', 'Component States',
-  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Card Variants', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
+  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Cards Catalog', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
   'Masthead', 'Breadcrumb', 'Inputfield Wrappers', 'Module Guidelines', 'Module Workspace', 'Modal', 'Offcanvas', 'Dropdown & Navbar DD', 'Lightbox', 'Notifications', 'Pagination', 'Description List', 'Search', 'Comment', 'Panel & Scrollable'
 ];
 const rank = (item) => { const index = catalogOrder.indexOf(item.name); return index === -1 ? 1000 : index; };
@@ -138,7 +138,7 @@ function renderComponent(item) {
   if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); bindDocTabs(); return; }
   const html = prettify(item.preview);
   const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
-  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Inspect every component in desktop, tablet, and mobile frames, then reveal and copy its implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-pressed="true" data-preview-size-button="desktop">D</button><button aria-pressed="false" data-preview-size-button="tablet">T</button><button aria-pressed="false" data-preview-size-button="mobile">M</button></div><button class="fd-button fd-button--tertiary fd-button--small" data-invert>${icon('moon')} Invert</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
+  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Examples</h2><p>Inspect production-ready variants in desktop, tablet, and mobile frames, then reveal and copy the implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-label="Desktop preview" title="Desktop" aria-pressed="true" data-preview-size-button="desktop">${icon('desktop')}</button><button aria-label="Tablet preview" title="Tablet" aria-pressed="false" data-preview-size-button="tablet">${icon('tablet')}</button><button aria-label="Mobile preview" title="Mobile" aria-pressed="false" data-preview-size-button="mobile">${icon('mobile')}</button></div><button class="example-theme-toggle" data-invert aria-label="Use dark preview" title="Toggle preview theme">${icon('moon')}</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
     <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code>, use semantic HTML, and reference icons from <code>src/icons.svg</code>. No Tailwind, Bootstrap, React, or build step is required.</div></section>
     ${accessibilitySection(item)}</article>`;
   bindExample({ html, css });
@@ -161,7 +161,11 @@ function bindExample(code) {
     pre.textContent = code[active];
   }));
   document.querySelector('[data-copy-code]').addEventListener('click', () => copyText(code[active]));
-  document.querySelector('[data-invert]').addEventListener('click', () => document.querySelector('.example__preview').classList.toggle('fd-theme-dark'));
+  document.querySelector('[data-invert]').addEventListener('click', (event) => {
+    const dark = document.querySelector('.example__preview').classList.toggle('fd-theme-dark');
+    event.currentTarget.querySelector('use').setAttribute('href', `src/icons.svg#${dark ? 'sun' : 'moon'}`);
+    event.currentTarget.setAttribute('aria-label', dark ? 'Use light preview' : 'Use dark preview');
+  });
   document.querySelectorAll('[data-preview-size-button]').forEach((button) => button.addEventListener('click', () => {
     const viewport = document.querySelector('.example__viewport');
     viewport.dataset.previewSize = button.dataset.previewSizeButton;
@@ -182,6 +186,28 @@ function bindDocTabs() {
 }
 
 function bindPreviewInteractions() {
+  document.querySelectorAll('.example__viewport form').forEach((form) => form.addEventListener('submit', (event) => event.preventDefault()));
+  document.querySelectorAll('.fd-table__sort').forEach((button) => button.addEventListener('click', () => {
+    const heading = button.closest('th');
+    const direction = heading.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
+    button.closest('tr').querySelectorAll('[aria-sort]').forEach((cell) => cell.setAttribute('aria-sort', 'none'));
+    heading.setAttribute('aria-sort', direction);
+    button.querySelector('.fd-icon').style.transform = direction === 'ascending' ? 'rotate(180deg)' : '';
+  }));
+  const table = document.querySelector('.fd-table--interactive');
+  if (table) {
+    const checks = [...table.querySelectorAll('tbody input[type="checkbox"]:not(:disabled)')];
+    const selectAll = table.querySelector('thead input[type="checkbox"]');
+    const syncRows = () => checks.forEach((input) => input.closest('tr').classList.toggle('is-selected', input.checked));
+    selectAll?.addEventListener('change', () => { checks.forEach((input) => { input.checked = selectAll.checked; }); syncRows(); });
+    checks.forEach((input) => input.addEventListener('change', () => {
+      syncRows();
+      if (selectAll) {
+        selectAll.checked = checks.every((item) => item.checked);
+        selectAll.indeterminate = checks.some((item) => item.checked) && !selectAll.checked;
+      }
+    }));
+  }
   document.querySelectorAll('[data-demo-dialog]').forEach((button) => button.addEventListener('click', () => button.parentElement.querySelector('dialog').showModal()));
   document.querySelectorAll('[data-dialog-close]').forEach((button) => button.addEventListener('click', () => button.closest('dialog').close()));
   document.querySelectorAll('.fd-tabs__list button').forEach((button) => button.addEventListener('click', () => {
@@ -242,7 +268,11 @@ document.querySelector('.nav-toggle').addEventListener('click', (event) => {
   const open = document.body.classList.toggle('nav-open');
   event.currentTarget.setAttribute('aria-expanded', String(open));
 });
-document.querySelector('.theme-toggle').addEventListener('click', () => document.body.classList.toggle('fd-theme-dark'));
+document.querySelector('.theme-toggle').addEventListener('click', (event) => {
+  const dark = document.body.classList.toggle('fd-theme-dark');
+  event.currentTarget.querySelector('use').setAttribute('href', `src/icons.svg#${dark ? 'sun' : 'moon'}`);
+  event.currentTarget.setAttribute('aria-label', dark ? 'Use light colour scheme' : 'Use dark colour scheme');
+});
 window.addEventListener('hashchange', router);
 renderNavigation();
 router();
