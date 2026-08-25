@@ -141,7 +141,7 @@ function renderComponent(item) {
   const html = prettify(item.preview);
   const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
   main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Examples</h2><p>Inspect production-ready variants in desktop, tablet, and mobile frames, then reveal and copy the implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-label="Desktop preview" title="Desktop" aria-pressed="true" data-preview-size-button="desktop">${icon('desktop')}</button><button aria-label="Tablet preview" title="Tablet" aria-pressed="false" data-preview-size-button="tablet">${icon('tablet')}</button><button aria-label="Mobile preview" title="Mobile" aria-pressed="false" data-preview-size-button="mobile">${icon('mobile')}</button></div><button class="example-theme-toggle" data-invert aria-label="Use dark preview" title="Toggle preview theme">${icon('moon')}</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
-    <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code>, use semantic HTML, and reference icons from <code>src/icons.svg</code>. No Tailwind, Bootstrap, React, or build step is required.</div></section>
+    <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code> and <code>src/icon-sprite.js</code>, then reference icons with local fragment IDs such as <code>#search</code>. The standalone <code>src/icons.svg</code> remains available for hosted builds. No Tailwind, Bootstrap, or React is required.</div></section>
     ${accessibilitySection(item)}</article>`;
   bindExample({ html, css });
   bindDocTabs();
@@ -165,7 +165,7 @@ function bindExample(code) {
   document.querySelector('[data-copy-code]').addEventListener('click', () => copyText(code[active]));
   document.querySelector('[data-invert]').addEventListener('click', (event) => {
     const dark = document.querySelector('.example__preview').classList.toggle('fd-theme-dark');
-    event.currentTarget.querySelector('use').setAttribute('href', `src/icons.svg#${dark ? 'sun' : 'moon'}`);
+    event.currentTarget.querySelector('use').setAttribute('href', `#${dark ? 'sun' : 'moon'}`);
     event.currentTarget.setAttribute('aria-label', dark ? 'Use light preview' : 'Use dark preview');
   });
   document.querySelectorAll('[data-preview-size-button]').forEach((button) => button.addEventListener('click', () => {
@@ -322,7 +322,7 @@ function bindIconCopy() {
   });
   document.querySelectorAll('[data-icon]').forEach((button) => button.addEventListener('click', () => {
     const name = button.dataset.icon;
-    copyText(`<svg class="fd-icon" aria-hidden="true">\n  <use href="src/icons.svg#${name}"></use>\n</svg>`);
+    copyText(`<svg class="fd-icon" aria-hidden="true">\n  <use href="#${name}"></use>\n</svg>`);
   }));
   bindDocTabs();
 }
@@ -355,7 +355,7 @@ document.querySelector('.nav-toggle').addEventListener('click', (event) => {
 });
 document.querySelector('.theme-toggle').addEventListener('click', (event) => {
   const dark = document.body.classList.toggle('fd-theme-dark');
-  event.currentTarget.querySelector('use').setAttribute('href', `src/icons.svg#${dark ? 'sun' : 'moon'}`);
+  event.currentTarget.querySelector('use').setAttribute('href', `#${dark ? 'sun' : 'moon'}`);
   event.currentTarget.setAttribute('aria-label', dark ? 'Use light colour scheme' : 'Use dark colour scheme');
 });
 window.addEventListener('hashchange', router);

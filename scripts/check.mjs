@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png', 'assets/media/demo-audio.mp3', 'assets/media/demo-video.mp4'];
+const required = ['index.html', 'docs.css', 'app.js', 'components.js', 'src/foundry.css', 'src/icons.svg', 'src/icon-sprite.js', 'src/icon-registry.js', 'tokens.json', 'assets/cards/product-card.png', 'assets/cards/article-card.png', 'assets/cards/offer-card.png', 'assets/media/demo-audio.mp3', 'assets/media/demo-video.mp4'];
 const missing = required.filter((file) => !fs.existsSync(new URL(`../${file}`, import.meta.url)));
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`);
@@ -38,6 +38,20 @@ const registryIds = registryMatch ? JSON.parse(registryMatch[1]) : [];
 const iconSet = new Set(iconIds);
 if (registryIds.length !== iconIds.length || registryIds.some((id) => !iconSet.has(id))) {
   console.error(`Icon registry is out of sync with the SVG sprite: ${registryIds.length} registry entries for ${iconIds.length} symbols.`);
+  process.exit(1);
+}
+const inlineSpriteText = fs.readFileSync(new URL('../src/icon-sprite.js', import.meta.url), 'utf8');
+const inlinePrefix = 'window.FOUNDRY_ICON_SPRITE = ';
+const inlineEnd = inlineSpriteText.indexOf(';\ndocument.body.insertAdjacentHTML');
+const inlineMarkup = inlineEnd > -1 ? JSON.parse(inlineSpriteText.slice(inlinePrefix.length, inlineEnd)) : '';
+const inlineIds = [...inlineMarkup.matchAll(/<symbol id="([^"]+)"/g)].map((match) => match[1]);
+if (inlineIds.length !== iconIds.length || inlineIds.some((id) => !iconSet.has(id))) {
+  console.error(`Inline icon sprite is out of sync: ${inlineIds.length} inline symbols for ${iconIds.length} source symbols.`);
+  process.exit(1);
+}
+const fileProtocolPages = ['index.html', 'app.js', 'components.js'].map((file) => fs.readFileSync(new URL(`../${file}`, import.meta.url), 'utf8')).join('\n');
+if (fileProtocolPages.includes('src/icons.svg#')) {
+  console.error('Documentation still contains external SVG fragment references that fail under file://.');
   process.exit(1);
 }
 

@@ -22,8 +22,11 @@ The default yellow accent is optional. Choose a bundled palette class such as `f
 Use an icon:
 
 ```html
-<svg class="fd-icon" aria-hidden="true"><use href="src/icons.svg#search"></use></svg>
+<script src="src/icon-sprite.js"></script>
+<svg class="fd-icon" aria-hidden="true"><use href="#search"></use></svg>
 ```
+
+The inline sprite runtime keeps icon previews working when `index.html` is opened directly through `file://`. The standalone `src/icons.svg` remains available for server-hosted and bundled applications.
 
 Run the documentation locally:
 
@@ -33,17 +36,19 @@ npm run dev
 
 Then open `http://127.0.0.1:4173/`.
 
-The catalog contains 70 isolated pages. Component examples include copyable HTML/CSS, dark-surface testing, and desktop/tablet/mobile preview frames. Dedicated audit pages document the 12-column grid, responsive card compositions, and applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, selected, open, and closed states.
+The catalog contains 72 isolated pages. Component examples include copyable HTML/CSS, dark-surface testing, and desktop/tablet/mobile preview frames. Dedicated audit pages document the 12-column grid, responsive card compositions, and applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, selected, open, and closed states.
 
 ## Package layout
 
 ```text
-src/foundry.css      Portable tokens and component styles
-src/icons.svg     Dependency-free SVG icon sprite
-components.js     Documentation registry and copyable examples
-app.js            Documentation UI only
-docs.css          Documentation shell only
-tokens.json       Machine-readable token export
+src/foundry.css       Portable tokens and component styles
+src/icons.svg         Standalone SVG icon sprite
+src/icon-sprite.js    Inline sprite runtime for file:// compatibility
+src/icon-registry.js  Searchable icon-name registry
+components.js         Documentation registry and copyable examples
+app.js                Documentation UI only
+docs.css              Documentation shell only
+tokens.json           Machine-readable token export
 ```
 
 ## Source audit
