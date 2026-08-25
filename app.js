@@ -5,7 +5,7 @@ const search = document.querySelector('#component-search');
 const groups = ['Foundation', 'Components', 'Patterns'];
 const catalogOrder = [
   'Accent Colors', 'Colors & Tokens', 'Typography', 'Grid & Breakpoints', 'Component States',
-  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Cards Catalog', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
+  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Cards Catalog', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Audio', 'Video', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
   'Masthead', 'Breadcrumb', 'Inputfield Wrappers', 'Module Guidelines', 'Module Workspace', 'Modal', 'Offcanvas', 'Dropdown & Navbar DD', 'Lightbox', 'Notifications', 'Pagination', 'Description List', 'Search', 'Comment', 'Panel & Scrollable'
 ];
 const rank = (item) => { const index = catalogOrder.indexOf(item.name); return index === -1 ? 1000 : index; };
@@ -121,7 +121,9 @@ function renderTypography(item) {
 }
 
 function renderTokens(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
+  const colours = [['Accent','--fd-accent'],['Accent hover','--fd-accent-hover'],['Accent soft','--fd-accent-soft'],['Background','--fd-color-background'],['Surface','--fd-color-surface'],['Strong surface','--fd-color-surface-strong'],['Text','--fd-color-text'],['Link','--fd-color-link'],['Information','--fd-color-info'],['Success','--fd-color-success-soft'],['Warning','--fd-color-warning-soft'],['Danger','--fd-color-danger-soft']];
+  const cssText = `:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`;
+  return `${componentHeader(item)}<section class="docs-section"><div class="token-showcase"><header><div><h2>Live token preview</h2><p>Every swatch and component below resolves directly from the current CSS custom properties.</p></div><div class="fd-toggle-group" aria-label="Preview theme"><button aria-pressed="true" data-token-scheme="light">Light</button><button aria-pressed="false" data-token-scheme="dark">Dark</button></div></header><div class="token-showcase__preview" data-token-preview><div class="token-swatch-grid">${colours.map(([name,token]) => `<article class="token-swatch"><i style="--token-color:var(${token})"></i><strong>${name}</strong><code>${token}</code></article>`).join('')}</div><div class="token-component-preview"><div><p class="docs-kicker">Ready composition</p><h3>Tokens working together</h3><p>Typography, spacing, surfaces, borders, semantic colour, radius, and shadow in one production surface.</p><div class="fd-alert fd-alert--success">${icon('check')}<div class="fd-alert__content"><strong>Configuration ready</strong><span>All semantic roles are active.</span></div></div><div class="fd-card__actions"><button class="fd-button fd-button--primary">Primary action</button><button class="fd-button fd-button--secondary">Secondary</button></div></div></div></div><section><h3>Geometry and elevation</h3><div class="token-metric-grid"><article><span class="token-space" style="--size:.5rem"></span><strong>Space 2</strong><code>0.5rem</code></article><article><span class="token-space" style="--size:1rem"></span><strong>Space 4</strong><code>1rem</code></article><article><span class="token-radius"></span><strong>Radius</strong><code>--fd-radius</code></article><article><span class="token-shadow"></span><strong>Shadow</strong><code>--fd-shadow-hover</code></article></div></section></div></section><section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(cssText)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
 }
 
 function componentHeader(item) {
@@ -135,7 +137,7 @@ function accessibilitySection(item) {
 function renderComponent(item) {
   if (item.id === 'icons') { main.innerHTML = renderIcons(item); bindIconCopy(); return; }
   if (item.id === 'typography') { main.innerHTML = renderTypography(item); bindDocTabs(); return; }
-  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); bindDocTabs(); return; }
+  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --fd-accent: #7c3aed;\n  --fd-accent-hover: #6d28d9;\n  --fd-accent-contrast: #ffffff;\n  --fd-accent-soft: #ede9fe;\n  --fd-accent-soft-contrast: #2e1065;\n  --fd-color-text: #2b2d33;\n  --fd-color-link: #006e75;\n  --fd-radius: .5rem;\n  --fd-control-height: 3rem;\n}`)); document.querySelectorAll('[data-token-scheme]').forEach((button) => button.addEventListener('click', () => { const dark = button.dataset.tokenScheme === 'dark'; document.querySelector('[data-token-preview]').classList.toggle('fd-theme-dark', dark); document.querySelectorAll('[data-token-scheme]').forEach((item) => item.setAttribute('aria-pressed', String(item === button))); })); bindDocTabs(); return; }
   const html = prettify(item.preview);
   const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('fd-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
   main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Examples</h2><p>Inspect production-ready variants in desktop, tablet, and mobile frames, then reveal and copy the implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-label="Desktop preview" title="Desktop" aria-pressed="true" data-preview-size-button="desktop">${icon('desktop')}</button><button aria-label="Tablet preview" title="Tablet" aria-pressed="false" data-preview-size-button="tablet">${icon('tablet')}</button><button aria-label="Mobile preview" title="Mobile" aria-pressed="false" data-preview-size-button="mobile">${icon('mobile')}</button></div><button class="example-theme-toggle" data-invert aria-label="Use dark preview" title="Toggle preview theme">${icon('moon')}</button><button class="fd-button fd-button--secondary fd-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="fd-button fd-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
@@ -208,6 +210,75 @@ function bindPreviewInteractions() {
       }
     }));
   }
+  document.querySelectorAll('[data-stepper]').forEach((stepper) => {
+    const input = stepper.querySelector('input[type="number"]');
+    const output = stepper.querySelector('[data-stepper-output]');
+    const buttons = [...stepper.querySelectorAll('[data-step]')];
+    const sync = () => {
+      const value = Number(input.value);
+      const min = Number(input.min);
+      const max = Number(input.max);
+      buttons.forEach((button) => { button.disabled = button.dataset.step === 'down' ? value <= min : value >= max; });
+      if (output) output.textContent = `${new Intl.NumberFormat('en-AU').format(value)}${input.dataset.suffix || ''}`;
+    };
+    buttons.forEach((button) => button.addEventListener('click', () => { button.dataset.step === 'down' ? input.stepDown() : input.stepUp(); input.dispatchEvent(new Event('input', { bubbles: true })); }));
+    input.addEventListener('input', sync);
+    sync();
+  });
+  document.querySelectorAll('[data-date-trigger]').forEach((button) => button.addEventListener('click', () => {
+    const input = button.closest('.fd-date-input').querySelector('input[type="date"]');
+    if (typeof input.showPicker === 'function') input.showPicker(); else input.focus();
+  }));
+  document.querySelectorAll('[data-date-demo] input[type="date"]').forEach((input) => input.addEventListener('change', () => {
+    const output = input.closest('[data-date-demo]').querySelector('[data-date-output]');
+    if (output) output.textContent = input.value ? new Intl.DateTimeFormat('en-AU', { dateStyle: 'long' }).format(new Date(`${input.value}T00:00:00`)) : 'No date selected';
+  }));
+  document.querySelectorAll('[data-file-demo]').forEach((demo) => {
+    const input = demo.querySelector('input[type="file"]');
+    const list = demo.querySelector('[data-file-list]');
+    const zone = demo.querySelector('.fd-file-upload');
+    const renderFiles = (files) => {
+      list.innerHTML = files.length ? [...files].map((file) => `<li>${icon('document')}<span><strong>${escapeHtml(file.name)}</strong><small>${Math.max(1, Math.round(file.size / 1024))} KB</small></span><span class="fd-badge fd-badge--success">Ready</span></li>`).join('') : '<li class="fd-file-list__empty">No files selected.</li>';
+    };
+    input.addEventListener('change', () => renderFiles(input.files));
+    zone.addEventListener('dragover', (event) => { event.preventDefault(); zone.classList.add('is-dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('is-dragover'));
+    zone.addEventListener('drop', (event) => { event.preventDefault(); zone.classList.remove('is-dragover'); renderFiles(event.dataTransfer.files); });
+    demo.querySelector('[data-file-sample]')?.addEventListener('click', () => renderFiles([new File(['Foundry UI sample'], 'sample-document.pdf', { type: 'application/pdf' })]));
+    demo.querySelector('[data-file-clear]')?.addEventListener('click', () => { input.value = ''; renderFiles([]); });
+  });
+  document.querySelectorAll('[data-alert-close]').forEach((button) => button.addEventListener('click', () => button.closest('.fd-alert').remove()));
+  document.querySelectorAll('[data-tag-remove]').forEach((button) => button.addEventListener('click', () => button.closest('.fd-tag').remove()));
+  document.querySelectorAll('[data-tag-select]').forEach((button) => button.addEventListener('click', () => button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'))));
+  document.querySelectorAll('.fd-toast > .fd-icon-button').forEach((button) => button.addEventListener('click', () => button.closest('.fd-toast').remove()));
+  document.querySelectorAll('[data-toast-trigger]').forEach((button) => button.addEventListener('click', () => {
+    const viewport = document.querySelector('.fd-toast-viewport');
+    const tone = button.dataset.toastTrigger;
+    const labels = { success: ['Saved successfully', 'Your changes are now available.'], info: ['Update available', 'A newer version can be installed.'], warning: ['Connection interrupted', 'Some changes may take longer to sync.'], danger: ['Upload failed', 'Check the file and try again.'] };
+    const [title, message] = labels[tone];
+    const toast = document.createElement('article');
+    toast.className = `fd-toast fd-toast--${tone}`;
+    toast.setAttribute('role', tone === 'danger' ? 'alert' : 'status');
+    toast.innerHTML = `${icon(tone === 'success' ? 'check' : tone === 'danger' ? 'error' : tone === 'warning' ? 'warning' : 'info')}<div><strong>${title}</strong><span>${message}</span></div><button class="fd-icon-button" aria-label="Dismiss notification">${icon('close')}</button>`;
+    toast.querySelector('button').addEventListener('click', () => toast.remove());
+    viewport.append(toast);
+    setTimeout(() => toast.remove(), 5000);
+  }));
+  const demoTable = document.querySelector('[data-demo-table]');
+  if (demoTable) {
+    const wrap = demoTable.closest('.fd-table-demo');
+    wrap.querySelector('[data-table-density]')?.addEventListener('change', (event) => demoTable.classList.toggle('fd-table--compact', event.target.value === 'compact'));
+    wrap.querySelector('[data-table-striped]')?.addEventListener('change', (event) => demoTable.classList.toggle('fd-table--striped', event.target.checked));
+    wrap.querySelector('[data-table-highlight]')?.addEventListener('change', (event) => demoTable.classList.toggle('fd-table--highlight', event.target.checked));
+    wrap.querySelector('[data-table-column]')?.addEventListener('click', (event) => { const hidden = demoTable.classList.toggle('hide-rate'); event.currentTarget.setAttribute('aria-pressed', String(hidden)); event.currentTarget.lastChild.textContent = hidden ? ' Show rate' : ' Hide rate'; });
+    wrap.querySelector('[data-table-filter]')?.addEventListener('input', (event) => demoTable.querySelectorAll('tbody tr').forEach((row) => { row.hidden = !row.textContent.toLowerCase().includes(event.target.value.toLowerCase()); }));
+  }
+  document.querySelectorAll('[data-media-demo]').forEach((demo) => {
+    const media = demo.querySelector('audio, video');
+    const url = demo.querySelector('input[type="url"]');
+    demo.querySelector('[data-media-load]')?.addEventListener('click', () => { media.src = url.value; media.load(); });
+    demo.querySelector('input[type="file"]')?.addEventListener('change', (event) => { const [file] = event.target.files; if (file) { media.src = URL.createObjectURL(file); media.load(); } });
+  });
   document.querySelectorAll('[data-demo-dialog]').forEach((button) => button.addEventListener('click', () => button.parentElement.querySelector('dialog').showModal()));
   document.querySelectorAll('[data-dialog-close]').forEach((button) => button.addEventListener('click', () => button.closest('dialog').close()));
   document.querySelectorAll('.fd-tabs__list button').forEach((button) => button.addEventListener('click', () => {
