@@ -964,6 +964,11 @@
 .fd-media-card { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-surface); }
 .fd-media-card__art { display: grid; width: 5rem; height: 5rem; place-items: center; color: var(--fd-accent-contrast); border-radius: var(--fd-radius); background: var(--fd-accent); }
 .fd-media-card__art .fd-icon { width: 2rem; height: 2rem; }
+.fd-media-demo > .fd-description { margin: -.375rem 0 0; }
+.fd-media-transcript { width: 100%; border-bottom: 1px solid var(--fd-color-border-soft); }
+.fd-media-transcript summary { min-height: 2.75rem; align-items: center; padding-inline: 0; }
+.fd-media-transcript .fd-details__content { max-width: 52rem; padding-inline: 0; line-height: 1.6; }
+.fd-media-transcript .fd-details__content p { margin: 0; }
 .fd-media-card h3,
 .fd-media-card p { margin: .25rem 0 0; }
 .fd-media-source { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: end; gap: .75rem; }
