@@ -30,6 +30,14 @@ function updateActiveNavigation() {
   document.querySelectorAll('[data-component-link]').forEach((link) => link.classList.toggle('active', link.dataset.componentLink === id));
 }
 
+function updatePrimaryNavigation() {
+  const route = location.hash.replace(/^#\/?/, '').split('/')[0];
+  document.querySelectorAll('.docs-header nav a').forEach((link) => {
+    const target = link.getAttribute('href').replace(/^#\/?/, '').split('/')[0];
+    link.classList.toggle('active', target === route && route !== '');
+  });
+}
+
 function showToast(message = 'Code copied') {
   const toast = document.querySelector('.copy-toast');
   toast.querySelector('span').textContent = message;
@@ -59,12 +67,14 @@ function pageHeader(kicker, title, lead) {
 }
 
 function renderHome() {
-  main.innerHTML = `<article class="docs-page">${pageHeader('Foundry UI', 'A portable interface foundation', 'An independent, copy-ready design system for building clear product experiences across frameworks and platforms.')}
-    <div class="fd-alert fd-alert--info">${icon('info')}<div class="fd-alert__content"><strong>Framework-independent by design</strong><span>Foundry UI ships semantic HTML, CSS custom properties, isolated patterns, and a dependency-free SVG sprite.</span></div></div>
-    <section class="docs-section"><h2>Start building</h2><p>Browse the complete catalog, inspect live states, and copy production-oriented HTML from every component page.</p><div class="component-gallery">${components.slice(0, 12).map(tile).join('')}</div></section>
-    <section class="docs-section"><h2>Install the portable layer</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="fd-button fd-button--primary">Open an account</button>`)}</code></pre></div><div class="example__toolbar"><strong>HTML</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy="home">${icon('copy')} Copy</button></div></div></section>
+  const starter = `<link rel="stylesheet" href="src/foundry.css">\n<script src="src/icon-sprite.js"></script>\n\n<button class="fd-button fd-button--primary">\n  Get started\n  <svg class="fd-icon" aria-hidden="true"><use href="#arrow-right"></use></svg>\n</button>`;
+  main.innerHTML = `<article class="docs-page docs-page--landing"><section class="docs-hero docs-hero--home"><div class="docs-hero__copy"><p class="docs-kicker">Foundry UI · v0.6.0</p><h1>Build coherent product interfaces faster.</h1><p class="docs-hero__lead">A portable design system with production-ready states, framework-independent code, responsive patterns, and a searchable 963-icon registry.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Explore components ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="#/foundations">View foundations</a></div><ul class="docs-hero__proof"><li>${icon('check')} Semantic HTML</li><li>${icon('check')} Native JavaScript</li><li>${icon('check')} File-compatible</li></ul></div><div class="home-system-preview" aria-label="Foundry UI component preview"><div class="home-system-preview__bar"><i></i><i></i><i></i><span>Component workspace</span></div><div class="home-system-preview__body"><aside><span class="is-active"></span><span></span><span></span><span></span></aside><section><div class="home-system-preview__eyebrow"></div><div class="home-system-preview__title"></div><div class="home-system-preview__copy"></div><div class="home-system-preview__controls"><span aria-hidden="true"></span><span aria-hidden="true"></span></div><div class="home-system-preview__cards"><article><i>${icon('card')}</i><span></span><span></span></article><article><i>${icon('chart-bar-1')}</i><span></span><span></span></article></div></section></div></div></section>
+    <section class="home-metrics" aria-label="Library summary"><article><strong>${components.length}</strong><span>documented pages</span></article><article><strong>${window.FOUNDRY_ICONS.length}</strong><span>portable icons</span></article><article><strong>5</strong><span>accent presets</span></article><article><strong>0</strong><span>framework dependencies</span></article></section>
+    <section class="docs-section home-journeys"><header class="docs-section__heading"><div><p class="docs-kicker">Choose a starting point</p><h2>Move from tokens to finished flows</h2></div><p>Each layer is isolated, copyable, and designed to work with the next.</p></header><div class="home-journey-grid"><a href="#/foundations"><span>01</span>${icon('art')}<div><strong>Foundation</strong><small>Colour, typography, grid, tokens, and states.</small></div>${icon('arrow-right')}</a><a href="#/components"><span>02</span>${icon('component')}<div><strong>Components</strong><small>Production controls with live variants and code.</small></div>${icon('arrow-right')}</a><a href="#/patterns"><span>03</span>${icon('layouts')}<div><strong>Patterns</strong><small>Reusable page and task compositions.</small></div>${icon('arrow-right')}</a></div></section>
+    <section class="docs-section home-featured"><header class="docs-section__heading"><div><p class="docs-kicker">Production-ready</p><h2>Featured building blocks</h2></div><a class="fd-link" href="#/components">View all components ${icon('arrow-right')}</a></header><div class="component-gallery">${['button','field','table','card-variants','icons','video'].map((id) => tile(components.find((item) => item.id === id))).join('')}</div></section>
+    <section class="docs-section home-start"><div><p class="docs-kicker">Portable setup</p><h2>Start with three lines.</h2><p>Use the CSS and inline icon runtime directly, or wrap the same semantic markup in any framework.</p><div class="docs-hero__proof"><span>${icon('check')} No build step</span><span>${icon('check')} Works over file://</span><span>${icon('check')} Copy-ready markup</span></div></div><div class="example home-code"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(starter)}</code></pre></div><div class="example__toolbar"><strong>HTML</strong><button class="fd-button fd-button--secondary fd-button--small" data-copy="home">${icon('copy')} Copy code</button></div></div></section>
   </article>`;
-  document.querySelector('[data-copy="home"]').addEventListener('click', () => copyText(`<link rel="stylesheet" href="src/foundry.css">\n\n<button class="fd-button fd-button--primary">Open an account</button>`));
+  document.querySelector('[data-copy="home"]').addEventListener('click', () => copyText(starter));
 }
 
 function tile(item) {
@@ -91,24 +101,37 @@ function renderFoundations() {
 
 function renderPatterns() {
   const patterns = [
-    ['Product discovery','Hero or surface banner → help-me-choose cards → product cards → supporting information.'],
-    ['Loan calculation','Segmented income choice → amount input → term input → payment summary → application action.'],
-    ['Contact form','Intro → labelled fields → legal checkbox → validation summary → submit confirmation.'],
-    ['Product detail','Hero → benefit grid → calculator → process stepper → accordion → documents → related products.'],
-    ['Global navigation','Service bar → primary product navigation → mega-menu → online-banking action.'],
-    ['Regulatory footer','Product groups → consumer protection → policies → social and legal metadata.']
+    ['Product discovery','Discovery','search',['Orient','Narrow','Compare','Choose'],'Guide customers from an open need to a confident product choice.'],
+    ['Application flow','Task','document',['Prepare','Enter','Review','Submit'],'Structure a multi-step task with progress, validation, and recovery.'],
+    ['Contact and support','Task','chat',['Identify','Describe','Route','Resolve'],'Collect enough context while keeping help visible and human.'],
+    ['Product detail','Content','card',['Promise','Benefits','Proof','Action'],'Balance commercial information, comparison data, and a clear next step.'],
+    ['Global navigation','Navigation','menu',['Service','Primary','Mega menu','Action'],'Expose a broad product architecture without overwhelming the first level.'],
+    ['Search results','Discovery','search',['Query','Summary','Filter','Result'],'Keep the query, result count, filters, and pagination in one predictable flow.'],
+    ['Account overview','Content','bank',['Summary','Activity','Tasks','Support'],'Prioritise balances, recent activity, and high-frequency account actions.'],
+    ['Confirmation','Feedback','check',['Outcome','Reference','Next step','Receipt'],'Close a task with a durable result and clear follow-up options.']
   ];
-  main.innerHTML = `<article class="docs-page">${pageHeader('Composition', 'Patterns', 'Recurring arrangements observed across the bank’s public pages and embedded flows.')}
-    <section class="docs-section"><div class="pattern-grid">${patterns.map(([name,text]) => `<article class="pattern-card"><p class="docs-kicker">Pattern</p><h2>${name}</h2><p>${text}</p></article>`).join('')}</div></section>
-    <section class="docs-section"><h2>Recommended page flow</h2><ol class="fd-stepper" style="--fd-steps:4"><li class="is-complete"><span>1</span><b>Orient</b></li><li aria-current="step"><span>2</span><b>Compare</b></li><li><span>3</span><b>Decide</b></li><li><span>4</span><b>Complete</b></li></ol></section>
+  const kinds = ['All','Discovery','Task','Content','Navigation','Feedback'];
+  main.innerHTML = `<article class="docs-page docs-page--patterns"><section class="docs-hero docs-hero--compact"><div class="docs-hero__copy"><p class="docs-kicker">Composition library</p><h1>Patterns turn components into complete journeys.</h1><p class="docs-hero__lead">Reusable arrangements for discovery, tasks, content, navigation, and feedback—designed around user intent rather than individual screens.</p></div><div class="pattern-hero-flow" aria-label="Pattern composition"><span>Need</span>${icon('arrow-right')}<span>Context</span>${icon('arrow-right')}<span>Decision</span>${icon('arrow-right')}<strong>Outcome</strong></div></section>
+    <section class="docs-section"><header class="docs-section__heading"><div><p class="docs-kicker">Pattern library</p><h2>Explore by journey type</h2></div><p><span data-pattern-count>${patterns.length}</span> reusable compositions</p></header><div class="pattern-filters" aria-label="Filter patterns">${kinds.map((kind, index) => `<button aria-pressed="${index === 0}" data-pattern-filter="${kind}">${kind}</button>`).join('')}</div><div class="pattern-library">${patterns.map(([name,kind,iconName,steps,text], index) => `<article class="pattern-card-v2" data-pattern-kind="${kind}"><header><span class="pattern-card-v2__number">${String(index + 1).padStart(2,'0')}</span><span class="fd-badge">${kind}</span><i>${icon(iconName)}</i></header><h3>${name}</h3><p>${text}</p><ol>${steps.map((step) => `<li>${step}</li>`).join('')}</ol><a class="fd-link" href="#/components">Explore building blocks ${icon('arrow-right')}</a></article>`).join('')}</div></section>
+    <section class="docs-section pattern-anatomy"><header class="docs-section__heading"><div><p class="docs-kicker">Pattern anatomy</p><h2>A reliable journey has four jobs.</h2></div><p>The exact components change; the cognitive sequence remains stable.</p></header><div class="pattern-anatomy__flow"><article><span>01</span>${icon('compass')}<h3>Orient</h3><p>Explain where the user is and what can be achieved.</p></article><article><span>02</span>${icon('filter')}<h3>Reduce</h3><p>Ask only for information that meaningfully narrows the path.</p></article><article><span>03</span>${icon('balanced')}<h3>Decide</h3><p>Make differences, costs, and consequences easy to compare.</p></article><article><span>04</span>${icon('check')}<h3>Complete</h3><p>Confirm the outcome and provide a safe next step.</p></article></div></section>
+    <section class="docs-section pattern-guidance"><div><p class="docs-kicker">Composition rule</p><h2>Start with the user’s decision, not the available components.</h2></div><div class="fd-alert fd-alert--info">${icon('info')}<div class="fd-alert__content"><strong>Keep patterns adaptable.</strong><span>Preserve sequence, hierarchy, states, and accessibility behaviour while allowing content and individual components to evolve.</span></div></div></section>
   </article>`;
+  document.querySelectorAll('[data-pattern-filter]').forEach((button) => button.addEventListener('click', () => {
+    const filter = button.dataset.patternFilter;
+    let visible = 0;
+    document.querySelectorAll('[data-pattern-kind]').forEach((card) => { const show = filter === 'All' || card.dataset.patternKind === filter; card.hidden = !show; if (show) visible += 1; });
+    document.querySelectorAll('[data-pattern-filter]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    document.querySelector('[data-pattern-count]').textContent = visible;
+  }));
 }
 
 function renderAbout() {
-  main.innerHTML = `<article class="docs-page">${pageHeader('Audit', 'About this extraction', 'What the original site is built on, what was normalized, and how the portable package differs.')}
-    <section class="docs-section"><h2>What framework was the audited source based on?</h2><div class="docs-note"><strong>It was not a Tailwind application.</strong> The audited interface runs on Liferay Portal. Its platform layer is Liferay Clay, which is Bootstrap-derived, combined with a large custom component theme.</div></section>
-    <section class="docs-section"><div class="source-audit"><article><h2>Current component layer</h2><p>Portable tokens, system typography, 8px radii, warm surfaces, configurable accents, modern headers, and card components.</p></article><article><h2>Liferay forms</h2><p>Dynamic Data Mapping forms with Clay/Bootstrap utility classes and custom field styling.</p></article><article><h2>Legacy portal</h2><p>Older navigation, Font Awesome glyphs, dense layouts, and historical Liferay templates remain online.</p></article><article><h2>Embedded calculators</h2><p>Separate iframe applications implement their own controls, segmented choices, inputs, and steppers.</p></article></div></section>
-    <section class="docs-section"><h2>Portable implementation</h2><p>This repository removes Liferay, Bootstrap, Clay, jQuery, icon fonts, and build-tool dependencies. Only semantic HTML, CSS custom properties, and an SVG sprite are required.</p></section>
+  main.innerHTML = `<article class="docs-page docs-page--about"><section class="docs-hero docs-hero--about"><div class="docs-hero__copy"><p class="docs-kicker">System overview</p><h1>Audited from production. Rebuilt for portability.</h1><p class="docs-hero__lead">Foundry UI separates durable design decisions from portal-specific implementation, producing a neutral system that can move between frameworks and platforms.</p><div class="docs-hero__actions"><a class="fd-button fd-button--primary" href="#/components">Browse the system ${icon('arrow-right')}</a><a class="fd-button fd-button--secondary" href="README.md">Read documentation</a></div></div><div class="about-orbit" aria-hidden="true"><span class="about-orbit__core">FD</span><i style="--i:0">HTML</i><i style="--i:1">CSS</i><i style="--i:2">SVG</i><i style="--i:3">JS</i></div></section>
+    <section class="about-metrics"><article><strong>72</strong><span>isolated pages</span></article><article><strong>963</strong><span>SVG symbols</span></article><article><strong>390–1440</strong><span>audited viewport range</span></article><article><strong>WCAG</strong><span>accessibility guidance</span></article></section>
+    <section class="docs-section about-pipeline"><header class="docs-section__heading"><div><p class="docs-kicker">Normalization pipeline</p><h2>From platform layers to a portable API</h2></div><p>The visual language is retained; legacy runtime coupling is removed.</p></header><div class="about-pipeline__flow"><article><span>01 · Observe</span><h3>Production interface</h3><ul><li>Portal templates</li><li>Custom themes</li><li>Embedded tools</li><li>Legacy utilities</li></ul></article><i>${icon('arrow-right')}</i><article><span>02 · Normalize</span><h3>Design decisions</h3><ul><li>Semantic tokens</li><li>State contracts</li><li>Responsive rules</li><li>Interaction models</li></ul></article><i>${icon('arrow-right')}</i><article class="is-output"><span>03 · Deliver</span><h3>Foundry UI</h3><ul><li>HTML + CSS + JS</li><li>Portable SVG</li><li>Copyable examples</li><li>No framework lock-in</li></ul></article></div></section>
+    <section class="docs-section"><header class="docs-section__heading"><div><p class="docs-kicker">Technology assessment</p><h2>What the audited source used</h2></div></header><div class="about-tech-grid"><article class="about-tech-grid__lead"><span class="fd-badge fd-badge--warning">Source architecture</span><h3>Portal-first, not utility-first.</h3><p>The audited interface was built on Liferay Portal with Clay, a Bootstrap-derived platform layer, plus custom themes, legacy utilities, icon fonts, and separately embedded applications.</p></article><article><span>${icon('layouts')}</span><h3>Portal templates</h3><p>Navigation and content assembled through server-managed layouts.</p></article><article><span>${icon('document')}</span><h3>Form runtime</h3><p>Dynamic form rendering combined with custom field treatments.</p></article><article><span>${icon('calculator')}</span><h3>Embedded tools</h3><p>Isolated calculators with their own state and styling layers.</p></article></div></section>
+    <section class="docs-section"><header class="docs-section__heading"><div><p class="docs-kicker">Portability matrix</p><h2>What ships in Foundry UI</h2></div><p>A small, explicit runtime surface with no framework dependency.</p></header><div class="fd-table-wrap"><table class="fd-table about-matrix"><thead><tr><th>Layer</th><th>Implementation</th><th>Dependency</th><th>Portable</th></tr></thead><tbody><tr><th scope="row">Design tokens</th><td>CSS custom properties</td><td>None</td><td>${icon('check')} Yes</td></tr><tr><th scope="row">Components</th><td>Semantic HTML + CSS</td><td>None</td><td>${icon('check')} Yes</td></tr><tr><th scope="row">Interactions</th><td>Vanilla JavaScript</td><td>None</td><td>${icon('check')} Yes</td></tr><tr><th scope="row">Icons</th><td>Inline and standalone SVG</td><td>None</td><td>${icon('check')} Yes</td></tr><tr><th scope="row">Documentation</th><td>Hash-routed static application</td><td>None</td><td>${icon('check')} file:// + HTTP</td></tr></tbody></table></div></section>
+    <section class="docs-section about-principles"><header class="docs-section__heading"><div><p class="docs-kicker">System principles</p><h2>Designed to stay useful after the audit.</h2></div></header><div><article><span>01</span><h3>Neutral by default</h3><p>Brand, regional data, and product assumptions are replaceable.</p></article><article><span>02</span><h3>States are part of the API</h3><p>Loading, error, empty, focus, disabled, and responsive behaviour are documented.</p></article><article><span>03</span><h3>Copying is a first-class workflow</h3><p>Every component exposes inspectable markup and portable styling.</p></article></div></section>
   </article>`;
 }
 
@@ -340,6 +363,7 @@ function router() {
   else if (route[0] === 'about') renderAbout();
   else renderHome();
   updateActiveNavigation();
+  updatePrimaryNavigation();
   window.scrollTo(0, 0);
 }
 
@@ -353,10 +377,21 @@ document.querySelector('.nav-toggle').addEventListener('click', (event) => {
   const open = document.body.classList.toggle('nav-open');
   event.currentTarget.setAttribute('aria-expanded', String(open));
 });
-document.querySelector('.theme-toggle').addEventListener('click', (event) => {
+const themeToggle = document.querySelector('.theme-toggle');
+try {
+  if (localStorage.getItem('foundry-theme') === 'dark') {
+    document.body.classList.add('fd-theme-dark');
+    themeToggle.querySelector('use').setAttribute('href', '#sun');
+    themeToggle.setAttribute('aria-label', 'Use light colour scheme');
+  }
+} catch (_) {
+  // Local files can disable storage; the theme control still works for the session.
+}
+themeToggle.addEventListener('click', (event) => {
   const dark = document.body.classList.toggle('fd-theme-dark');
   event.currentTarget.querySelector('use').setAttribute('href', `#${dark ? 'sun' : 'moon'}`);
   event.currentTarget.setAttribute('aria-label', dark ? 'Use light colour scheme' : 'Use dark colour scheme');
+  try { localStorage.setItem('foundry-theme', dark ? 'dark' : 'light'); } catch (_) {}
 });
 window.addEventListener('hashchange', router);
 renderNavigation();
