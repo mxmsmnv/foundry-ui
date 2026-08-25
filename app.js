@@ -4,8 +4,8 @@ const nav = document.querySelector('#component-nav');
 const search = document.querySelector('#component-search');
 const groups = ['Foundation', 'Components', 'Patterns'];
 const catalogOrder = [
-  'Accent Colors', 'Colors & Tokens', 'Typography',
-  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
+  'Accent Colors', 'Colors & Tokens', 'Typography', 'Grid & Breakpoints', 'Component States',
+  'Buttons', 'Form Elements', 'Labels & Badges', 'Alerts', 'Tables', 'Tab & Subnav', 'Cards', 'Card Variants', 'Accordion', 'Nav', 'Icons', 'Lists', 'Progress', 'Heading Styles', 'Sections & Tiles', 'Overlay & Marker', 'Dotnav & Slidenav', 'Text Utilities', 'Utility Classes',
   'Masthead', 'Breadcrumb', 'Inputfield Wrappers', 'Module Guidelines', 'Module Workspace', 'Modal', 'Offcanvas', 'Dropdown & Navbar DD', 'Lightbox', 'Notifications', 'Pagination', 'Description List', 'Search', 'Comment', 'Panel & Scrollable'
 ];
 const rank = (item) => { const index = catalogOrder.indexOf(item.name); return index === -1 ? 1000 : index; };
@@ -138,7 +138,7 @@ function renderComponent(item) {
   if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --rb-color-primary: #fee600;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n  --rb-button-height: 3.1875rem;\n}`)); bindDocTabs(); return; }
   const html = prettify(item.preview);
   const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('rb-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
-  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Use the preview to inspect the component, then reveal and copy the implementation.</p><div class="example"><div class="example__preview">${item.preview}</div><div class="example__toolbar"><strong>Live preview</strong><button class="rb-button rb-button--tertiary rb-button--small" data-invert>${icon('moon')} Invert</button><button class="rb-button rb-button--secondary rb-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="rb-button rb-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
+  main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Inspect every component in desktop, tablet, and mobile frames, then reveal and copy its implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-pressed="true" data-preview-size-button="desktop">D</button><button aria-pressed="false" data-preview-size-button="tablet">T</button><button aria-pressed="false" data-preview-size-button="mobile">M</button></div><button class="rb-button rb-button--tertiary rb-button--small" data-invert>${icon('moon')} Invert</button><button class="rb-button rb-button--secondary rb-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="rb-button rb-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
     <section class="docs-section" id="usage"><h2>Usage</h2><div class="docs-note"><strong>Portable by default.</strong> Include <code>src/foundry.css</code>, use semantic HTML, and reference icons from <code>src/icons.svg</code>. No Tailwind, Bootstrap, React, or build step is required.</div></section>
     ${accessibilitySection(item)}</article>`;
   bindExample({ html, css });
@@ -162,6 +162,14 @@ function bindExample(code) {
   }));
   document.querySelector('[data-copy-code]').addEventListener('click', () => copyText(code[active]));
   document.querySelector('[data-invert]').addEventListener('click', () => document.querySelector('.example__preview').classList.toggle('rb-theme-dark'));
+  document.querySelectorAll('[data-preview-size-button]').forEach((button) => button.addEventListener('click', () => {
+    const viewport = document.querySelector('.example__viewport');
+    viewport.dataset.previewSize = button.dataset.previewSizeButton;
+    document.querySelectorAll('[data-preview-size-button]').forEach((item) => {
+      item.classList.toggle('active', item === button);
+      item.setAttribute('aria-pressed', String(item === button));
+    });
+  }));
 }
 
 function bindDocTabs() {

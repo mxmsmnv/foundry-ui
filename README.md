@@ -29,6 +29,8 @@ npm run dev
 
 Then open `http://127.0.0.1:4173/`.
 
+The catalog contains 70 isolated pages. Component examples include copyable HTML/CSS, dark-surface testing, and desktop/tablet/mobile preview frames. Dedicated audit pages document the 12-column grid, responsive card compositions, and applicable default, hover, focus, pressed, loading, disabled, filled, error, read-only, checked, selected, open, and closed states.
+
 ## Package layout
 
 ```text
@@ -42,7 +44,7 @@ tokens.json       Machine-readable token export
 
 ## Source audit
 
-Captured on 25 August 2026 from several public landing, search, contact, form, product, and calculator contexts. This is a normalized implementation reference rather than a byte-for-byte copy of production code.
+Captured on 25 August 2026 from several public landing, search, contact, form, product, and calculator contexts. Desktop measurements were verified at 1440 px and mobile behavior at 390 px. The package preserves audited visual metrics and state behavior while remaining a normalized implementation reference rather than a byte-for-byte copy of production code.
 
 ## Licensing note
 
