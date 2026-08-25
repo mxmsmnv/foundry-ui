@@ -26,6 +26,14 @@ if (!indexHtml.includes("localStorage.getItem('foundry-accent')") || !overviewAp
   console.error('Custom accents must persist and apply to the complete design system before first paint.');
   process.exit(1);
 }
+if (!overviewApp.includes("root.classList.toggle('fd-theme-light', !dark)") || !overviewCss.includes('.example:is(.fd-theme-light, .fd-theme-dark)') || !fs.readFileSync(new URL('../src/foundry.css', import.meta.url), 'utf8').includes('.fd-theme-light {')) {
+  console.error('Preview theme controls must support explicit light and dark scopes.');
+  process.exit(1);
+}
+if (overviewCss.includes('body.docs-overview-route .docs-header {')) {
+  console.error('Overview routes must use the shared global header grid.');
+  process.exit(1);
+}
 const ids = [...components.matchAll(/id:\s*'([^']+)'/g)].map((match) => match[1]);
 if (ids.length < 35 || new Set(ids).size !== ids.length) {
   console.error(`Expected at least 35 unique documented components; found ${ids.length}.`);
@@ -219,8 +227,8 @@ if (regionalMarkers) {
 const css = fs.readFileSync(new URL('../src/foundry.css', import.meta.url), 'utf8');
 const docsCss = fs.readFileSync(new URL('../docs.css', import.meta.url), 'utf8');
 const app = fs.readFileSync(new URL('../app.js', import.meta.url), 'utf8');
-if (!docsCss.includes('.example__toolbar [data-show-code]') || !docsCss.includes('.example.fd-theme-dark') || !app.includes("root.classList.toggle('fd-theme-dark')")) {
-  console.error('Example controls must keep a stable code-button width and apply dark mode to the complete example container.');
+if (!docsCss.includes('.example__toolbar [data-show-code]') || !docsCss.includes('.example:is(.fd-theme-light, .fd-theme-dark)') || !app.includes("root.classList.toggle('fd-theme-dark', dark)")) {
+  console.error('Example controls must keep a stable code-button width and apply explicit themes to the complete example container.');
   process.exit(1);
 }
 if (!docsCss.includes('.component-example + .component-example') || !docsCss.includes('.component-example + #usage') || !css.includes('.fd-card__facts') || !css.includes('.fd-card__facts dd')) {
