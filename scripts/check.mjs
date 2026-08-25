@@ -33,4 +33,20 @@ if (iconIds.length < 24 || new Set(iconIds).size !== iconIds.length) {
   process.exit(1);
 }
 
-console.log(`Validated ${ids.length} isolated pages, all requested catalog entries, and ${iconIds.length} icons.`);
+const portableFiles = ['README.md', 'app.js', 'components.js', 'docs.css', 'src/foundry.css', 'tokens.json'];
+const portableText = portableFiles.map((file) => fs.readFileSync(new URL(`../${file}`, import.meta.url), 'utf8')).join('\n');
+const regionalMarkers = portableText.match(/\b(?:HUF|Hungary|Hungarian|Magyar|Budapest|Amalia|hu_HU)\b|\+36|\.hu\b/i);
+if (regionalMarkers) {
+  console.error(`Found a prohibited regional marker: ${regionalMarkers[0]}`);
+  process.exit(1);
+}
+
+const css = fs.readFileSync(new URL('../src/foundry.css', import.meta.url), 'utf8');
+const accentTokens = ['--rb-accent:', '--rb-accent-hover:', '--rb-accent-contrast:', '--rb-accent-soft:'];
+const missingAccentTokens = accentTokens.filter((token) => !css.includes(token));
+if (missingAccentTokens.length || !components.includes('data-accent-picker')) {
+  console.error(`Custom accent support is incomplete: ${missingAccentTokens.join(', ') || 'missing interactive picker'}.`);
+  process.exit(1);
+}
+
+console.log(`Validated ${ids.length} isolated pages, ${iconIds.length} icons, regional neutrality, and custom accent support.`);

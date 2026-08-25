@@ -78,13 +78,13 @@ function renderCatalog() {
 }
 
 const tokenData = [
-  ['Primary yellow','#FEE600','--rb-color-primary'],['Yellow hover','#FFD403','--rb-color-primary-hover'],['Off black','#2B2D33','--rb-color-text'],['Link teal','#006E75','--rb-color-link'],['Link hover','#008E98','--rb-color-link-hover'],['Warm grey','#F1EDE6','--rb-color-surface-strong'],['Warm subtle','#F8F6F2','--rb-color-surface'],['Blue subtle','#DDF4FB','--rb-color-info'],['Danger','#B70017','--rb-color-danger'],['Light text','#FAFAFA','text on dark']
+  ['Default accent','#FEE600','--rb-accent'],['Accent hover','#FFD403','--rb-accent-hover'],['Accent contrast','#2B2D33','--rb-accent-contrast'],['Off black','#2B2D33','--rb-color-text'],['Link teal','#006E75','--rb-color-link'],['Link hover','#008E98','--rb-color-link-hover'],['Warm grey','#F1EDE6','--rb-color-surface-strong'],['Warm subtle','#F8F6F2','--rb-color-surface'],['Blue subtle','#DDF4FB','--rb-color-info'],['Danger','#B70017','--rb-color-danger']
 ];
 
 function renderFoundations() {
   main.innerHTML = `<article class="docs-page">${pageHeader('Foundations', 'Tokens and visual language', 'The live custom banking theme is normalized into portable, documented custom properties.')}
     <section class="docs-section"><h2>Colour</h2><div class="token-grid">${tokenData.map(([name,value,token]) => `<div class="token-card"><i style="--token:${value}"></i><div><b>${name}</b><code>${value}</code><code>${token}</code></div></div>`).join('')}</div></section>
-    <section class="docs-section"><h2>Typography</h2><p>Amalia is the source-site typeface. The package uses safe fallbacks because the proprietary font is not redistributed.</p><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Display · 56/64</p><p style="font-size:3rem;line-height:3.75rem">Heading 1 · 48/60</p><p style="font-size:2.375rem;line-height:3rem">Heading 2 · 38/48</p><p style="font-size:1.875rem;line-height:2.25rem">Heading 3 · 30/36</p><p style="font-size:1.125rem;line-height:1.75rem">Body XL · 18/28</p><p>Body · 16/24</p><p style="font-size:.875rem;line-height:1rem;font-weight:500">CAPTION · 14/16 · MEDIUM</p></div></section>
+    <section class="docs-section"><h2>Typography</h2><p>The portable type stack uses Inter when available and native system fonts everywhere else. No proprietary font files are required.</p><div class="type-specimen"><p style="font-size:3.5rem;line-height:4rem">Display · 56/64</p><p style="font-size:3rem;line-height:3.75rem">Heading 1 · 48/60</p><p style="font-size:2.375rem;line-height:3rem">Heading 2 · 38/48</p><p style="font-size:1.875rem;line-height:2.25rem">Heading 3 · 30/36</p><p style="font-size:1.125rem;line-height:1.75rem">Body XL · 18/28</p><p>Body · 16/24</p><p style="font-size:.875rem;line-height:1rem;font-weight:500">CAPTION · 14/16 · MEDIUM</p></div></section>
     <section class="docs-section"><h2>Geometry</h2><div class="rb-table-wrap"><table class="rb-table"><tbody><tr><th>Base spacing</th><td>4px</td></tr><tr><th>Common spacing</th><td>8 · 12 · 16 · 24 · 32 · 36 · 48 · 64px</td></tr><tr><th>Control radius</th><td>8px</td></tr><tr><th>Input height</th><td>48px</td></tr><tr><th>Button height</th><td>51px</td></tr><tr><th>Breakpoints</th><td>576 · 768 · 992 · 1200px</td></tr></tbody></table></div></section>
   </article>`;
 }
@@ -107,7 +107,7 @@ function renderPatterns() {
 function renderAbout() {
   main.innerHTML = `<article class="docs-page">${pageHeader('Audit', 'About this extraction', 'What the original site is built on, what was normalized, and how the portable package differs.')}
     <section class="docs-section"><h2>What framework was the audited source based on?</h2><div class="docs-note"><strong>It was not a Tailwind application.</strong> The audited interface runs on Liferay Portal. Its platform layer is Liferay Clay, which is Bootstrap-derived, combined with a large custom component theme.</div></section>
-    <section class="docs-section"><div class="source-audit"><article><h2>Current component layer</h2><p>Custom tokens, Amalia, 8px radii, warm surfaces, yellow actions, modern header and card components.</p></article><article><h2>Liferay forms</h2><p>Dynamic Data Mapping forms with Clay/Bootstrap utility classes and custom field styling.</p></article><article><h2>Legacy portal</h2><p>Older navigation, Font Awesome glyphs, dense layouts, and historical Liferay templates remain online.</p></article><article><h2>Embedded calculators</h2><p>Separate iframe applications implement their own controls, segmented choices, inputs, and steppers.</p></article></div></section>
+    <section class="docs-section"><div class="source-audit"><article><h2>Current component layer</h2><p>Portable tokens, system typography, 8px radii, warm surfaces, configurable accents, modern headers, and card components.</p></article><article><h2>Liferay forms</h2><p>Dynamic Data Mapping forms with Clay/Bootstrap utility classes and custom field styling.</p></article><article><h2>Legacy portal</h2><p>Older navigation, Font Awesome glyphs, dense layouts, and historical Liferay templates remain online.</p></article><article><h2>Embedded calculators</h2><p>Separate iframe applications implement their own controls, segmented choices, inputs, and steppers.</p></article></div></section>
     <section class="docs-section"><h2>Portable implementation</h2><p>This repository removes Liferay, Bootstrap, Clay, jQuery, icon fonts, and build-tool dependencies. Only semantic HTML, CSS custom properties, and an SVG sprite are required.</p></section>
   </article>`;
 }
@@ -121,7 +121,7 @@ function renderTypography(item) {
 }
 
 function renderTokens(item) {
-  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --rb-color-primary: #fee600;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n  --rb-button-height: 3.1875rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="rb-button rb-button--secondary rb-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
+  return `${componentHeader(item)}<section class="docs-section"><h2>CSS custom properties</h2><div class="example"><div class="code-panel" style="border:0"><pre><code>${escapeHtml(`:root {\n  --rb-accent: #7c3aed;\n  --rb-accent-hover: #6d28d9;\n  --rb-accent-contrast: #ffffff;\n  --rb-accent-soft: #ede9fe;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n}`)}</code></pre></div><div class="example__toolbar"><strong>CSS</strong><button class="rb-button rb-button--secondary rb-button--small" data-copy-tokens>${icon('copy')} Copy</button></div></div></section>${accessibilitySection(item)}</article>`;
 }
 
 function componentHeader(item) {
@@ -135,7 +135,7 @@ function accessibilitySection(item) {
 function renderComponent(item) {
   if (item.id === 'icons') { main.innerHTML = renderIcons(item); bindIconCopy(); return; }
   if (item.id === 'typography') { main.innerHTML = renderTypography(item); bindDocTabs(); return; }
-  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --rb-color-primary: #fee600;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n  --rb-button-height: 3.1875rem;\n}`)); bindDocTabs(); return; }
+  if (item.id === 'tokens') { main.innerHTML = renderTokens(item); document.querySelector('[data-copy-tokens]').addEventListener('click', () => copyText(`:root {\n  --rb-accent: #7c3aed;\n  --rb-accent-hover: #6d28d9;\n  --rb-accent-contrast: #ffffff;\n  --rb-accent-soft: #ede9fe;\n  --rb-color-text: #2b2d33;\n  --rb-color-link: #006e75;\n  --rb-radius: .5rem;\n  --rb-control-height: 3rem;\n}`)); bindDocTabs(); return; }
   const html = prettify(item.preview);
   const css = `@import url('./src/foundry.css');\n\n/* Component classes used in this example */\n${[...new Set([...item.preview.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(' ')).filter((name) => name.startsWith('rb-')))].map((name) => `.${name} { /* provided by foundry.css */ }`).join('\n')}`;
   main.innerHTML = `${componentHeader(item)}<section class="docs-section" id="examples"><h2>Example</h2><p>Inspect every component in desktop, tablet, and mobile frames, then reveal and copy its implementation.</p><div class="example"><div class="example__preview"><div class="example__viewport" data-preview-size="desktop">${item.preview}</div></div><div class="example__toolbar"><strong>Live preview</strong><div class="preview-sizes" aria-label="Preview size"><button class="active" aria-pressed="true" data-preview-size-button="desktop">D</button><button aria-pressed="false" data-preview-size-button="tablet">T</button><button aria-pressed="false" data-preview-size-button="mobile">M</button></div><button class="rb-button rb-button--tertiary rb-button--small" data-invert>${icon('moon')} Invert</button><button class="rb-button rb-button--secondary rb-button--small" data-show-code aria-expanded="false">${icon('document')} Show code</button></div><div class="code-panel" hidden><div class="code-panel__tabs" role="tablist"><button class="active" data-code-tab="html">HTML</button><button data-code-tab="css">CSS</button><button class="rb-button rb-button--small" style="margin-left:auto" data-copy-code>${icon('copy')} Copy</button></div><pre><code>${escapeHtml(html)}</code></pre></div></div></section>
@@ -189,6 +189,22 @@ function bindPreviewInteractions() {
     button.closest('.rb-tabs').querySelector('.rb-tabs__panel').textContent = `${button.textContent} content.`;
   }));
   document.querySelectorAll('.rb-toggle-group button').forEach((button) => button.addEventListener('click', () => button.parentElement.querySelectorAll('button').forEach((item) => item.setAttribute('aria-pressed', String(item === button)))));
+  const setAccent = (hex) => {
+    const root = document.querySelector('.rb-accent-demo');
+    if (!root) return;
+    const value = hex.toUpperCase();
+    const rgb = value.match(/[A-F\d]{2}/g).map((part) => parseInt(part, 16));
+    const mix = (target, amount) => `#${rgb.map((channel) => Math.round(channel + (target - channel) * amount).toString(16).padStart(2, '0')).join('')}`;
+    const luminance = rgb.reduce((total, channel, index) => total + channel * [0.2126, 0.7152, 0.0722][index], 0) / 255;
+    root.style.setProperty('--rb-accent', value);
+    root.style.setProperty('--rb-accent-hover', mix(0, .14));
+    root.style.setProperty('--rb-accent-contrast', luminance > .58 ? '#2B2D33' : '#FFFFFF');
+    root.style.setProperty('--rb-accent-soft', mix(255, .82));
+    document.querySelector('[data-accent-picker]').value = value;
+    document.querySelector('[data-accent-value]').value = value;
+  };
+  document.querySelector('[data-accent-picker]')?.addEventListener('input', (event) => setAccent(event.target.value));
+  document.querySelectorAll('[data-accent]').forEach((button) => button.addEventListener('click', () => setAccent(button.dataset.accent)));
 }
 
 function bindIconCopy() {

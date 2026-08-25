@@ -4,9 +4,11 @@ A portable, framework-agnostic component library for building product interfaces
 
 ## Technology assessment
 
-The audited source interface is **not Tailwind-based**. It runs on **Liferay Portal** and uses Liferay's **Clay/Bootstrap-derived CSS layer**, plus a large custom theme, design tokens, the Amalia typeface, and a proprietary icon font. Older pages still expose legacy Liferay/Bootstrap and Font Awesome patterns. Embedded calculators are separate iframe applications with their own styles.
+The audited source interface is **not Tailwind-based**. It runs on **Liferay Portal** and uses Liferay's **Clay/Bootstrap-derived CSS layer**, plus a large custom theme, design tokens, and a proprietary icon font. Older pages still expose legacy Liferay/Bootstrap and Font Awesome patterns. Embedded calculators are separate iframe applications with their own styles.
 
 This repository intentionally does not reproduce that dependency stack. The extracted library is built with semantic HTML, portable CSS custom properties, minimal vanilla JavaScript, and an accessible dependency-free SVG icon sprite. It can be used directly or wrapped by React, Vue, Angular, Web Components, Twig, Blade, or any CMS.
+
+The default yellow accent is optional. Choose a bundled palette class such as `rb-accent--blue` or set `--rb-accent`, `--rb-accent-hover`, `--rb-accent-contrast`, and `--rb-accent-soft` to any accessible palette at the application or component level.
 
 ## Quick start
 
@@ -48,4 +50,4 @@ Captured on 25 August 2026 from several public landing, search, contact, form, p
 
 ## Licensing note
 
-No open-source license is granted by this repository. Original source assets and the Amalia typeface remain the property of their respective owners. Foundry UI uses a schematic wordmark and newly drawn interface glyphs.
+No open-source license is granted by this repository. Original source assets remain the property of their respective owners. Foundry UI uses a schematic wordmark, portable system typography, and newly drawn interface glyphs.
