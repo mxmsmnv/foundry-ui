@@ -1,6 +1,6 @@
 # Renovate/48 static website prototype
 
-A five-page, framework-free prototype built with Foundry UI primitives and product-level token overrides. It is intentionally ready for later conversion into ProcessWire templates, but does not include a CMS, email delivery, analytics, or a production form endpoint.
+A five-page, framework-free prototype assembled from Foundry UI public primitives: app header, mastheads, cards, card grids, workflow steps, feature banners, details, forms, alerts, buttons, and footer. Product CSS is limited to theme tokens and page-level composition. It is intentionally ready for later conversion into ProcessWire templates, but does not include a CMS, email delivery, analytics, or a production form endpoint.
 
 ## Pages
 

@@ -960,6 +960,7 @@
 .fd-dropdown { position: relative; }
 .fd-dropdown summary { list-style: none; }
 .fd-dropdown__menu { position: absolute; z-index: 3; top: calc(100% + .5rem); left: 0; display: grid; min-width: 12rem; padding: .5rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow-hover); }
+.fd-dropdown--end .fd-dropdown__menu { right: 0; left: auto; }
 .fd-dropdown__menu button { padding: .625rem; color: var(--fd-color-text); text-align: left; border: 0; border-radius: .375rem; background: transparent; }
 .fd-navbar-dd { display: grid; grid-template-columns: 1fr 1fr; flex: 1; gap: 2rem; padding: 1.25rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow-navigation); }
 .fd-navbar-dd div { display: grid; align-content: start; gap: .5rem; }
