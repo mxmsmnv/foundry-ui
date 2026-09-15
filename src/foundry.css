@@ -204,11 +204,14 @@
 .fd-button.is-focus,
 .fd-icon-button.is-focus { outline: 2px solid var(--fd-color-focus); outline-offset: 3px; box-shadow: var(--fd-focus); }
 .fd-button--primary { background: var(--fd-accent); border-color: rgba(43, 45, 51, .2); color: var(--fd-accent-contrast); }
+.fd-button--primary:hover:not(:disabled) { background: var(--fd-accent-hover); }
 .fd-button--primary.is-hover { background: var(--fd-accent-hover); }
 .fd-button--primary:active,
 .fd-button--primary.is-active { background: var(--fd-accent); transform: translateY(1px); }
 .fd-button--secondary { border-color: var(--fd-color-border); }
+.fd-button--secondary:hover:not(:disabled) { border-color: var(--fd-control-border-hover); background: var(--fd-color-surface); }
 .fd-button--tertiary { color: var(--fd-color-link); }
+.fd-button--tertiary:hover:not(:disabled) { color: var(--fd-color-link-hover); background: var(--fd-color-surface); }
 .fd-button--danger { color: #fff; background: var(--fd-color-danger); }
 .fd-button--small { min-height: 2.5rem; padding: .45rem .75rem; font-size: .875rem; }
 .fd-button--loading { cursor: progress; }
@@ -218,6 +221,7 @@
 .fd-icon-button { width: var(--fd-button-height); padding: 0; }
 
 .fd-link { display: inline-flex; align-items: center; gap: .25rem; color: var(--fd-color-link); text-decoration: underline; text-underline-offset: .18em; }
+.fd-link:hover { color: var(--fd-color-link-hover); }
 
 .fd-field { display: grid; gap: .375rem; color: var(--fd-color-text); font-family: var(--fd-font-family); }
 .fd-label { font-size: .875rem; font-weight: 500; }
@@ -412,6 +416,7 @@
 
 .fd-card { overflow: hidden; color: var(--fd-color-text); border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); box-shadow: var(--fd-shadow); }
 .fd-card--interactive { transition: transform .16s, box-shadow .16s; cursor: pointer; }
+.fd-card--interactive:hover { transform: translateY(-2px); box-shadow: var(--fd-shadow-hover); }
 .fd-card.is-hover { transform: translateY(-2px); box-shadow: var(--fd-shadow-hover); }
 .fd-card.is-focus { outline: 2px solid var(--fd-color-focus); outline-offset: 3px; box-shadow: var(--fd-focus); }
 .fd-card.is-selected { outline: 2px solid var(--fd-color-link); outline-offset: 2px; }
@@ -468,6 +473,7 @@
 .fd-details summary::marker { content: ''; }
 .fd-details summary:focus-visible,
 .fd-details.is-focus summary { position: relative; z-index: 1; outline: 2px solid var(--fd-color-focus); outline-offset: 2px; box-shadow: var(--fd-focus); }
+.fd-details summary:hover { color: var(--fd-color-link); background: var(--fd-color-surface); }
 .fd-details.is-hover summary { color: var(--fd-color-link); background: var(--fd-color-surface); }
 .fd-details summary > .fd-icon { margin-left: auto; transition: none; }
 .fd-details__summary { display: grid; min-width: 0; flex: 1 1 auto; gap: .15rem; }
@@ -1096,7 +1102,7 @@
 
 .fd-masthead-demo { width: 100%; min-height: 31rem; }
 .fd-masthead { position: relative; display: grid; width: 100%; gap: 0; padding: 0; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); box-shadow: var(--fd-shadow-navigation); }
-.fd-masthead a { color: inherit; text-decoration: none; }
+.fd-masthead a:not(.fd-button) { color: inherit; text-decoration: none; }
 .fd-masthead__service { display: flex; min-height: 2.5rem; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1.5rem; border-bottom: 1px solid var(--fd-color-border-soft); background: var(--fd-color-surface); font-size: .75rem; }
 .fd-masthead__service nav,
 .fd-masthead__service > div { display: flex; align-items: center; gap: 1.25rem; }
@@ -1632,6 +1638,7 @@
 .fd-app-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 4.5rem; padding: .75rem 1rem; border: 1px solid var(--fd-color-border-soft); border-radius: var(--fd-radius); background: var(--fd-color-background); }
 .fd-app-header > nav, .fd-app-header > div { display: flex; align-items: center; gap: .75rem; }
 .fd-app-header nav a, .fd-nav-state { padding: .65rem .75rem; color: var(--fd-color-text); text-decoration: none; border-bottom: 2px solid transparent; }
+.fd-app-header nav a:hover { background: var(--fd-color-surface); }
 .fd-app-header nav a[aria-current="page"], .fd-nav-state[aria-current="page"] { border-color: var(--fd-accent); }
 .fd-app-header__brand { display: flex; align-items: center; gap: .65rem; color: var(--fd-color-text); text-decoration: none; }
 .fd-app-header__brand span, .fd-app-header--compact > div { display: grid; }
